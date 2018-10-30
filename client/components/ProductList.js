@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import ProductThumbnail from './ProductThumbnail'
 
 const ProductList = props => {
@@ -21,11 +20,5 @@ const ProductList = props => {
     );
   }
 };
-
-// const mapState = ({ products }) => ({ products });
-
-// export default connect(
-//   mapState
-// )(ProductList);
 
 export default ProductList

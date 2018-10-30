@@ -7,7 +7,7 @@ describe('Product model', () => {
       return db.sync({ force: true })
     })
   
-    describe('valid email', () => {
+    describe('valid product', () => {
       let movie
   
       beforeEach(async () => {

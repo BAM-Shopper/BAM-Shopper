@@ -1,6 +1,5 @@
 const { expect } = require('chai')
 const db = require('../index')
-const OrderItem = db.model('order item')
 const User = db.model('user')
 const Order = db.model('order')
 
@@ -9,7 +8,7 @@ describe('Order model', () => {
         return db.sync({ force: true })
     })
 
-    describe('order is linked to the correct user', () => {
+    describe('valid order', () => {
         let myOrder
 
         beforeEach(async () => {

@@ -1,12 +1,10 @@
 import axios from 'axios'
 // import history from '../history'
 
-//store keys: products: []
-
 /**
  * ACTION TYPES
  */
-const GET_PRODUCTS = 'GET_USER'
+const GET_PRODUCTS = 'GET_PRODUCTS'
 
 /**
  * INITIAL STATE

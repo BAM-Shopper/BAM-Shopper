@@ -1,6 +1,8 @@
 import axios from 'axios'
 import history from '../history'
 
+//store keys: products: []
+
 /**
  * ACTION TYPES
  */

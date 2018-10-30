@@ -1,12 +1,12 @@
 /* global describe beforeEach it */
 
-const { expect } = require('chai')
+const {expect} = require('chai')
 const db = require('../index')
 const User = db.model('user')
 
 describe('User model', () => {
   beforeEach(() => {
-    return db.sync({ force: true })
+    return db.sync({force: true})
   })
 
   describe('valid email', () => {
@@ -14,7 +14,7 @@ describe('User model', () => {
 
     beforeEach(async () => {
       cody = await User.create({
-        email: 'cody@puppybook.com',
+        email: 'cody@puppybook.com'
       })
     })
 
@@ -24,11 +24,11 @@ describe('User model', () => {
 
     it('returns false if the email is invalid', async () => {
       try {
-        await cody.validate()
-        throw Error('validation should have failed with invalid email')
-      }
-      catch (err) {
-        expect(err.message).to.contain('validation should have failed with invalid email')
+        await User.create({
+          email: 'cody$puppybook.com'
+        })
+      } catch (err) {
+        expect(err.message).to.contain('Validation isEmail on email failed')
       }
     })
   })

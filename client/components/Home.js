@@ -27,7 +27,7 @@ class Home extends React.Component {
 
   render() {
     if (!this.props.products.length || !this.props.categories.length) {
-      return <div>HI</div>
+      return <span />
     }
     return (
       <div>

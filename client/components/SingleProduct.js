@@ -8,40 +8,37 @@ import { fetchProduct } from "../store/singleProduct";
  * COMPONENT
  */
 class SingleProduct extends Component {
-    constructor(props) {
-        super(props)
-        this.componentDidMount = this.componentDidMount.bind(this)
-    }
-
     componentDidMount() {
-        this.props.fetchProduct()
+        const paramId = Number(this.props.match.params.id)
+        this.props.fetchProduct(paramId)
     }
-
+    
     render() {
         //Navbar
-        if (!this.props.product) return <div>Product Not Found</div>
+        if (!this.props.selectedProduct.id) return <div>Product Not Found</div>
         return (
             <div>
                 <p>hi</p>
-                <ProductInfo product={this.props.product} />
-                <ProductReview reviews={this.props.reviews} />
+                <ProductInfo product={this.props.selectedProduct} />
+                <ProductReview reviews={this.props.selectedProduct.reviews} />
             </div>
         )
     }
-
 }
 
 /**
  * CONTAINER
  */
-const mapState = state => ({
-    selecetedProduct: state.selecetedProduct
-})
+const mapState = ( state ) => {
+    return {
+        selectedProduct: state.selectedProduct
+    }
+}
 
 
 const mapDispatch = dispatch => {
     return {
-        fetchProduct: () => dispatch(fetchProduct())
+        fetchProduct: (id) => dispatch(fetchProduct(id))
     }
 }
 

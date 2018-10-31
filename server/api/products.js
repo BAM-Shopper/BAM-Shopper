@@ -6,21 +6,23 @@ module.exports = router
 // /api/products/
 router.get('/', async (req, res, next) => {
     try {
-      const products = await Product.findAll()
-      res.json(products)
+        const products = await Product.findAll()
+        res.json(products)
     } catch (err) {
-      next(err)
+        next(err)
     }
-  })
-  
-  // /api/products/:id
+})
+
+// /api/products/:id
 router.get('/:id', async (req, res, next) => {
     try {
         const product = await Product.findById(req.params.id, {
-            include: {
+            include: [{
                 model: Review,
-                include: [User]
-            }
+                include: [{
+                    model: User
+                }]
+            }]
         })
         res.json(product)
     } catch (err) {

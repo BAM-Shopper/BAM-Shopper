@@ -1,37 +1,248 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Product, Order, OrderItem} = require('../server/db/models')
+const {
+  User,
+  Product,
+  Order,
+  OrderItem,
+  Category,
+  Review
+} = require('../server/db/models')
 
-async function seed() {
-  await db.sync({force: true})
-  console.log('db synced!')
+// Random Data Creators
+const chance = require('chance')(123)
+const Promise = require('bluebird')
 
-  const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
-  ])
+const numUsers = 20
+const numProducts = 50
+const numCategories = 5
+const numOrders = 40
+const numOrderItems = 100
+const numReviews = 100
 
-  const movies =  await Promise.all([
-    Product.create({title: 'Die Hard', description: 'Bruce Willis was wild in this one!', price: 50.00}),
-    Product.create({title: 'Halloweentown', description: 'Big ole pumpkin', price: 9.99}),
-    Product.create({title: 'Lilo and Stitch', description: 'Loveable alien on the beach', price: 10.00})
-  ])
+const emails = chance.unique(chance.email, numUsers)
 
-  const orders = await Promise.all([
-    Order.create({userId: 1, total: 59.95}),
-  ])
+//helper functions
+function doTimes(n, fn) {
+  const results = []
+  while (n--) {
+    results.push(fn())
+  }
+  return results
+}
 
-  const orderItems = await Promise.all([
-    OrderItem.create({orderId: 1, productId: 3, quantity: 1, price: 10.00}),
-    OrderItem.create({orderId: 1, productId: 2, quantity: 5, price: 49.95})
-  ])
+//Users
+function randUser() {
+  //const gender = chance.gender()
+  return User.build({
+    // firstName: chance.first({ gender: gender }),
+    // lastName: chance.last(),
+    // imageUrl: randPhoto(gender),
+    email: emails.pop(),
+    password: chance.word({length: 6}) + chance.character({pool: '12345'})
+  })
+}
 
+function generateUsers() {
+  const users = doTimes(numUsers, randUser)
+  users.push(
+    User.build({
+      firstName: 'Test',
+      lastName: 'Test',
+      email: 'test@test.test',
+      password: '123'
+    })
+  )
   console.log(`seeded ${users.length} users`)
-  console.log(`seeded ${movies.length} movies`)
+  return users
+}
+
+function createUsers() {
+  return Promise.map(generateUsers(), user => {
+    return user.save()
+  })
+}
+
+//Products
+function randProduct() {
+  return Product.build({
+    // imageUrl: '/images/default-product',
+    title: chance
+      .sentence({words: chance.integer({min: 2, max: 5})})
+      .slice(0, -1),
+    description: chance.paragraph(),
+    price: chance.floating({min: 1, max: 100, fixed: 2}),
+    inventory: chance.integer({min: 0, max: 200})
+  })
+}
+
+function generateProducts() {
+  const products = doTimes(numProducts, randProduct)
+  products.push(
+    Product.build({
+      title: 'TEST',
+      description: chance.paragraph(),
+      price: 1,
+      inventory: 999
+    })
+  )
+  console.log(`seeded ${products.length} products`)
+  return products
+}
+
+function createProducts() {
+  return Promise.map(generateProducts(), product => {
+    return product.save()
+  })
+}
+
+//Categories
+function randCategory() {
+  return Category.build({
+    name: chance.word()
+  })
+}
+
+function generateCategories() {
+  const categories = doTimes(numCategories, randCategory)
+  categories.push(
+    Category.build({
+      name: 'TEST'
+    })
+  )
+  console.log(`seeded ${categories.length} categories`)
+  return categories
+}
+
+function createCategories() {
+  return Promise.map(generateCategories(), category => {
+    return category.save()
+  })
+}
+
+//Orders
+function randOrder() {
+  return Order.build({
+    total: chance.floating({min: 20, max: 200, fixed: 2}),
+    userId: chance.integer({min: 1, max: numUsers})
+  })
+}
+
+function generateOrders() {
+  const orders = doTimes(numOrders, randOrder)
+  orders.push(
+    Order.build({
+      total: 999,
+      userId: 1
+    })
+  )
   console.log(`seeded ${orders.length} orders`)
-  console.log(`seeded ${orderItems.length} orders`)
-  console.log(`seeded successfully`)
+  return orders
+}
+
+function createOrders() {
+  return Promise.map(generateOrders(), order => {
+    return order.save()
+  })
+}
+
+//OrderItems
+function randOrderItem() {
+  return OrderItem.build({
+    price: chance.floating({min: 1, max: 100, fixed: 2}),
+    quantity: chance.integer({min: 1, max: 10}),
+    orderId: chance.integer({min: 1, max: numOrders}),
+    productId: chance.integer({min: 1, max: numProducts})
+  })
+}
+
+function generateOrderItems() {
+  const orderItems = doTimes(numOrderItems, randOrderItem)
+  orderItems.push(
+    OrderItem.build({
+      price: 999,
+      quantity: 999,
+      orderId: 1,
+      productId: 1
+    })
+  )
+  console.log(`seeded ${orderItems.length} orderItems`)
+  return orderItems
+}
+
+function createOrderItems() {
+  return Promise.map(generateOrderItems(), orderItem => {
+    return orderItem.save()
+  })
+}
+
+//Reviews
+function randReview() {
+  return Review.build({
+    text: chance.paragraph(),
+    rating: chance.integer({min: 1, max: 5}),
+    userId: chance.integer({min: 1, max: numUsers}),
+    productId: chance.integer({min: 1, max: numProducts})
+  })
+}
+
+function generateReviews() {
+  const reviews = doTimes(numReviews, randReview)
+  reviews.push(
+    Review.build({
+      text: chance.paragraph(),
+      rating: chance.integer({min: 1, max: 5}),
+      userId: chance.integer({min: 1, max: numUsers}),
+      productId: chance.integer({min: 1, max: numProducts})
+    })
+  )
+  console.log(`seeded ${reviews.length} reviews`)
+  return reviews
+}
+
+function createReviews() {
+  return Promise.map(generateReviews(), review => {
+    return review.save()
+  })
+}
+
+// populates the Tag Join table
+async function createTags() {
+  const products = await Product.findAll()
+  const categories = await Category.findAll()
+
+  for (let i = 0; i < numProducts; i++) {
+    let tags = chance.unique(chance.integer, 3, {
+      min: 0,
+      max: numCategories - 1
+    })
+
+    await products[i].addCategory(categories[tags[0]])
+    await products[i].addCategory(categories[tags[1]])
+    await products[i].addCategory(categories[tags[2]])
+  }
+  console.log(`seeded ${numProducts * 3} productTags`)
+}
+
+const seed = async () => {
+  try {
+    await db.sync({force: true})
+    console.log('db synced!')
+
+    await createUsers()
+    await createCategories()
+    await createProducts()
+    await createOrders()
+    await createOrderItems()
+    await createReviews()
+    await createTags()
+
+    console.log(`seeded successfully`)
+  } catch (err) {
+    console.log('Error while seeding')
+    console.log(err.stack)
+  }
 }
 
 // We've separated the `seed` function from the `runSeed` function.

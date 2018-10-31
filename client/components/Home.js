@@ -8,7 +8,7 @@ class Home extends React.Component {
     super(props)
     this.state = {
       selected: 'all',
-      filteredProd: []
+      filteredProd: this.props.products
     }
   }
 

@@ -24,7 +24,8 @@ Category.belongsToMany(Product, {through: 'tag'})
 Product.belongsToMany(Category, {through: 'tag'})
 
 Review.belongsTo(Product)
-Review.belongsTo(User, {as: 'author'})
+Product.hasMany(Review)
+Review.belongsTo(User)
 
 /*
  * We'll export all of our models here, so that any time a module needs a model,

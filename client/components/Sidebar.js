@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Sidebar = props => {
+const SideBar = props => {
   if (!props.categories) {
     return <span />
   } else {
@@ -9,7 +9,11 @@ const Sidebar = props => {
         {props.categories.map(category => {
           return (
             <div key={category.id}>
-              <button type="button" onClick={props.filterProducts}>
+              <button
+                type="button"
+                value={category.name}
+                onClick={props.handelFilter}
+              >
                 {category.name}
               </button>
             </div>
@@ -20,4 +24,4 @@ const Sidebar = props => {
   }
 }
 
-export default Sidebar
+export default SideBar

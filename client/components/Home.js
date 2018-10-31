@@ -30,7 +30,7 @@ class Home extends React.Component {
       return <span />
     }
     return (
-      <div>
+      <div style={{display: 'flex'}}>
         <SideBar
           handelFilter={this.handelFilter}
           categories={this.props.categories}

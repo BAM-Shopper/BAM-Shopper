@@ -3,8 +3,6 @@ import Navbar from "./navbar";
 import SearchBar from "./SearchBar";
 import { Link } from 'react-router-dom'
 
-
-
 class AdminDashboard extends Component {
     render() {
         return (

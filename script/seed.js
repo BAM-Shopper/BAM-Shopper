@@ -40,7 +40,8 @@ function randUser() {
     // lastName: chance.last(),
     // imageUrl: randPhoto(gender),
     email: emails.pop(),
-    password: chance.word({length: 6}) + chance.character({pool: '12345'})
+    password: chance.word({length: 6}) + chance.character({pool: '12345'}),
+    isAdmin: chance.weighted([true, false], [1, 10])
   })
 }
 
@@ -48,8 +49,8 @@ function generateUsers() {
   const users = doTimes(numUsers, randUser)
   users.push(
     User.build({
-      firstName: 'Test',
-      lastName: 'Test',
+      /* firstName: 'Test',
+      lastName: 'Test', */
       email: 'test@test.test',
       password: '123'
     })

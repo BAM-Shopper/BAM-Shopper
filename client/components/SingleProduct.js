@@ -18,7 +18,6 @@ class SingleProduct extends Component {
         if (!this.props.selectedProduct.id) return <div>Product Not Found</div>
         return (
             <div>
-                <p>hi</p>
                 <ProductInfo product={this.props.selectedProduct} />
                 <ProductReview reviews={this.props.selectedProduct.reviews} />
             </div>

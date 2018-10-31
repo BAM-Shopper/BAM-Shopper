@@ -4,7 +4,7 @@ import enzyme, {shallow} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 //import ProductList from './ProductList'
 import Home from './Home'
-//import configureMockStore from 'redux-mock-store'
+import configureMockStore from 'redux-mock-store'
 import thunkMiddleware from 'redux-thunk'
 
 const middlewares = [thunkMiddleware]

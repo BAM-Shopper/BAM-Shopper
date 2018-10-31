@@ -1,5 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import SideBar from './SideBar'
 import ProductList from './ProductList'
 
@@ -8,37 +8,50 @@ class Home extends React.Component {
     super(props)
     this.state = {
       selected: 'all',
-      filteredProd: this.props.products
+      filteredProd: []
     }
   }
 
-  filterProducts = (category) => {
+  filterProducts = event => {
+    const category = event.target.value
+    console.log('CLICK!')
     this.setState({
       selected: category
     })
+    console.log('products', this.props.products)
+
     const result = this.props.products.filter(product => {
-      return product.category.includes(this.state.selected)
+      for (var i = 0; i < product.categories.length; i++) {
+        if (product.categories[i].name === this.state.selected) {
+          return true
+        }
+      }
     })
+    console.log('result', result)
     this.setState({
       filteredProd: result
     })
   }
 
   render() {
+    if (!this.props.products.length || !this.props.categories.length) {
+      return <div>HI</div>
+    }
+    console.log('this.props.products', this.props.products)
+    console.log('this.props.categories', this.props.categories)
+
     return (
       <div>
         <SideBar
           filterProducts={this.filterProducts}
-          categories={this.state.categories}
+          categories={this.props.categories}
         />
-        <ProductList products={this.props.filteredProd}/>
+        <ProductList products={this.state.filteredProd} />
       </div>
     )
   }
 }
 
-const mapState = ({ products, categories }) => ({ products, categories });
+const mapState = ({products, categories}) => ({products, categories})
 
-export default connect(mapState)(Home);
-
-
+export default connect(mapState)(Home)

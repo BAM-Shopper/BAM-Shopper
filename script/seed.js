@@ -108,7 +108,7 @@ function generateCategories() {
   const categories = doTimes(numCategories, randCategory)
   categories.push(
     Category.build({
-      name: 'TEST'
+      name: 'all'
     })
   )
   console.log(`seeded ${categories.length} categories`)
@@ -211,6 +211,11 @@ function createReviews() {
 async function createTags() {
   const products = await Product.findAll()
   const categories = await Category.findAll()
+  const all = await Category.findOne({
+    where: {
+      name: 'all'
+    }
+  })
 
   for (let i = 0; i < numProducts; i++) {
     let tags = chance.unique(chance.integer, 3, {
@@ -220,7 +225,7 @@ async function createTags() {
 
     await products[i].addCategory(categories[tags[0]])
     await products[i].addCategory(categories[tags[1]])
-    await products[i].addCategory(categories[tags[2]])
+    await products[i].addCategory(all)
   }
   console.log(`seeded ${numProducts * 3} productTags`)
 }

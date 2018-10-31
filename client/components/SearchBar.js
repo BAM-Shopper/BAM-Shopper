@@ -1,4 +1,5 @@
 import React from 'react'
+<<<<<<< HEAD
 import { Redirect } from 'react-router-dom'
 import {connect} from 'react-redux'
 
@@ -45,3 +46,13 @@ class Search extends React.Component {
 const mapState = ({products}) => ({products})
 
 export default connect(mapState)(Search)
+=======
+
+const SearchBar = () => {
+  return (
+    <p>I am a search bar!</p>
+  )
+}
+
+export default SearchBar
+>>>>>>> master

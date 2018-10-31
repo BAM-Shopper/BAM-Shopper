@@ -1,4 +1,5 @@
 import React from 'react'
+import { withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
 
 const ProductThumbnail = props => {
@@ -17,4 +18,5 @@ const ProductThumbnail = props => {
   )
 }
 
-export default ProductThumbnail
+const composedWithRouter = withRouter(ProductThumbnail)
+export default composedWithRouter

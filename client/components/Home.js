@@ -7,7 +7,8 @@ class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selected: 'all'
+      selected: 'all',
+      filteredProd: []
     }
   }
 
@@ -18,7 +19,9 @@ class Home extends React.Component {
     const result = this.props.products.filter(product => {
       return product.category.includes(this.state.selected)
     })
-    return result
+    this.setState({
+      filteredProd: result
+    })
   }
 
   render() {
@@ -28,7 +31,7 @@ class Home extends React.Component {
           filterProducts={this.filterProducts}
           categories={this.state.categories}
         />
-        <ProductList products={this.props.products}/>
+        <ProductList products={this.props.filteredProd}/>
       </div>
     )
   }
@@ -37,6 +40,5 @@ class Home extends React.Component {
 const mapState = ({ products, categories }) => ({ products, categories });
 
 export default connect(mapState)(Home);
-
 
 

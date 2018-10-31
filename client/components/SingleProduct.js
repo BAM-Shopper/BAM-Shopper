@@ -12,7 +12,7 @@ class SingleProduct extends Component {
         const paramId = Number(this.props.match.params.id)
         this.props.fetchProduct(paramId)
     }
-    
+
     render() {
         //Navbar
         if (!this.props.selectedProduct.id) return <div>Product Not Found</div>

@@ -10,7 +10,6 @@ import { fetchProduct } from "../store/singleProduct";
 class SingleProduct extends Component {
     constructor(props) {
         super(props)
-        this.componentDidMount = this.componentDidMount.bind(this)
     }
 
     componentDidMount() {

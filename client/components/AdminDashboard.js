@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import Navbar from "./navbar";
-import SearchBar from "./SearchBar";
 import { Link } from 'react-router-dom'
 
 class AdminDashboard extends Component {
@@ -8,7 +7,6 @@ class AdminDashboard extends Component {
         return (
             <div>
                 <Navbar />
-                <SearchBar />
                 <section>
                     <Link to='/users'>Users</Link>
                     <Link to='/products'>Products</Link>

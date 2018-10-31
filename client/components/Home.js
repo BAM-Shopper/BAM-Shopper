@@ -31,7 +31,7 @@ class Home extends React.Component {
           filterProducts={this.filterProducts}
           categories={this.state.categories}
         />
-        <ProductList products={this.props.filteredProd}/>
+        <ProductList products={this.state.filteredProd}/>
       </div>
     )
   }

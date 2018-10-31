@@ -40,7 +40,8 @@ function randUser() {
     // lastName: chance.last(),
     // imageUrl: randPhoto(gender),
     email: emails.pop(),
-    password: chance.word({length: 6}) + chance.character({pool: '12345'})
+    password: chance.word({length: 6}) + chance.character({pool: '12345'}),
+    isAdmin: chance.weighted([true, false], [1, 10])
   })
 }
 
@@ -51,8 +52,7 @@ function generateUsers() {
       /* firstName: 'Test',
       lastName: 'Test', */
       email: 'test@test.test',
-      password: '123',
-      isAdmin: 
+      password: '123'
     })
   )
   console.log(`seeded ${users.length} users`)

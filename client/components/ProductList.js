@@ -2,8 +2,6 @@ import React from 'react'
 import ProductThumbnail from './ProductThumbnail'
 
 const ProductList = props => {
-  console.log(props.products)
-
   if (!Array.isArray(props.products) || props.products.length === 0) {
     return <p>No Products</p>
   } else {

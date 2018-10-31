@@ -7,29 +7,21 @@ class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      selected: 'all',
-      filteredProd: []
+      filter: 'all'
     }
   }
 
-  filterProducts = event => {
-    const category = event.target.value
-    console.log('CLICK!')
+  handelFilter = event => {
     this.setState({
-      selected: category
+      filter: event.target.value
     })
-    console.log('products', this.props.products)
+  }
 
-    const result = this.props.products.filter(product => {
-      for (var i = 0; i < product.categories.length; i++) {
-        if (product.categories[i].name === this.state.selected) {
-          return true
-        }
-      }
-    })
-    console.log('result', result)
-    this.setState({
-      filteredProd: result
+  filterProducts = () => {
+    return this.props.products.filter(product => {
+      return product.categories.find(
+        category => category.name === this.state.filter
+      )
     })
   }
 
@@ -37,16 +29,13 @@ class Home extends React.Component {
     if (!this.props.products.length || !this.props.categories.length) {
       return <div>HI</div>
     }
-    console.log('this.props.products', this.props.products)
-    console.log('this.props.categories', this.props.categories)
-
     return (
       <div>
         <SideBar
-          filterProducts={this.filterProducts}
+          handelFilter={this.handelFilter}
           categories={this.props.categories}
         />
-        <ProductList products={this.state.filteredProd} />
+        <ProductList products={this.filterProducts()} />
       </div>
     )
   }

@@ -63,7 +63,7 @@ describe('<SingleProduct /> component', () => {
 
     describe('<ProductReviews /> component', () => {
         it('renders a list of product reviews', () => {
-            
+            expect(productReviews.find('article').length).to.be.equal(2)
         })
         it('should have a review with the review\'s content', () => {
 

@@ -33,7 +33,6 @@ describe('Product routes', () => {
 
             expect(res.body).to.be.an('array')
             expect(res.body.length).to.be.equal(2)
-            expect(res.body[0].title).to.be.equal('Gigli')
         })
 
         it('GET /api/products/:id', async () => {

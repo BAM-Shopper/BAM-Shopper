@@ -7,17 +7,18 @@ export const ProductReview = props => {
     const reviews = props.reviews
 
     return (
-        <div>
+        <section>
             {reviews.map(review => {
                 return (
-                    <div key={review.id}>
+                    <article key={review.id}>
                         {review.user.email}
                         <p>{review.text}</p>
                         {review.rating}
-                    </div>
+                    </article>
                 )
-            })}
-        </div>
+            })
+            }
+        </section>
     )
 }
 

@@ -48,10 +48,11 @@ function generateUsers() {
   const users = doTimes(numUsers, randUser)
   users.push(
     User.build({
-      firstName: 'Test',
-      lastName: 'Test',
+      /* firstName: 'Test',
+      lastName: 'Test', */
       email: 'test@test.test',
-      password: '123'
+      password: '123',
+      isAdmin: 
     })
   )
   console.log(`seeded ${users.length} users`)

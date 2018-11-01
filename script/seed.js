@@ -16,8 +16,11 @@ const {
 const chance = require('chance')(123)
 const Promise = require('bluebird')
 
+const movies = require('./movies')
+console.log(`loading ${movies.length} movies from movies.js`)
+
 const numUsers = 20
-const numProducts = 50
+const numProducts = movies.length
 const numCategories = 5
 const numOrders = 40
 const numOrderItems = 100
@@ -73,11 +76,7 @@ function createUsers() {
 //Products
 function randProduct() {
   return Product.build({
-    // imageUrl: '/images/default-product',
-    title: chance
-      .sentence({words: chance.integer({min: 2, max: 5})})
-      .slice(0, -1),
-    description: chance.paragraph(),
+    ...movies.pop(),
     price: chance.floating({min: 1, max: 100, fixed: 2}),
     inventory: chance.integer({min: 0, max: 200})
   })

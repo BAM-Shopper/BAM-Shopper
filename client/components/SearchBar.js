@@ -1,47 +1,44 @@
-import React from 'react'
-import { Redirect } from 'react-router-dom'
-import {connect} from 'react-redux'
+// import React from 'react'
+// import { Redirect } from 'react-router-dom'
+// import {connect} from 'react-redux'
+// import ProductList from './ProductList'
 
-class Search extends React.Component {
-  constructor() {
-    super()
-    this.state = {
-      query: ''
-    }
-  }
+// class Search extends React.Component {
+//   constructor() {
+//     super()
+//     this.state = {
+//       query: '',
+//       currentlyDisplayed: []
+//     }
+//   }
 
-  handleInputChange = () => {
-    this.setState({
-      query: this.search.value
-    })
-  }
+//   handleInputChange = evt => {
+//     const reduxState = this.props.products
+//     let newDisplay = reduxState.filter(product => {
+//       product.title.toLowerCase().includes(evt.target.value.toLowerCase())
+//     })
+//     this.setState({
+//       query: evt.target.value,
+//       currentlyDisplayed: newDisplay
+//     })
+//   }
 
-  handleSubmit = evt => {
-    evt.preventDefault()
-    const term = evt.target.value
-    const result = this.props.products.filter(product => {
-      product.name.toLowerCase().includes(term.toLowerCase())
-    })
-    console.log(result)
-  }
+//   render() {
+//     return (
+//       <div>
+//         <form>
+//           <input
+//             placeholder="Search movies"
+//             ref={input => this.search = input}
+//             onChange={this.handleInputChange}
+//           />
+//         </form>
+//         <ProductList products={this.state.currentlyDisplayed} />
+//       </div>
+//     )
+//   }
+// }
 
-  render() {
-    return (
-      <form>
-        <input
-          placeholder="Search movies"
-          ref={input => this.search = input}
-          onChange={this.handleInputChange}
-        />
-        <button
-          type='submit'
-          onSubmit={this.handleSubmit}
-        >Search</button>
-      </form>
-    )
-  }
-}
+// const mapState = ({products}) => ({products})
 
-const mapState = ({products}) => ({products})
-
-export default connect(mapState)(Search)
+// export default connect(mapState)(Search)

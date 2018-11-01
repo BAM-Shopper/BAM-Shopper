@@ -1,9 +1,47 @@
 import React from 'react'
+import { Redirect } from 'react-router-dom'
+import {connect} from 'react-redux'
 
-const SearchBar = () => {
-  return (
-    <p>I am a search bar!</p>
-  )
+class Search extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      query: ''
+    }
+  }
+
+  handleInputChange = () => {
+    this.setState({
+      query: this.search.value
+    })
+  }
+
+  handleSubmit = evt => {
+    evt.preventDefault()
+    const term = evt.target.value
+    const result = this.props.products.filter(product => {
+      product.name.toLowerCase().includes(term.toLowerCase())
+    })
+    console.log(result)
+  }
+
+  render() {
+    return (
+      <form>
+        <input
+          placeholder="Search movies"
+          ref={input => this.search = input}
+          onChange={this.handleInputChange}
+        />
+        <button
+          type='submit'
+          onSubmit={this.handleSubmit}
+        >Search</button>
+      </form>
+    )
+  }
 }
 
-export default SearchBar
+const mapState = ({products}) => ({products})
+
+export default connect(mapState)(Search)

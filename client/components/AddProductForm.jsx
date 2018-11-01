@@ -4,8 +4,8 @@ import { createProduct } from '../store/products'
 
 
 class AddProductForm extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             title: '',
             description: '',
@@ -17,28 +17,56 @@ class AddProductForm extends Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <div>
-                <form className="ui form">
+                <form className="ui form" onSubmit={this.newProductSubmit}>
                     <div className="field">
-                        <label>First Name</label>
-                        <input type="text" name="first-name" placeholder="First Name" />
+                        <label>Title</label>
+                        <input type="text" name="title" placeholder="Die Hard 2" onChange={evt => this.setState({ [evt.target.name]: evt.target.value })} />
                     </div>
                     <div className="field">
-                        <label>Last Name</label>
-                        <input type="text" name="last-name" placeholder="Last Name" />
+                        <label>Description</label>
+                        <textarea rows="2" name="description" onChange={evt => this.setState({ [evt.target.name]: evt.target.value })} />
                     </div>
                     <div className="field">
-                        <div className="ui checkbox">
-                            <input type="checkbox" className="hidden" />
-                            <label>I agree to the Terms and Conditions</label>
+                        <div className="two fields">
+                            <div className="field">
+                                <label>Price</label>
+                                <input type="text" name="price" placeholder="9.99" onChange={evt => this.setState({ [evt.target.name]: evt.target.value })} />
+                            </div>
+                            <div className="field">
+                                <label>Inventory</label>
+                                <input type="text" name="inventory" placeholder="2" onChange={evt => this.setState({ [evt.target.name]: evt.target.value })} />
+                            </div>
                         </div>
+                    </div>
+                    <div className="field">
+                        <label>Image URL</label>
+                        <input type="text" name="imageUrl" placeholder="..." onChange={evt => this.setState({ [evt.target.name]: evt.target.value })} />
                     </div>
                     <button className="ui button" type="submit">Submit</button>
                 </form>
             </div>
         )
+
+    }
+
+    newProductSubmit(evt) {
+        evt.preventDefault()
+
+        const { title, description, price, inventory, imageUrl } = evt.target
+        const { handleProductAdd } = this.props
+
+        const product = {
+            title: title.value,
+            description: description.value,
+            price: price.value,
+            inventory: inventory.value,
+            imageUrl: imageUrl.value,
+        }
+
+        createProduct(product)
+        handleProductAdd()
 
     }
 

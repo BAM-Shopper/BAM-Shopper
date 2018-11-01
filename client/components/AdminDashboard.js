@@ -18,7 +18,7 @@ class AdminDashboard extends Component {
         const { productAdd, productClicked, orderAdd } = this.state
 
         if (productAdd) {
-            return <AddProductForm hanlder={this.handleProductAdd} />
+            return <AddProductForm handleProductAdd={this.handleProductAdd} />
         } else if (orderAdd) {
             return <div />
         }
@@ -30,7 +30,7 @@ class AdminDashboard extends Component {
                         <h3 onClick={() => this.setState({ productClicked: !productClicked })}>Products</h3>
                         <button
                             type='button'
-                            onClick={this.handleProductAdd}
+                            onClick={() => this.setState({ productAdd: !productAdd })}
                         >Add New Product</button>
                     </div>
                     {productClicked ?
@@ -50,8 +50,9 @@ class AdminDashboard extends Component {
         })
     }
     handleProductAdd() {
+        const { productAdd } = this.state
         this.setState({
-            productAdd: true
+            productAdd: !productAdd
         })
     }
 }

@@ -2,14 +2,14 @@ import React from 'react'
 import {connect} from 'react-redux'
 import SideBar from './SideBar'
 import ProductList from './ProductList'
-import { Server } from 'https';
 
 class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       filter: 'all',
-      query: ''
+      query: '',
+      currentlyDisplayed: []
     }
   }
 

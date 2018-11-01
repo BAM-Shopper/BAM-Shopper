@@ -35,12 +35,12 @@ class Home extends React.Component {
           handelFilter={this.handelFilter}
           categories={this.props.categories}
         />
-        <ProductList products={this.filterProducts()} />
+        <ProductList products={this.filterProducts()} user={this.props.user} />
       </div>
     )
   }
 }
 
-const mapState = ({products, categories}) => ({products, categories})
+const mapState = ({products, categories, user}) => ({products, categories, user})
 
 export default connect(mapState)(Home)

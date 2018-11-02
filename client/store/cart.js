@@ -1,5 +1,5 @@
 import axios from 'axios'
-// import history from '../history'
+import history from '../history'
 
 /**
  * ACTION TYPES
@@ -42,10 +42,15 @@ export const fetchCart = () => async dispatch => {
   }
 }
 
-export const postCartItem = item => async dispatch => {
+export const postCartItem = (item, cart, quantity = 1) => async dispatch => {
   try {
-    const res = await axios.post(`/api/carts/${item.cartId}`, item)
+    console.log('POST', item)
+    const res = await axios.post(`/api/cart/${cart.id}`, {
+      productId: item.id,
+      quantity
+    })
     dispatch(addToCart(res.data || defaultCart))
+    history.push('/')
   } catch (err) {
     console.error(err)
   }

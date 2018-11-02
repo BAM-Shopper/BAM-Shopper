@@ -15,13 +15,15 @@ class Home extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.products !== prevProps.products) {
-      this.setState({ currentlyDisplayed: this.props.products })
+      this.setState({currentlyDisplayed: this.props.products})
     }
   }
 
   handleInputChange = evt => {
     const filtered = this.props.products.filter(product => {
-      return product.title.toLowerCase().startsWith(evt.target.value.toLowerCase())
+      return product.title
+        .toLowerCase()
+        .startsWith(evt.target.value.toLowerCase())
     })
     this.setState({
       query: evt.target.value,
@@ -56,7 +58,7 @@ class Home extends React.Component {
         <form>
           <input
             placeholder="Search movies"
-            ref={input => this.search = input}
+            ref={input => (this.search = input)}
             onChange={this.handleInputChange}
           />
         </form>

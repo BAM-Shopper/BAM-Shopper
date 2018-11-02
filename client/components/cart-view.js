@@ -3,14 +3,24 @@ import {connect} from 'react-redux'
 
 class Cart extends React.Component {
   render() {
-    if (!this.props.cart.id) {
+    const {cart} = this.props
+    if (!cart.id) {
       return <div>EMPTY CART</div>
     } else {
-      console.log(this.props.cart)
+      console.log(cart)
       return (
         <div>
-          {this.props.cart['cart items'].map(item => {
-            return <div key={item.id}>{item.id}</div>
+          {cart['cart items'].map(item => {
+            console.log(item)
+            return item.product ? (
+              <div key={item.id}>
+                <h2>{item.product.title}</h2>
+                <h2>{item.product.price}</h2>
+                <h2>{item.quantity}</h2>
+              </div>
+            ) : (
+              <div key={item.id} />
+            )
           })}
         </div>
       )

@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Cart, CartItem} = require('../db/models')
+const {Cart, CartItem, Product} = require('../db/models')
 
 module.exports = router
 
@@ -12,6 +12,7 @@ router.get('/', async (req, res, next) => {
       })
       console.log('findOrCreate user cart')
       console.log('cart.id = ', data[0].id)
+      req.session.cartId = data[0].id
       res.json(data[0])
       //merge unlogged cart
     } catch (err) {
@@ -24,6 +25,7 @@ router.get('/', async (req, res, next) => {
       })
       console.log('findOrCreate non-user cart')
       console.log('cart.id = ', data[0].id)
+      req.session.cartId = data[0].id
       res.json(data[0])
     } catch (err) {
       next(err)
@@ -35,7 +37,12 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const cart = await Cart.findById(req.params.id, {
-      include: [CartItem]
+      include: [
+        {
+          model: CartItem,
+          include: [Product]
+        }
+      ]
     })
     res.json(cart)
   } catch (err) {
@@ -45,10 +52,46 @@ router.get('/:id', async (req, res, next) => {
 
 router.post('/:id', async (req, res, next) => {
   try {
-    const cart = await CartItem.findOrCreate({
-      where: req.body
+    const cart = await CartItem.findOne({
+      where: {productId: req.body.productId}
+    }).then(obj => {
+      if (obj) {
+        // update
+        return obj.update({
+          quantity: Number(req.body.quantity) + obj.quantity
+        })
+      } else {
+        // insert
+        return CartItem.create({
+          quantity: req.body.quantity,
+          productId: req.body.productId,
+          cartId: req.session.cartId
+        })
+      }
     })
     res.json(cart)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/:id/itemId', async (req, res, next) => {
+  try {
+    await CartItem.update(
+      {
+        cartId: req.body.cartId,
+        productId: req.body.productId,
+        quantity: req.body.quantity
+      },
+      {
+        where: {
+          cartId: req.params.id,
+          id: req.params.itemId
+        }
+      }
+    )
+    const item = await CartItem.findById(req.params.itemId)
+    res.json(item)
   } catch (err) {
     next(err)
   }

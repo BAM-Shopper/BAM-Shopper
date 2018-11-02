@@ -55,8 +55,6 @@ export const logout = () => async dispatch => {
   try {
     await axios.post('/auth/logout')
     await dispatch(removeUser())
-    //then load their cart
-    console.log('fetch new cart')
     dispatch(fetchCart())
     history.push('/login')
   } catch (err) {

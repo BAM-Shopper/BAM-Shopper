@@ -1,12 +1,10 @@
 import React, {Component} from 'react'
 import {withRouter} from 'react-router'
+import {connect} from 'react-redux'
 
 import {Navbar} from './components'
 import Routes from './routes'
 
-<<<<<<< HEAD
-class App extends Component {
-=======
 import {fetchProducts} from './store/products'
 import {fetchCategories} from './store/categories'
 import {fetchOrders} from './store/orders'
@@ -18,7 +16,6 @@ class App extends Component {
     this.props.fetchOrders()
   }
 
->>>>>>> master
   render() {
     return (
       <div>
@@ -29,9 +26,6 @@ class App extends Component {
   }
 }
 
-<<<<<<< HEAD
-export default withRouter(App)
-=======
 const mapDispatchToProps = dispatch => {
   return {
     fetchProducts: () => dispatch(fetchProducts()),
@@ -41,4 +35,3 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default withRouter(connect(null, mapDispatchToProps)(App))
->>>>>>> master

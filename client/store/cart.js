@@ -32,10 +32,8 @@ export const fetchCart = () => async dispatch => {
   try {
     //find for create cart
     const res = await axios.get(`/api/cart/`)
-    console.log('===DB RESPONSE 1===', res.data)
     //get the products in that cart
     const res2 = await axios.get(`/api/cart/${res.data.id}`)
-    console.log('===DB RESPONSE 2===', res2.data)
     dispatch(getCart(res2.data || defaultCart))
   } catch (err) {
     console.error(err)
@@ -44,7 +42,6 @@ export const fetchCart = () => async dispatch => {
 
 export const postCartItem = (item, cart, quantity = 1) => async dispatch => {
   try {
-    console.log('POST', item)
     const res = await axios.post(`/api/cart/${cart.id}`, {
       productId: item.id,
       quantity

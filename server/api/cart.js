@@ -10,11 +10,9 @@ router.get('/', async (req, res, next) => {
       const data = await Cart.findOrCreate({
         where: {userId: req.session.passport.user}
       })
-      console.log('findOrCreate user cart')
-      console.log('cart.id = ', data[0].id)
       req.session.cartId = data[0].id
       res.json(data[0])
-      //merge unlogged cart
+      //TODO merge unlogged cart
     } catch (err) {
       next(err)
     }
@@ -23,8 +21,6 @@ router.get('/', async (req, res, next) => {
       const data = await Cart.findOrCreate({
         where: {sessionId: req.session.id}
       })
-      console.log('findOrCreate non-user cart')
-      console.log('cart.id = ', data[0].id)
       req.session.cartId = data[0].id
       res.json(data[0])
     } catch (err) {

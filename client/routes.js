@@ -2,22 +2,16 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-<<<<<<< HEAD
 import {
   Login,
   Signup,
-  UserAccount,
+  UserHome,
   Home,
   Cart,
-  SingleProduct
+  SingleProduct,
+  SingleOrder
 } from './components'
-=======
-import {Login, Signup, UserHome, Home, Cart, SingleProduct, SingleOrder} from './components'
->>>>>>> master
 import {me} from './store'
-
-import {fetchProducts} from './store/products'
-import {fetchCategories} from './store/categories'
 import {fetchCart} from './store/cart'
 
 /**
@@ -26,8 +20,6 @@ import {fetchCart} from './store/cart'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
-    this.props.fetchProducts()
-    this.props.fetchCategories()
     this.props.fetchCart()
   }
 
@@ -46,7 +38,7 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/account" component={UserHome} />
-            <Route path='/account/orders/:id' component={SingleOrder} />
+            <Route path="/account/orders/:id" component={SingleOrder} />
           </Switch>
         )}
         {/* Displays our Home component as a fallback */}
@@ -63,8 +55,7 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id,
-    userId: state.user.id
+    isLoggedIn: !!state.user.id
   }
 }
 
@@ -73,9 +64,7 @@ const mapDispatch = dispatch => {
     loadInitialData() {
       dispatch(me())
     },
-    fetchProducts: () => dispatch(fetchProducts()),
-    fetchCart: () => dispatch(fetchCart()),
-    fetchCategories: () => dispatch(fetchCategories())
+    fetchCart: () => dispatch(fetchCart())
   }
 }
 

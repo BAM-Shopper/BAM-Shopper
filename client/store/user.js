@@ -41,9 +41,7 @@ export const auth = (email, password, method) => async dispatch => {
 
   try {
     await dispatch(getUser(res.data))
-    console.log('here')
-    //then load their cart
-    //do something with old cart
+    //TODO do something with old cart
     dispatch(fetchCart())
     history.push('/home')
   } catch (dispatchOrHistoryErr) {

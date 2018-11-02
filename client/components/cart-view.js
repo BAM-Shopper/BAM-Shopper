@@ -7,11 +7,9 @@ class Cart extends React.Component {
     if (!cart.id) {
       return <div>EMPTY CART</div>
     } else {
-      console.log(cart)
       return (
         <div>
           {cart['cart items'].map(item => {
-            console.log(item)
             return item.product ? (
               <div key={item.id}>
                 <h2>{item.product.title}</h2>

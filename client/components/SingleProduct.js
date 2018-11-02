@@ -13,7 +13,11 @@ export class SingleProduct extends Component {
     this.props.fetchProduct(paramId)
   }
 
+<<<<<<< HEAD
     render() {
+=======
+  render() {
+>>>>>>> 4d26abaee0a1c1f44e5fbb902c4e0fdb370c4352
         if (!this.props.selectedProduct.id) return <div>Product Not Found</div>
         return (
             <div>

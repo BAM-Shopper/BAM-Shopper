@@ -12,7 +12,6 @@ import {
   SingleOrder
 } from './components'
 import {me} from './store'
-import {fetchCart} from './store/cart'
 
 /**
  * COMPONENT
@@ -20,7 +19,6 @@ import {fetchCart} from './store/cart'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
-    this.props.fetchCart()
   }
 
   render() {
@@ -63,8 +61,7 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
-    },
-    fetchCart: () => dispatch(fetchCart())
+    }
   }
 }
 

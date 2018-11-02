@@ -14,15 +14,14 @@ export class SingleProduct extends Component {
   }
 
   render() {
-    //Navbar
-    if (!this.props.selectedProduct.id) return <div>Product Not Found</div>
-    return (
-      <div>
-        <ProductInfo product={this.props.selectedProduct} />
-        <ProductReview reviews={this.props.selectedProduct.reviews} />
-      </div>
-    )
-  }
+        if (!this.props.selectedProduct.id) return <div>Product Not Found</div>
+        return (
+            <div>
+                <ProductInfo product={this.props.selectedProduct} />
+                <ProductReview reviews={this.props.selectedProduct.reviews} />
+            </div>
+        )
+    }
 }
 
 /**

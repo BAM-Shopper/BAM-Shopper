@@ -20,7 +20,17 @@ class ProductItem extends Component {
         {!editClicked ?
           <div>
             <div className='image'>
-              <img src={product.imageUrl} />
+              <img 
+              className="ui medium rounded image" 
+              src={product.imageUrl}
+                style={{
+                  width: '200px',
+                  height: '250px',
+                  display: 'block',
+                  marginLeft: 'auto',
+                  marginRight: 'auto'
+                }}
+              />
             </div>
             <div className='content'>
               <Link to={`/products/${product.id}`} className='header'>
@@ -35,10 +45,10 @@ class ProductItem extends Component {
                 Add To Cart
             <i className="right chevron icon" />
               </button>
-              {user.isAdmin ? <button type='button' className="ui label" onClick={() => this.setState({editClicked: !editClicked})}>Edit</button> : <div />}
+              {user.isAdmin ? <button type='button' className="ui label" onClick={() => this.setState({ editClicked: !editClicked })}>Edit</button> : <div />}
             </div>
           </div>
-          : <EditProductForm productId= {product.id} handleAdminEdit={this.handleAdminEdit} />
+          : <EditProductForm productId={product.id} handleAdminEdit={this.handleAdminEdit} />
         }
       </div>
     )

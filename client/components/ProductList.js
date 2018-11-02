@@ -6,14 +6,21 @@ const ProductList = props => {
     return <p>No Products</p>
   } else {
     return (
-      <div>
-        {props.products.map(product => {
-          return (
-            <div key={product.id}>
-              <ProductItem product={product} user={props.user} />
-            </div>
-          )
-        })}
+      <div className='ui container'>
+        <h2
+          className='center aligned'
+          style={{ textAlign: "center" }}
+        >Movies
+      </h2>
+        <div className="ui three column stackable grid container">
+          {props.products.map(product => {
+            return (
+              <div className='column center aligned' key={product.id}>
+                <ProductItem product={product} user={props.user} />
+              </div>
+            )
+          })}
+        </div>
       </div>
     )
   }

@@ -7,21 +7,47 @@ class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      filter: 'all'
+      filter: 'all',
+      query: '',
+      currentlyDisplayed: []
     }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.products !== prevProps.products) {
+      this.setState({ currentlyDisplayed: this.props.products })
+    }
+  }
+
+  componentDidMount() {
+    this.setState({ currentlyDisplayed: this.props.products })
+  }
+
+  handleInputChange = evt => {
+    const filtered = this.props.products.filter(product => {
+      return product.title.toLowerCase().startsWith(evt.target.value.toLowerCase())
+    })
+    this.setState({
+      query: evt.target.value,
+      currentlyDisplayed: filtered
+    })
   }
 
   handelFilter = event => {
     this.setState({
       filter: event.target.value
     })
+    this.filterProducts()
   }
 
   filterProducts = () => {
-    return this.props.products.filter(product => {
+    const filtered = this.props.products.filter(product => {
       return product.categories.find(
         category => category.name === this.state.filter
       )
+    })
+    this.setState({
+      currentlyDisplayed: filtered
     })
   }
 
@@ -30,12 +56,19 @@ class Home extends React.Component {
       return <span />
     }
     return (
-      <div>
+      <div style={{display: 'flex'}}>
+        <form>
+          <input
+            placeholder="Search movies"
+            ref={input => this.search = input}
+            onChange={this.handleInputChange}
+          />
+        </form>
         <SideBar
           handelFilter={this.handelFilter}
           categories={this.props.categories}
         />
-        <ProductList products={this.filterProducts()} user={this.props.user} />
+        <ProductList products={this.state.currentlyDisplayed} user={this.props.user} />
       </div>
     )
   }

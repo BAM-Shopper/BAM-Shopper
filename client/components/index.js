@@ -5,8 +5,10 @@
  */
 export { default as Navbar } from './navbar'
 export { default as ProductList } from './ProductList'
+export { default as ProductReview } from './product-review'
+export { default as ProductInfo } from './product-info'
 export { default as SideBar } from './SideBar'
-export { default as ProductItem} from './ProductItem'
+export { default as ProductItem } from './ProductItem'
 export { default as UserHome } from './user-home'
 export { default as Home } from './Home'
 export { default as SingleProduct } from './SingleProduct'

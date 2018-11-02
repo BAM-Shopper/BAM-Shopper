@@ -19,6 +19,10 @@ class Home extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.setState({ currentlyDisplayed: this.props.products })
+  }
+
   handleInputChange = evt => {
     const filtered = this.props.products.filter(product => {
       return product.title
@@ -54,7 +58,7 @@ class Home extends React.Component {
       return <span />
     }
     return (
-      <div>
+      <div style={{display: 'flex'}}>
         <form>
           <input
             placeholder="Search movies"
@@ -66,12 +70,12 @@ class Home extends React.Component {
           handelFilter={this.handelFilter}
           categories={this.props.categories}
         />
-        <ProductList products={this.state.currentlyDisplayed} />
+        <ProductList products={this.state.currentlyDisplayed} user={this.props.user} />
       </div>
     )
   }
 }
 
-const mapState = ({products, categories}) => ({products, categories})
+const mapState = ({products, categories, user}) => ({products, categories, user})
 
 export default connect(mapState)(Home)

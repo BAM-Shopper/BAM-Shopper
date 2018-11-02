@@ -1,34 +1,37 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
+import AdminDashboard from "./AdminDashboard";
+import OrderList from './OrderList'
 
-/**
- * COMPONENT
- */
 export const UserHome = props => {
-  const {email} = props
+  const { email, isAdmin } = props.user
+  const { orders } = props
+  const myOrders = orders.filter(order => order.userId === props.user.id)
 
   return (
     <div>
       <h3>Welcome, {email}</h3>
+      <OrderList orders={myOrders} />
+      <div>
+        {isAdmin ? <AdminDashboard products={props.products} user={props.user} /> : <div />}
+      </div>
+
     </div>
   )
 }
 
-/**
- * CONTAINER
- */
 const mapState = state => {
   return {
-    email: state.user.email
+    user: state.user,
+    products: state.products,
+    orders: state.orders
   }
 }
 
 export default connect(mapState)(UserHome)
 
-/**
- * PROP TYPES
- */
 UserHome.propTypes = {
-  email: PropTypes.string
+  user: PropTypes.object,
+  products: PropTypes.array
 }

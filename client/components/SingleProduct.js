@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {ProductInfo} from './product-info'
-import {ProductReview} from './product-review'
-import {fetchProduct} from '../store/singleProduct'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { ProductInfo } from './product-info'
+import { ProductReview } from './product-review'
+import { fetchProduct } from '../store/singleProduct'
 
 /**
  * COMPONENT
@@ -14,14 +14,14 @@ export class SingleProduct extends Component {
   }
 
   render() {
-        if (!this.props.selectedProduct.id) return <div>Product Not Found</div>
-        return (
-            <div>
-                <ProductInfo product={this.props.selectedProduct} />
-                <ProductReview reviews={this.props.selectedProduct.reviews} />
-            </div>
-        )
-    }
+    if (!this.props.selectedProduct.id) return <div>Product Not Found</div>
+    return (
+      <div>
+        <ProductInfo product={this.props.selectedProduct} />
+        <ProductReview reviews={this.props.selectedProduct.reviews} />
+      </div>
+    )
+  }
 }
 
 /**

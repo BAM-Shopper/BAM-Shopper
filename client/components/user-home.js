@@ -14,7 +14,7 @@ export const UserHome = props => {
       <h3>Welcome, {email}</h3>
       <OrderList orders={myOrders} />
       <div>
-        {isAdmin ? <AdminDashboard products={props.products} user={props.user} /> : <div />}
+        {isAdmin ? <AdminDashboard products={props.products} user={props.user} categories={props.categories} /> : <div />}
       </div>
 
     </div>
@@ -25,7 +25,8 @@ const mapState = state => {
   return {
     user: state.user,
     products: state.products,
-    orders: state.orders
+    orders: state.orders,
+    categories: state.categories
   }
 }
 
@@ -33,5 +34,7 @@ export default connect(mapState)(UserHome)
 
 UserHome.propTypes = {
   user: PropTypes.object,
-  products: PropTypes.array
+  products: PropTypes.array,
+  orders: PropTypes.array,
+  categories: PropTypes.array
 }

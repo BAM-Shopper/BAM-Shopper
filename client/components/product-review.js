@@ -5,6 +5,7 @@ import React from 'react'
  */
 export const ProductReview = props => {
   const reviews = props.reviews
+  
   if (reviews.length === 0)
     return <section>No reviews to display. Leave a review.</section>
 

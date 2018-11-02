@@ -48,7 +48,6 @@ export class AddProductForm extends Component {
                 </form>
             </div>
         )
-
     }
 
     newProductSubmit(evt) {

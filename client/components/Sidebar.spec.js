@@ -2,16 +2,16 @@ import {expect} from 'chai'
 import React from 'react'
 import enzyme, {shallow} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import SideBar from './SideBar'
+import Sidebar from './Sidebar'
 
 const adapter = new Adapter()
 enzyme.configure({adapter})
 
-describe('SideBar component', () => {
+describe('Sidebar component', () => {
   let wrapper
 
   beforeEach(() => {
-    wrapper = shallow(<SideBar categories={['all', 'horror', 'comedy']} />)
+    wrapper = shallow(<Sidebar categories={['all', 'horror', 'comedy']} />)
   })
 
   it('renders a button for each category', () => {

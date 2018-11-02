@@ -1,13 +1,13 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 
-import {connect} from 'react-redux'
-import {Navbar} from './components'
+import { connect } from 'react-redux'
+import { Navbar } from './components'
 import Routes from './routes'
 
-import {fetchProducts} from './store/products'
-import {fetchCategories} from './store/categories'
-import {fetchOrders} from './store/orders'
+import { fetchProducts } from './store/products'
+import { fetchCategories } from './store/categories'
+import { fetchOrders } from './store/orders'
 
 class App extends Component {
   componentDidMount() {

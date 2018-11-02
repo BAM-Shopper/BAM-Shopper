@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ProductList from "./ProductList"
 import AddProductForm from './AddProductForm'
+import AddCategoryForm from "./AddCategoryForm";
 
 export class AdminDashboard extends Component {
     constructor() {
@@ -14,7 +15,7 @@ export class AdminDashboard extends Component {
         this.handleProductAdd = this.handleProductAdd.bind(this)
     }
     render() {
-        const { products, user } = this.props
+        const { products, user, categories } = this.props
         const { productAdd, productClicked, orderAdd } = this.state
 
         if (productAdd) {
@@ -35,6 +36,9 @@ export class AdminDashboard extends Component {
                     </div>
                     {productClicked ?
                         <div>
+                            <div>
+                               <AddCategoryForm categories={categories} />
+                            </div>
                             <ProductList products={products} user={user} />
                         </div>
                         : <div />

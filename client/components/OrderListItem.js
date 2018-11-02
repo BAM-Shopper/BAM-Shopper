@@ -5,10 +5,11 @@ import { Link } from 'react-router-dom'
 
 const OrderListItem = props => {
   const order = props.order
+  console.log('ORDER ID IN ORDERLISTITEM', order.id)
 
   return (
     <div>
-      <Link to={`/orders/${order.id}`}>
+      <Link to={`/account/orders/${order.id}`}>
         Order #{order.id}
       </Link>
       <br />

@@ -5,7 +5,7 @@ import OrderList from './OrderList'
 
 export const UserHome = props => {
   const {email, orders, userId} = props
-  const myOrders = orders.filter(order => order.userId === userId)
+  const myOrders = orders.filter(order => order.userId === 7)
   return (
     <div>
       <h3>Welcome, {email}</h3>

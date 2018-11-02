@@ -14,7 +14,7 @@ export const UserHome = props => {
       <h3>Welcome, {email}</h3>
       <OrderList orders={myOrders} />
       <div>
-        {isAdmin ? <AdminDashboard products={props.products} user={props.user} categories={props.categories} /> : <div />}
+        {isAdmin ? <AdminDashboard products={props.products} user={props.user} categories={props.categories} users={props.users} /> : <div />}
       </div>
 
     </div>
@@ -26,7 +26,8 @@ const mapState = state => {
     user: state.user,
     products: state.products,
     orders: state.orders,
-    categories: state.categories
+    categories: state.categories,
+    users: state.users
   }
 }
 
@@ -36,5 +37,6 @@ UserHome.propTypes = {
   user: PropTypes.object,
   products: PropTypes.array,
   orders: PropTypes.array,
-  categories: PropTypes.array
+  categories: PropTypes.array,
+  users: PropTypes.array
 }

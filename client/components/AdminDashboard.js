@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import ProductList from "./ProductList"
 import AddProductForm from './AddProductForm'
-import AddCategoryForm from "./AddCategoryForm";
+import AddCategoryForm from "./AddCategoryForm"
+import AllUsers from './AllUsers'
 
 export class AdminDashboard extends Component {
     constructor() {
@@ -9,14 +10,15 @@ export class AdminDashboard extends Component {
         this.state = {
             productClicked: false,
             productAdd: false,
-            orderAdd: false
+            orderAdd: false,
+            usersClicked: false
         }
         this.handleProductClick = this.handleProductClick.bind(this)
         this.handleProductAdd = this.handleProductAdd.bind(this)
     }
     render() {
-        const { products, user, categories } = this.props
-        const { productAdd, productClicked, orderAdd } = this.state
+        const { products, user, categories, users } = this.props
+        const { productAdd, productClicked, orderAdd, usersClicked } = this.state
 
         if (productAdd) {
             return <AddProductForm handleProductAdd={this.handleProductAdd} />
@@ -25,7 +27,7 @@ export class AdminDashboard extends Component {
         }
 
         return (
-            <section>
+            <section >
                 <div>
                     <div style={{ display: 'flex' }}>
                         <h3 onClick={() => this.setState({ productClicked: !productClicked })}>Products</h3>
@@ -37,7 +39,7 @@ export class AdminDashboard extends Component {
                     {productClicked ?
                         <div>
                             <div>
-                               <AddCategoryForm categories={categories} />
+                                <AddCategoryForm categories={categories} />
                             </div>
                             <ProductList products={products} user={user} />
                         </div>
@@ -46,7 +48,15 @@ export class AdminDashboard extends Component {
 
                 </div>
                 {/* Orders */}
-                {/* Users */}
+                <div style={{ display: 'flex' }}>
+                    <h3 onClick={() => this.setState({ usersClicked: !usersClicked })}>Users</h3>
+                </div>
+                {usersClicked ?
+                    <div>
+                        <AllUsers users={users} />
+                    </div>
+                    : <div />
+                }
             </section>
         )
     }

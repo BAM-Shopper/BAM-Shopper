@@ -1,5 +1,5 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import SideBar from './SideBar'
 import ProductList from './ProductList'
 
@@ -56,24 +56,32 @@ class Home extends React.Component {
       return <span />
     }
     return (
-      <div style={{display: 'flex'}}>
-        <form>
-          <input
-            placeholder="Search movies"
-            ref={input => this.search = input}
-            onChange={this.handleInputChange}
+      <div className='ui container'>
+        <div className='ui search'>
+          <div className='ui icon input'>
+            <input
+              className="prompt"
+              type="text"
+              placeholder="Search movies"
+              ref={input => this.search = input}
+              onChange={this.handleInputChange}
+            />
+            <i class="search icon" />
+
+          </div>
+        </div>
+        <div style={{ display: 'flex' }}>
+          <SideBar
+            handelFilter={this.handelFilter}
+            categories={this.props.categories}
           />
-        </form>
-        <SideBar
-          handelFilter={this.handelFilter}
-          categories={this.props.categories}
-        />
-        <ProductList products={this.state.currentlyDisplayed} user={this.props.user} />
+          <ProductList products={this.state.currentlyDisplayed} user={this.props.user} />
+        </div>
       </div>
     )
   }
 }
 
-const mapState = ({products, categories, user}) => ({products, categories, user})
+const mapState = ({ products, categories, user }) => ({ products, categories, user })
 
 export default connect(mapState)(Home)

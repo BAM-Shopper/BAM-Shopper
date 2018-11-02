@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 //action types
-const GET_ORDERS = 'GET_CATEGORIES'
+const GET_ORDERS = 'GET_ORDERS'
 
 //initial state
 const defaultOrders = []

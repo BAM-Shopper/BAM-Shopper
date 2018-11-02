@@ -19,6 +19,10 @@ class Home extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.setState({ currentlyDisplayed: this.props.products })
+  }
+
   handleInputChange = evt => {
     const filtered = this.props.products.filter(product => {
       return product.title.toLowerCase().startsWith(evt.target.value.toLowerCase())

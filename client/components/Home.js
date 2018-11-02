@@ -56,10 +56,7 @@ class Home extends React.Component {
       return <span />
     }
     return (
-<<<<<<< HEAD
       <div style={{display: 'flex'}}>
-=======
-      <div>
         <form>
           <input
             placeholder="Search movies"
@@ -67,7 +64,6 @@ class Home extends React.Component {
             onChange={this.handleInputChange}
           />
         </form>
->>>>>>> 8223224770ce2482a447775e9c78ec6aceded6b2
         <SideBar
           handelFilter={this.handelFilter}
           categories={this.props.categories}

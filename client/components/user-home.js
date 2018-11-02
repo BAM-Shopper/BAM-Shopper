@@ -1,34 +1,29 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import OrderList from './OrderList'
 
-/**
- * COMPONENT
- */
 export const UserHome = props => {
-  const {email} = props
-
+  const {email, orders, userId} = props
+  const myOrders = orders.filter(order => order.userId === 7)
   return (
     <div>
       <h3>Welcome, {email}</h3>
+      <OrderList orders={myOrders} />
     </div>
   )
 }
 
-/**
- * CONTAINER
- */
 const mapState = state => {
   return {
-    email: state.user.email
+    userId: state.user.id,
+    email: state.user.email,
+    orders: state.orders
   }
 }
 
 export default connect(mapState)(UserHome)
 
-/**
- * PROP TYPES
- */
 UserHome.propTypes = {
   email: PropTypes.string
 }

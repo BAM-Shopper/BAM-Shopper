@@ -62,7 +62,7 @@ export class AddProductForm extends Component {
             description: description.value,
             price: price.value,
             inventory: inventory.value,
-            imageUrl: imageUrl.value
+            imageUrl: imageUrl.value,
         }
 
         createProduct(product)

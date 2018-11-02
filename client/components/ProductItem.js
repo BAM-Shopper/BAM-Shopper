@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import  UpdateProductForm from "./UpdateProductForm";
+import EditProductForm from "./EditProductForm";
 
 
 class ProductItem extends Component {
@@ -38,7 +38,7 @@ class ProductItem extends Component {
               {user.isAdmin ? <button type='button' className="ui label" onClick={() => this.setState({editClicked: !editClicked})}>Edit</button> : <div />}
             </div>
           </div>
-          : <UpdateProductForm productId= {product.id} handleAdminEdit={this.handleAdminEdit} />
+          : <EditProductForm productId= {product.id} handleAdminEdit={this.handleAdminEdit} />
         }
       </div>
     )

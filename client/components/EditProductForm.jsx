@@ -3,21 +3,24 @@ import { connect } from 'react-redux'
 import { updateProduct } from '../store/products'
 //import { AddProductForm } from "./AddProductForm";
 
-export class UpdateProductForm extends Component {
+export class EditProductForm extends Component {
     constructor(props) {
         super(props)
-        console.log(this.props)
         this.state = {
             title: '',
             description: '',
             price: '',
             inventory: '',
             imageUrl: '',
+            categories: []
         }
         this.updateProductSubmit = this.updateProductSubmit.bind(this)
     }
 
     render() {
+        const { categories } = this.props
+        console.log(this.state)
+
         return (
             <div>
                 <form className="ui form" onSubmit={this.updateProductSubmit}>
@@ -45,6 +48,18 @@ export class UpdateProductForm extends Component {
                         <label>Image URL</label>
                         <input type="text" name="imageUrl" onChange={evt => this.setState({ [evt.target.name]: evt.target.value })} />
                     </div>
+                    <div className='field'>
+                        <label>Category</label>
+                        <select className="ui fluid search dropdown" multiple="" name='categories' onChange={evt => this.setState({ [evt.target.name]: [evt.target.name].push(evt.target.value) })}>
+                            <option value="">Choose Category</option>
+                            {categories.map(category => {
+                                return (
+                                    <option key={category.id}>{category.name}</option>
+                                )
+                            })}
+
+                        </select>
+                    </div>
                     <button className="ui button" type="submit">Submit</button>
                 </form>
             </div>
@@ -64,10 +79,16 @@ export class UpdateProductForm extends Component {
             inventory: inventory.value,
             imageUrl: imageUrl.value
         }
+
         updateProduct(product, productId)
         handleAdminEdit()
     }
 }
 
+const mapState = ({ categories }) => {
+    return {
+        categories
+    }
+}
 
-export default connect(null, { updateProduct })(UpdateProductForm)
+export default connect(mapState, { updateProduct })(EditProductForm)

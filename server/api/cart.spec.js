@@ -9,14 +9,14 @@ describe('Cart routes', () => {
     return db.sync({force: true})
   })
 
-  describe('/api/carts/', () => {
+  describe('/api/cart/', () => {
     beforeEach(() => {
       return Promise.all([Cart.create({}), Cart.create({})])
     })
 
     it('GET /api/carts', async () => {
       const res = await request(app)
-        .get('/api/carts')
+        .get('/api/cart')
         .expect(200)
 
       expect(res.body).to.be.an('array')
@@ -25,9 +25,9 @@ describe('Cart routes', () => {
 
     it('GET /api/carts/:id', async () => {
       const res = await request(app)
-        .get('/api/carts/2')
+        .get('/api/cart/2')
         .expect(200)
       expect(res.body.id).to.be.equal(2)
     })
-  }) // end describe('/api/carts')
+  }) // end describe('/api/cart')
 }) // end describe('Cart routes')

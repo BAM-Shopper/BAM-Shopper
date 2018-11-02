@@ -1,9 +1,20 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { withRouter, Route, Switch } from 'react-router-dom'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserAccount, Home, Cart, SingleProduct} from './components'
+import {
+  Login,
+  Signup,
+  UserAccount,
+  Home,
+  Cart,
+  SingleProduct
+} from './components'
 import {me} from './store'
+
+import {fetchProducts} from './store/products'
+import {fetchCategories} from './store/categories'
+import {fetchCart} from './store/cart'
 
 /**
  * COMPONENT
@@ -11,10 +22,13 @@ import {me} from './store'
 class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
+    this.props.fetchProducts()
+    this.props.fetchCategories()
+    this.props.fetchCart()
   }
 
   render() {
-    const { isLoggedIn } = this.props
+    const {isLoggedIn} = this.props
 
     return (
       <Switch>
@@ -22,7 +36,7 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/" component={Home} />
-        <Route exact path='/products/:id' component={SingleProduct} />
+        <Route exact path="/products/:id" component={SingleProduct} />
         <Route path="/cart" component={Cart} />
         {isLoggedIn && (
           <Switch>
@@ -44,7 +58,8 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    userId: state.user.id
   }
 }
 
@@ -52,7 +67,10 @@ const mapDispatch = dispatch => {
   return {
     loadInitialData() {
       dispatch(me())
-    }
+    },
+    fetchProducts: () => dispatch(fetchProducts()),
+    fetchCart: () => dispatch(fetchCart()),
+    fetchCategories: () => dispatch(fetchCategories())
   }
 }
 

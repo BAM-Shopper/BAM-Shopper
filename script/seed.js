@@ -7,21 +7,29 @@ const {
   Order,
   OrderItem,
   Category,
-  Review
+  Review,
+  Cart,
+  CartItem
 } = require('../server/db/models')
 
 // Random Data Creators
 const chance = require('chance')(123)
 const Promise = require('bluebird')
 
+const movies = require('./movies')
+console.log(`loading ${movies.length} movies from movies.js`)
+
 const numUsers = 20
-const numProducts = 50
+const numProducts = movies.length
 const numCategories = 5
 const numOrders = 40
 const numOrderItems = 100
 const numReviews = 100
+const numCarts = 20
+const numCartItems = 50
 
 const emails = chance.unique(chance.email, numUsers)
+let userIds = numUsers
 
 //helper functions
 function doTimes(n, fn) {
@@ -55,7 +63,7 @@ function generateUsers() {
       password: '123'
     })
   )
-  console.log(`seeded ${users.length} users`)
+  console.log(`seeding ${users.length} users`)
   return users
 }
 
@@ -68,11 +76,7 @@ function createUsers() {
 //Products
 function randProduct() {
   return Product.build({
-    // imageUrl: '/images/default-product',
-    title: chance
-      .sentence({words: chance.integer({min: 2, max: 5})})
-      .slice(0, -1),
-    description: chance.paragraph(),
+    ...movies.pop(),
     price: chance.floating({min: 1, max: 100, fixed: 2}),
     inventory: chance.integer({min: 0, max: 200})
   })
@@ -88,7 +92,7 @@ function generateProducts() {
       inventory: 999
     })
   )
-  console.log(`seeded ${products.length} products`)
+  console.log(`seeding ${products.length} products`)
   return products
 }
 
@@ -112,7 +116,7 @@ function generateCategories() {
       name: 'all'
     })
   )
-  console.log(`seeded ${categories.length} categories`)
+  console.log(`seeding ${categories.length} categories`)
   return categories
 }
 
@@ -138,7 +142,7 @@ function generateOrders() {
       userId: 1
     })
   )
-  console.log(`seeded ${orders.length} orders`)
+  console.log(`seeding ${orders.length} orders`)
   return orders
 }
 
@@ -168,7 +172,7 @@ function generateOrderItems() {
       productId: 1
     })
   )
-  console.log(`seeded ${orderItems.length} orderItems`)
+  console.log(`seeding ${orderItems.length} orderItems`)
   return orderItems
 }
 
@@ -198,13 +202,65 @@ function generateReviews() {
       productId: chance.integer({min: 1, max: numProducts})
     })
   )
-  console.log(`seeded ${reviews.length} reviews`)
+  console.log(`seeding ${reviews.length} reviews`)
   return reviews
 }
 
 function createReviews() {
   return Promise.map(generateReviews(), review => {
     return review.save()
+  })
+}
+
+//Carts
+function randCart() {
+  return Cart.build({
+    userId: userIds--
+  })
+}
+
+function generateCarts() {
+  const carts = doTimes(numCarts, randCart)
+  carts.push(
+    Cart.build({
+      userId: numUsers + 1
+    })
+  )
+  console.log(`seeding ${carts.length} carts`)
+  return carts
+}
+
+function createCarts() {
+  return Promise.map(generateCarts(), cart => {
+    return cart.save()
+  })
+}
+
+//CartItems
+function randCartItem() {
+  return CartItem.build({
+    quantity: chance.integer({min: 1, max: 10}),
+    productId: chance.integer({min: 1, max: numProducts}),
+    cartId: chance.integer({min: 1, max: numCarts})
+  })
+}
+
+function generateCartItems() {
+  const cartItems = doTimes(numCartItems, randCartItem)
+  cartItems.push(
+    CartItem.build({
+      quantity: 999,
+      productId: 1,
+      cartId: numCarts + 1
+    })
+  )
+  console.log(`seeding ${cartItems.length} cartItems`)
+  return cartItems
+}
+
+function createCartItems() {
+  return Promise.map(generateCartItems(), cartItem => {
+    return cartItem.save()
   })
 }
 
@@ -228,7 +284,7 @@ async function createTags() {
     await products[i].addCategory(categories[tags[1]])
     await products[i].addCategory(all)
   }
-  console.log(`seeded ${numProducts * 3} productTags`)
+  console.log(`seeding ${numProducts * 3} productTags`)
 }
 
 const seed = async () => {
@@ -237,14 +293,33 @@ const seed = async () => {
     console.log('db synced!')
 
     await createUsers()
-    await createCategories()
-    await createProducts()
-    await createOrders()
-    await createOrderItems()
-    await createReviews()
-    await createTags()
+    console.log(`Successfully Seeded Users`)
 
-    console.log(`seeded successfully`)
+    await createCategories()
+    console.log(`Successfully Seeded Categories`)
+
+    await createProducts()
+    console.log(`Successfully Seeded Products`)
+
+    await createOrders()
+    console.log(`Successfully Seeded Orders`)
+
+    await createOrderItems()
+    console.log(`Successfully Seeded OrderItems`)
+
+    await createReviews()
+    console.log(`Successfully Seeded Reviews`)
+
+    await createCarts()
+    console.log(`Successfully Seeded Carts`)
+
+    await createCartItems()
+    console.log(`Successfully Seeded CartItems`)
+
+    await createTags()
+    console.log(`Successfully Seeded Tag Join Table`)
+
+    console.log(`seeding successfully`)
   } catch (err) {
     console.log('Error while seeding')
     console.log(err.stack)

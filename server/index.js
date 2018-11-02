@@ -63,6 +63,12 @@ const createApp = () => {
   app.use(passport.initialize())
   app.use(passport.session())
 
+  //for testing
+  app.use((req, res, next) => {
+    console.log(req.session)
+    next()
+  })
+
   // auth and api routes
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))

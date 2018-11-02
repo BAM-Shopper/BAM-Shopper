@@ -1,5 +1,5 @@
 import React from 'react'
-import ProductThumbnail from './ProductThumbnail'
+import ProductItem from './ProductItem'
 
 const ProductList = props => {
   if (!Array.isArray(props.products) || props.products.length === 0) {
@@ -10,7 +10,7 @@ const ProductList = props => {
         {props.products.map(product => {
           return (
             <div key={product.id}>
-              <ProductThumbnail product={product} user={props.user} />
+              <ProductItem product={product} user={props.user} />
             </div>
           )
         })}

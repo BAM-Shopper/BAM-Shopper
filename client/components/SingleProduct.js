@@ -14,7 +14,6 @@ class SingleProduct extends Component {
     }
 
     render() {
-        //Navbar
         if (!this.props.selectedProduct.id) return <div>Product Not Found</div>
         return (
             <div>

@@ -46,3 +46,14 @@ router.post('/', async (req, res, next) => {
         next(err)
     }
 })
+
+// /api/products/:id
+router.put('/:id', async (req, res, next) => {
+    try {
+        let productToUpdate = await Product.findById(req.params.id)
+        productToUpdate = await productToUpdate.update(req.body)
+        res.json(productToUpdate)
+    } catch (err) {
+        next(err)
+    }
+})

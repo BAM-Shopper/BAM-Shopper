@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ProductList from "./ProductList"
 import AddProductForm from './AddProductForm'
 
-class AdminDashboard extends Component {
+export class AdminDashboard extends Component {
     constructor() {
         super()
         this.state = {
@@ -39,8 +39,10 @@ class AdminDashboard extends Component {
                         </div>
                         : <div />
                     }
+
                 </div>
-                {/* Next */}
+                {/* Orders */}
+                {/* Users */}
             </section>
         )
     }

@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { createProduct } from '../store/products'
+import { updateProduct } from '../store/products'
+//import { AddProductForm } from "./AddProductForm";
 
-
-export class AddProductForm extends Component {
+export class UpdateProductForm extends Component {
     constructor(props) {
         super(props)
+        console.log(this.props)
         this.state = {
             title: '',
             description: '',
@@ -13,13 +14,13 @@ export class AddProductForm extends Component {
             inventory: '',
             imageUrl: '',
         }
-        this.newProductSubmit = this.newProductSubmit.bind(this)
+        this.updateProductSubmit = this.updateProductSubmit.bind(this)
     }
 
     render() {
         return (
             <div>
-                <form className="ui form" onSubmit={this.newProductSubmit}>
+                <form className="ui form" onSubmit={this.updateProductSubmit}>
                     <div className="field">
                         <label>Title</label>
                         <input type="text" name="title" placeholder="Die Hard 2" onChange={evt => this.setState({ [evt.target.name]: evt.target.value })} />
@@ -48,14 +49,13 @@ export class AddProductForm extends Component {
                 </form>
             </div>
         )
-
     }
 
-    newProductSubmit(evt) {
+    updateProductSubmit(evt) {
         evt.preventDefault()
 
         const { title, description, price, inventory, imageUrl } = evt.target
-        const { handleProductAdd, createProduct } = this.props
+        const { productId, handleAdminEdit, updateProduct } = this.props
 
         const product = {
             title: title.value,
@@ -64,10 +64,10 @@ export class AddProductForm extends Component {
             inventory: inventory.value,
             imageUrl: imageUrl.value
         }
-
-        createProduct(product)
-        handleProductAdd()
+        updateProduct(product, productId)
+        handleAdminEdit()
     }
 }
 
-export default connect(null, { createProduct })(AddProductForm)
+
+export default connect(null, { updateProduct })(UpdateProductForm)

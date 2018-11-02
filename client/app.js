@@ -7,11 +7,13 @@ import Routes from './routes'
 
 import {fetchProducts} from './store/products'
 import {fetchCategories} from './store/categories'
+import {fetchOrders} from './store/orders'
 
 class App extends Component {
   componentDidMount() {
     this.props.fetchProducts()
     this.props.fetchCategories()
+    this.props.fetchOrders()
   }
 
   render() {
@@ -27,7 +29,8 @@ class App extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     fetchProducts: () => dispatch(fetchProducts()),
-    fetchCategories: () => dispatch(fetchCategories())
+    fetchCategories: () => dispatch(fetchCategories()),
+    fetchOrders: () => dispatch(fetchOrders())
   }
 }
 

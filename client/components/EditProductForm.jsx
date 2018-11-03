@@ -12,7 +12,7 @@ export class EditProductForm extends Component {
             price: '',
             inventory: '',
             imageUrl: '',
-            categories: '' //this might break PUT thunk
+            //categories: '' //this might break PUT thunk
         }
         this.updateProductSubmit = this.updateProductSubmit.bind(this)
     }

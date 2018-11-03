@@ -6,7 +6,7 @@ module.exports = router
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
-      attributes: ['id', 'email']
+      attributes: ['id', 'email', 'isAdmin']
     })
     res.json(users)
   } catch (err) {
@@ -18,11 +18,24 @@ router.get('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const user = await User.findById(req.params.id, {
-      attributes: ['id', 'email']
+      attributes: ['id', 'email', 'isAdmin']
     })
     res.json(user)
   } catch (err) {
     next(err)
   }
 })
+
+// PUT /api/users/:id
+
+router.put('/:id', async (req, res, next) => {
+  try {
+    let userToPromote = await User.findById(req.params.id)
+    userToPromote.isAdmin = true
+    res.json(userToPromote)
+  } catch (err) {
+    next(err)
+  }
+})
+
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { updateUser } from "../store/users";
 
 
 export class AllUsers extends Component {
@@ -21,13 +22,14 @@ export class AllUsers extends Component {
                     users.map(user => {
                         return (
                             <div className="item" key={user.id}>
-                                <div className="content">
+                                <div className="content" style={{ display: 'flex' }}>
                                     <a className="header">{user.email}</a>
-                                    <div className="description">
-                                        <button type='button' className='ui button yellow'>Promote to Admin</button>
-                                        <button type='button' className='ui button red'>Delete User</button>
-                                        <button type='button' className='ui button grey'>Reset Password</button>
-                                    </div>
+                                    {user.isAdmin ? <i aria-hidden="true" className="user secret big icon" /> : <div />}
+                                </div>
+                                <div className="description">
+                                    {!user.isAdmin ? <button type='button' className='ui button yellow' value={user.id} onClick={this.userPromote}>Promote to Admin</button> : <div />}
+                                    <button type='button' className='ui button red' user={user} onClick={this.userDelete}>Delete User</button>
+                                    <button type='button' className='ui button grey' user={user} onClick={this.userPassowordReset}>Reset Password</button>
                                 </div>
                             </div>
                         )
@@ -36,15 +38,20 @@ export class AllUsers extends Component {
             </div>
         )
     }
-    userPromote() {
-
+    userPromote(evt) {
+        evt.preventDefault()
+        const { updateUser } = this.props
+        const userId = Number(evt.target.value)
+        const user = this.props.users.filter(user => user.id === userId)[0]
+        updateUser(user, user.id)
     }
-    userDelete() {
-
+    userDelete(evt) {
+        evt.preventDefault()
     }
-    userPassowordReset() {
-
+    userPassowordReset(evt) {
+        evt.preventDefault()
     }
 }
 
-export default AllUsers
+
+export default connect(null, { updateUser })(AllUsers)

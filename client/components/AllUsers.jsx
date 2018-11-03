@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { updateUser } from "../store/users";
+import { updateUser, deleteUser } from "../store/users";
 
 
 export class AllUsers extends Component {
@@ -28,8 +28,8 @@ export class AllUsers extends Component {
                                 </div>
                                 <div className="description">
                                     {!user.isAdmin ? <button type='button' className='ui button yellow' value={user.id} onClick={this.userPromote}>Promote to Admin</button> : <div />}
-                                    <button type='button' className='ui button red' user={user} onClick={this.userDelete}>Delete User</button>
-                                    <button type='button' className='ui button grey' user={user} onClick={this.userPassowordReset}>Reset Password</button>
+                                    <button type='button' className='ui button red' value={user.id} onClick={this.userDelete}>Delete User</button>
+                                    <button type='button' className='ui button grey' onClick={this.userPassowordReset}>Reset Password</button>
                                 </div>
                             </div>
                         )
@@ -47,6 +47,10 @@ export class AllUsers extends Component {
     }
     userDelete(evt) {
         evt.preventDefault()
+        const { deleteUser } = this.props
+        const userId = Number(evt.target.value)
+        deleteUser(userId)
+
     }
     userPassowordReset(evt) {
         evt.preventDefault()
@@ -54,4 +58,4 @@ export class AllUsers extends Component {
 }
 
 
-export default connect(null, { updateUser })(AllUsers)
+export default connect(null, { updateUser, deleteUser })(AllUsers)

@@ -27,7 +27,6 @@ router.get('/:id', async (req, res, next) => {
 })
 
 // PUT /api/users/:id
-
 router.put('/:id', async (req, res, next) => {
   try {
     let userToPromote = await User.findById(req.params.id)
@@ -39,8 +38,6 @@ router.put('/:id', async (req, res, next) => {
 })
 
 //DELETE /api/users/:id
-
-// DELETE /api/campuses/:campusId
 router.delete('/:id', async (req, res, next) => {
   try {
       const id = req.params.id

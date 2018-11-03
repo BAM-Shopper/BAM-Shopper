@@ -23,3 +23,26 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+//api/orders/:id
+router.get('/:id', async (req, res, next) => {
+  try {
+      const order = await Order.findById(req.params.id, {
+        include: [
+          {
+            model: OrderItem,
+            attributes: ['id', 'quantity', 'price'],
+            include: [
+              {
+                model: Product,
+                attributes: ['id', 'title']
+              }
+            ]
+          }
+        ]
+      })
+      res.json(order)
+  } catch (err) {
+      next(err)
+  }
+})

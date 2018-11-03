@@ -11,24 +11,17 @@ export const ProductInfo = props => {
     <div>
       <h3>{title}</h3>
       <div>
-        <img src={imageUrl} alt="Movie image poster" />
+        <img
+          src={imageUrl}
+          alt="Movie image poster"
+          style={{
+            width: '400px',
+            height: '500px'
+          }}
+        />
         <p>{description}</p>
       </div>
-      <div>
-        <h3>{title}</h3>
-        <div>
-          <img
-            src={imageUrl}
-            alt="Movie image poster"
-            style={{
-              width: '400px',
-              height: '500px'
-            }}
-          />
-          <p>{description}</p>
-        </div>
-        <AddToCartButton product={props.product} />
-      </div>
+      <AddToCartButton product={props.product} />
     </div>
   )
 }

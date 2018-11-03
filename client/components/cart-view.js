@@ -4,10 +4,30 @@ import {Link} from 'react-router-dom'
 import {deleteCartItem, putCartItem} from '../store/cart'
 
 export class Cart extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      totalPrice: 0
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    console.log('in componentDidUpdate')
+    if (this.props.cart['cart items'] !== prevProps.cart['cart items']) {
+      console.log('props mismatch')
+      this.setState({
+        totalPrice: this.props.cart['cart items']
+          .reduce((acc, curr) => acc + curr.product.price * curr.quantity, 0)
+          .toFixed(2)
+      })
+    }
+  }
+
   render() {
     const {cart} = this.props
+    const {totalPrice} = this.state
 
-    const values = [1, 2, 3, 4, 5]
+    const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
     if (!cart.id || !cart['cart items'].length) {
       return (
@@ -28,13 +48,7 @@ export class Cart extends React.Component {
       return (
         <div className="ui container">
           <h2 className="center aligned" style={{textAlign: 'center'}}>
-            My Cart | Total Price:{' $'}
-            {/* {cart['cart items']
-              .reduce(
-                (acc, curr) => acc + curr.product.price * curr.quantity,
-                0
-              )
-              .toFixed(2)} */}
+            My Cart | Total Price: ${totalPrice}
           </h2>
           <Link to="/checkout" className="header">
             Proceed To Checkout

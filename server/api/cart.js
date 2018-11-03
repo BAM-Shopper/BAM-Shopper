@@ -19,6 +19,8 @@ router.get('/', async (req, res, next) => {
           {where: {cartId: oldCart.id}}
         )
       }
+      //todo add condition for same product in unauthenticated and authenticated causing it to appear twice
+
       res.json(data[0])
     } catch (err) {
       next(err)
@@ -37,7 +39,6 @@ router.get('/', async (req, res, next) => {
 
 // /api/cart/:id
 router.get('/:id', async (req, res, next) => {
-  //merge carts?
   try {
     const cart = await Cart.findById(req.params.id, {
       include: [
@@ -78,7 +79,7 @@ router.post('/:id', async (req, res, next) => {
   }
 })
 
-router.put('/:id/:itemId', async (req, res, next) => {
+router.put('/:id/item/:itemId', async (req, res, next) => {
   try {
     await CartItem.update(
       {
@@ -99,7 +100,7 @@ router.put('/:id/:itemId', async (req, res, next) => {
   }
 })
 
-router.delete('/:id/:itemId', async (req, res, next) => {
+router.delete('/:id/item/:itemId', async (req, res, next) => {
   try {
     await CartItem.destroy({
       where: {

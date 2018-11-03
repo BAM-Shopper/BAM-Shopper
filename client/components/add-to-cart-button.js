@@ -24,7 +24,7 @@ export class AddToCartButton extends Component {
     const {product, cart} = this.props
     const {quantity} = this.state
 
-    const values = [1, 2, 3, 4, 5]
+    const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
     return (
       <div>

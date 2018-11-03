@@ -67,7 +67,9 @@ export const postCartItem = (product, cartId, quantity) => async dispatch => {
 
 export const putCartItem = (item, cartId) => async dispatch => {
   try {
-    const res = await axios.put(`/api/cart/${cartId}/${item.id}`, {...item})
+    const res = await axios.put(`/api/cart/${cartId}/item/${item.id}`, {
+      ...item
+    })
     console.log('===', res.data)
     dispatch(editCartItem(res.data))
   } catch (err) {
@@ -77,7 +79,7 @@ export const putCartItem = (item, cartId) => async dispatch => {
 
 export const deleteCartItem = (itemId, cartId) => async dispatch => {
   try {
-    const res = await axios.delete(`/api/cart/${cartId}/${itemId}`)
+    const res = await axios.delete(`/api/cart/${cartId}/item/${itemId}`)
     dispatch(removeCartItem(res.data))
   } catch (err) {
     console.error(err)

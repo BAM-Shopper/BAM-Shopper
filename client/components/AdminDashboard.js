@@ -22,6 +22,7 @@ export class AdminDashboard extends Component {
         this.handleProductAdd = this.handleProductAdd.bind(this)
     }
 
+    //help!! this is a hackey implementation
     UNSAFE_componentWillReceiveProps() {
         this.setState({ currentlyDisplayed: this.props.orders })
     }

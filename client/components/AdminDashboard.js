@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import ProductList from "./ProductList"
 import AddProductForm from './AddProductForm'
 import AddCategoryForm from "./AddCategoryForm"
@@ -10,7 +12,7 @@ export class AdminDashboard extends Component {
         this.state = {
             productClicked: false,
             productAdd: false,
-            orderAdd: false,
+            ordersClicked: false,
             usersClicked: false
         }
         this.handleProductClick = this.handleProductClick.bind(this)
@@ -18,12 +20,10 @@ export class AdminDashboard extends Component {
     }
     render() {
         const { products, user, categories, users } = this.props
-        const { productAdd, productClicked, orderAdd, usersClicked } = this.state
+        const { productAdd, productClicked, ordersClicked, usersClicked } = this.state
 
         if (productAdd) {
             return <AddProductForm handleProductAdd={this.handleProductAdd} />
-        } else if (orderAdd) {
-            return <div />
         }
 
         return (
@@ -33,6 +33,8 @@ export class AdminDashboard extends Component {
                         <h3 onClick={() => this.setState({ productClicked: !productClicked })}>Products</h3>
                         <button
                             type='button'
+                            className='ui primary button'
+                            style={{ marginLeft: '5px' }}
                             onClick={() => this.setState({ productAdd: !productAdd })}
                         >Add New Product</button>
                     </div>
@@ -47,13 +49,21 @@ export class AdminDashboard extends Component {
                     }
 
                 </div>
-                {/* Orders */}
                 <div style={{ display: 'flex' }}>
                     <h3 onClick={() => this.setState({ usersClicked: !usersClicked })}>Users</h3>
                 </div>
                 {usersClicked ?
                     <div>
                         <AllUsers users={users} />
+                    </div>
+                    : <div />
+                }
+                <div style={{ display: 'flex' }}>
+                    <h3 onClick={() => this.setState({ ordersClicked: !ordersClicked })}>Orders</h3>
+                </div>
+                {ordersClicked ?
+                    <div>
+                        <p>yerp</p>
                     </div>
                     : <div />
                 }
@@ -71,8 +81,23 @@ export class AdminDashboard extends Component {
             productAdd: !productAdd
         })
     }
+
+}
+
+const mapState = state => {
+    return {
+        users: state.users,
+        categories: state.categories,
+        products: state.products
+    }
+}
+
+export default connect(mapState)(AdminDashboard)
+
+AdminDashboard.propTypes = {
+    products: PropTypes.array,
+    categories: PropTypes.array,
+    users: PropTypes.array
 }
 
 
-
-export default AdminDashboard

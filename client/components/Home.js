@@ -66,11 +66,11 @@ class Home extends React.Component {
               ref={input => this.search = input}
               onChange={this.handleInputChange}
             />
-            <i class="search icon" />
+            <i className="search icon" />
 
           </div>
         </div>
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: 'flex' }} className='ui container'>
           <SideBar
             handelFilter={this.handelFilter}
             categories={this.props.categories}

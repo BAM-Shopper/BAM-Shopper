@@ -30,7 +30,12 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/" component={Home} />
+<<<<<<< HEAD
         <Route exact path="/products/:id" component={SingleProduct} />
+=======
+        <Route exact path="/home" component={Home} />
+        <Route exact path='/products/:id' component={SingleProduct} />
+>>>>>>> master
         <Route path="/cart" component={Cart} />
         {isLoggedIn && (
           <Switch>

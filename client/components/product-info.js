@@ -1,12 +1,11 @@
-import React, {Component} from 'react'
+import React from 'react'
 import {AddToCartButton} from './index'
 
 /**
  * COMPONENT
  */
-export class ProductInfo extends Component {
-  render() {
-    const {imageUrl, description, title} = this.props.product
+export const ProductInfo = props => {
+    const { imageUrl, description, title } = props.product
 
     return (
       <div>
@@ -16,7 +15,19 @@ export class ProductInfo extends Component {
           <p>{description}</p>
         </div>
         <div>
-          <AddToCartButton product={this.props.product} />
+            <h3>{title}</h3>
+            <div>
+                <img
+                    src={imageUrl}
+                    alt='Movie image poster'
+                    style= {{
+                      width:'400px',
+                      height:'500px'
+                    }}
+                />
+                <p>{description}</p>
+            </div>
+            <AddToCartButton product={this.props.product} />
         </div>
       </div>
     )

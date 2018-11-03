@@ -3,7 +3,11 @@ const db = require('../db')
 
 const Order = db.define('order', {
   total: {
-      type: Sequelize.FLOAT
+    type: Sequelize.FLOAT
+  },
+  status: {
+    type: Sequelize.STRING,
+    defaultValue: 'created'
   }
 })
 

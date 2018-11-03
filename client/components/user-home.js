@@ -10,7 +10,7 @@ export const UserHome = props => {
   const myOrders = orders.filter(order => order.userId === props.user.id)
 
   return (
-    <div>
+    <div className='ui container'>
       <h3>Welcome, {email}</h3>
       <OrderList orders={myOrders} />
       <div>

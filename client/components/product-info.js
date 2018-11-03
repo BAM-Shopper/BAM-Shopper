@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {postCartItem} from '../store/cart'
+import {AddToCartButton} from './index'
 
 /**
  * COMPONENT
@@ -17,26 +16,11 @@ export class ProductInfo extends Component {
           <p>{description}</p>
         </div>
         <div>
-          <button
-            type="button"
-            onClick={() => {
-              this.props.postCartItem(this.props.product, this.props.cart)
-            }}
-          >
-            Add To Cart
-          </button>
+          <AddToCartButton product={this.props.product} />
         </div>
       </div>
     )
   }
 }
 
-const mapState = ({cart}) => ({cart})
-
-const mapDispatch = dispatch => {
-  return {
-    postCartItem: (item, cart) => dispatch(postCartItem(item, cart))
-  }
-}
-
-export default connect(mapState, mapDispatch)(ProductInfo)
+export default ProductInfo

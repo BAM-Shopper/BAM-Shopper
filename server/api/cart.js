@@ -5,23 +5,24 @@ module.exports = router
 
 // /api/cart/
 router.get('/', async (req, res, next) => {
+  console.log('findOrCreate Cart')
   if (req.session.passport) {
+    console.log('authenticated user')
     try {
       const data = await Cart.findOrCreate({
         where: {userId: req.session.passport.user}
       })
-      req.session.cartId = data[0].id
       res.json(data[0])
       //TODO merge unlogged cart
     } catch (err) {
       next(err)
     }
   } else {
+    console.log('unauthenticated user')
     try {
       const data = await Cart.findOrCreate({
         where: {sessionId: req.session.id}
       })
-      req.session.cartId = data[0].id
       res.json(data[0])
     } catch (err) {
       next(err)
@@ -49,7 +50,7 @@ router.get('/:id', async (req, res, next) => {
 router.post('/:id', async (req, res, next) => {
   try {
     const cart = await CartItem.findOne({
-      where: {productId: req.body.productId}
+      where: {productId: req.body.productId, cartId: req.params.id}
     }).then(obj => {
       if (obj) {
         // update
@@ -57,11 +58,11 @@ router.post('/:id', async (req, res, next) => {
           quantity: Number(req.body.quantity) + obj.quantity
         })
       } else {
-        // insert
+        // insert'
         return CartItem.create({
           quantity: req.body.quantity,
           productId: req.body.productId,
-          cartId: req.session.cartId
+          cartId: req.params.id
         })
       }
     })
@@ -71,7 +72,7 @@ router.post('/:id', async (req, res, next) => {
   }
 })
 
-router.put('/:id/itemId', async (req, res, next) => {
+router.put('/:id/:itemId', async (req, res, next) => {
   try {
     await CartItem.update(
       {
@@ -81,13 +82,26 @@ router.put('/:id/itemId', async (req, res, next) => {
       },
       {
         where: {
-          cartId: req.params.id,
           id: req.params.itemId
         }
       }
     )
-    const item = await CartItem.findById(req.params.itemId)
-    res.json(item)
+    const updated = await CartItem.findById(req.params.itemId)
+    res.json(updated)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/:id/:itemId', async (req, res, next) => {
+  try {
+    await CartItem.destroy({
+      where: {
+        cartId: req.params.id,
+        id: req.params.itemId
+      }
+    })
+    res.status(200).send(req.params.itemId)
   } catch (err) {
     next(err)
   }

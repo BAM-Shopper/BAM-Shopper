@@ -1,8 +1,10 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 import EditProductForm from './EditProductForm'
+import {AddToCartButton} from './index'
+import {connect} from 'react-redux'
 
-class ProductItem extends Component {
+export class ProductItem extends Component {
   constructor() {
     super()
     this.state = {
@@ -38,10 +40,7 @@ class ProductItem extends Component {
             </div>
             <div className="meta">{product.price}</div>
             <div className="extra">
-              <button type="button" className="ui right floated primary button">
-                Add To Cart
-                <i className="right chevron icon" />
-              </button>
+              <AddToCartButton product={product} />
               {user.isAdmin ? (
                 <button
                   type="button"
@@ -74,6 +73,6 @@ class ProductItem extends Component {
   }
 }
 
-//https://semantic-ui.com/views/item.html
+const mapState = ({user}) => ({user})
 
-export default ProductItem
+export default connect(mapState, null)(ProductItem)

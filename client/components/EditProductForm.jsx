@@ -19,7 +19,6 @@ export class EditProductForm extends Component {
 
     render() {
         const { categories } = this.props
-        console.log(this.state)
 
         return (
             <div>

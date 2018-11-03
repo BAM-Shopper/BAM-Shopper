@@ -12,7 +12,10 @@ export const UserHome = props => {
   return (
     <div className='ui container'>
       <h3>Welcome, {email}</h3>
-      <OrderList orders={myOrders} />
+      <div>
+        <h3>My Orders</h3>
+        <OrderList orders={myOrders} />
+      </div>
       <div>
         {isAdmin ? <AdminDashboard user={props.user} /> : <div />}
       </div>
@@ -33,5 +36,5 @@ export default connect(mapState)(UserHome)
 
 UserHome.propTypes = {
   user: PropTypes.object,
-  orders: PropTypes.array,
+  orders: PropTypes.array
 }

@@ -4,30 +4,69 @@ import { connect } from 'react-redux'
 import ProductList from "./ProductList"
 import AddProductForm from './AddProductForm'
 import AddCategoryForm from "./AddCategoryForm"
-import AllUsers from './AllUsers'
+import UserList from './UserList'
+import OrderList from "./OrderList";
 
 export class AdminDashboard extends Component {
-    constructor() {
-        super()
+    constructor(props) {
+        super(props)
         this.state = {
             productClicked: false,
             productAdd: false,
             ordersClicked: false,
-            usersClicked: false
+            usersClicked: false,
+            currentlyDisplayed: [],
+            filter: ''
         }
         this.handleProductClick = this.handleProductClick.bind(this)
         this.handleProductAdd = this.handleProductAdd.bind(this)
     }
+
+    UNSAFE_componentWillReceiveProps() {
+        this.setState({ currentlyDisplayed: this.props.orders })
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.orders !== prevProps.orders) {
+            this.setState({ currentlyDisplayed: this.props.orders })
+        }
+    }
+
+    handelOrderFilter = event => {
+        this.setState({
+            filter: event.target.value
+        })
+
+        if (this.state.filter === 'all') {
+            this.setState({
+                currentlyDisplayed: this.props.orders
+            })
+        } else {
+            this.filterOrders()
+        }
+    }
+
+    filterOrders = () => {
+        const filteredOrders = this.props.orders.filter(order => {
+            return order.status === this.state.filter
+        })
+        this.setState({
+            currentlyDisplayed: filteredOrders
+        })
+    }
+
     render() {
         const { products, user, categories, users } = this.props
         const { productAdd, productClicked, ordersClicked, usersClicked } = this.state
+        const orders = this.state.currentlyDisplayed
+        const orderStatuses = ['created', 'processing', 'cancelled', 'completed', 'all']
 
         if (productAdd) {
             return <AddProductForm handleProductAdd={this.handleProductAdd} />
         }
 
         return (
-            <section style={{paddingTop: '10px'}}>
+            <section style={{ paddingTop: '10px' }}>
                 <div>
                     <div style={{ display: 'flex' }}>
                         <h3 onClick={() => this.setState({ productClicked: !productClicked })}>Products</h3>
@@ -54,7 +93,7 @@ export class AdminDashboard extends Component {
                 </div>
                 {usersClicked ?
                     <div>
-                        <AllUsers users={users} />
+                        <UserList users={users} />
                     </div>
                     : <div />
                 }
@@ -63,32 +102,53 @@ export class AdminDashboard extends Component {
                 </div>
                 {ordersClicked ?
                     <div>
-                        <p>yerp</p>
+                        <div>
+                            <h4>Filter Orders</h4>
+                            <div style={{ display: 'flex' }}>
+                                {orderStatuses.map((orderStatus, idx) => {
+                                    return (
+                                        <div key={idx} style={{ margin: '5px' }}>
+                                            <button
+                                                className='ui blue basic button'
+                                                type="button"
+                                                value={orderStatus}
+                                                onClick={this.handelOrderFilter}
+                                            >
+                                                {orderStatus}
+                                            </button>
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </div>
+                        <OrderList orders={orders} />
                     </div>
                     : <div />
                 }
             </section>
         )
     }
+
     handleProductClick() {
         this.setState({
             productClicked: false
         })
     }
+
     handleProductAdd() {
         const { productAdd } = this.state
         this.setState({
             productAdd: !productAdd
         })
     }
-
 }
 
 const mapState = state => {
     return {
         users: state.users,
         categories: state.categories,
-        products: state.products
+        products: state.products,
+        orders: state.orders
     }
 }
 
@@ -97,7 +157,8 @@ export default connect(mapState)(AdminDashboard)
 AdminDashboard.propTypes = {
     products: PropTypes.array,
     categories: PropTypes.array,
-    users: PropTypes.array
+    users: PropTypes.array,
+    orders: PropTypes.array
 }
 
 

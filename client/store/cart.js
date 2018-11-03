@@ -42,7 +42,7 @@ const removeCartItem = itemId => ({
  */
 export const fetchCart = () => async dispatch => {
   try {
-    //find for create cart
+    //find existing cart or create one
     const res = await axios.get(`/api/cart/`)
     //get the products in that cart
     const res2 = await axios.get(`/api/cart/${res.data.id}`)

@@ -14,7 +14,7 @@ class App extends Component {
   componentDidMount() {
     this.props.fetchProducts()
     this.props.fetchCategories()
-    this.props.fetchOrders()
+    //this.props.fetchOrders()
     this.props.fetchCart()
   }
 

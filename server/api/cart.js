@@ -5,20 +5,25 @@ module.exports = router
 
 // /api/cart/
 router.get('/', async (req, res, next) => {
-  console.log('findOrCreate Cart')
   if (req.session.passport) {
-    console.log('authenticated user')
     try {
       const data = await Cart.findOrCreate({
         where: {userId: req.session.passport.user}
       })
+      const oldCart = await Cart.findOne({
+        where: {sessionId: req.user.prevSession}
+      })
+      if (oldCart) {
+        await CartItem.update(
+          {cartId: data[0].id},
+          {where: {cartId: oldCart.id}}
+        )
+      }
       res.json(data[0])
-      //TODO merge unlogged cart
     } catch (err) {
       next(err)
     }
   } else {
-    console.log('unauthenticated user')
     try {
       const data = await Cart.findOrCreate({
         where: {sessionId: req.session.id}
@@ -32,6 +37,7 @@ router.get('/', async (req, res, next) => {
 
 // /api/cart/:id
 router.get('/:id', async (req, res, next) => {
+  //merge carts?
   try {
     const cart = await Cart.findById(req.params.id, {
       include: [

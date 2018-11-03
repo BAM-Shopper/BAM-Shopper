@@ -27,7 +27,7 @@ export class AdminDashboard extends Component {
         }
 
         return (
-            <section >
+            <section style={{paddingTop: '10px'}}>
                 <div>
                     <div style={{ display: 'flex' }}>
                         <h3 onClick={() => this.setState({ productClicked: !productClicked })}>Products</h3>

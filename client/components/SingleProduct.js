@@ -12,12 +12,14 @@ export class SingleProduct extends Component {
     const paramId = Number(this.props.match.params.id)
     this.props.fetchProduct(paramId)
   }
-
+  
   render() {
+    console.log(this.props)
     if (!this.props.selectedProduct.id) return <div>Product Not Found</div>
     return (
       <div>
         <ProductInfo product={this.props.selectedProduct} />
+        <h4>Product Reviews</h4>
         <ProductReview reviews={this.props.selectedProduct.reviews} />
       </div>
     )

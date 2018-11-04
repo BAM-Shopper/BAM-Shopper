@@ -25,10 +25,6 @@ export class AddProductForm extends Component {
                         <input type="text" name="title" placeholder="Die Hard 2" onChange={evt => this.setState({ [evt.target.name]: evt.target.value })} />
                     </div>
                     <div className="field">
-                        <label>Description</label>
-                        <textarea rows="2" name="description" onChange={evt => this.setState({ [evt.target.name]: evt.target.value })} />
-                    </div>
-                    <div className="field">
                         <div className="two fields">
                             <div className="field">
                                 <label>Price</label>
@@ -43,6 +39,10 @@ export class AddProductForm extends Component {
                     <div className="field">
                         <label>Image URL</label>
                         <input type="text" name="imageUrl" onChange={evt => this.setState({ [evt.target.name]: evt.target.value })} />
+                    </div>
+                    <div className="field">
+                        <label>Description</label>
+                        <textarea rows="2" name="description" onChange={evt => this.setState({ [evt.target.name]: evt.target.value })} />
                     </div>
                     <button className="ui button" type="submit">Submit</button>
                 </form>

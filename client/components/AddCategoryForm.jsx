@@ -13,15 +13,14 @@ export class AddCategoryForm extends Component {
 
     render() {
         return (
-            <div className='ui container center aligned' style={{ margin: '0 auto' }}>
+            <div className='ui container center aligned' style={{ margin: '0 auto', paddingTop: '5px' }}>
                 <h2>Add New Category</h2>
                 <div>
                     <form className="ui form" onSubmit={this.newCategorySubmit}>
                         <div className="field">
-                            <label>Add Categories</label>
                             <input type="text" name="category" onChange={evt => this.setState({ [evt.target.name]: evt.target.value })} />
+                            <button className="ui button" type="submit" style={{ marginTop: '2px' }}>Submit</button>
                         </div>
-                        <button className="ui button" type="submit">Submit</button>
                     </form>
                 </div>
 
@@ -40,7 +39,6 @@ export class AddCategoryForm extends Component {
 
         category.value = ''
     }
-
 }
 
 

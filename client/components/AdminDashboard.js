@@ -70,7 +70,7 @@ export class AdminDashboard extends Component {
             <section style={{ paddingTop: '10px' }}>
                 <div>
                     <div style={{ display: 'flex' }}>
-                        <h3 onClick={() => this.setState({ productClicked: !productClicked })}>Products</h3>
+                        <h3 onClick={() => this.setState({ productClicked: !productClicked })} className='admin'>Products</h3>
                         <button
                             type='button'
                             className='ui primary button'
@@ -90,7 +90,7 @@ export class AdminDashboard extends Component {
 
                 </div>
                 <div style={{ display: 'flex' }}>
-                    <h3 onClick={() => this.setState({ usersClicked: !usersClicked })}>Users</h3>
+                    <h3 onClick={() => this.setState({ usersClicked: !usersClicked })} className='admin'>Users</h3>
                 </div>
                 {usersClicked ?
                     <div>
@@ -99,7 +99,7 @@ export class AdminDashboard extends Component {
                     : <div />
                 }
                 <div style={{ display: 'flex' }}>
-                    <h3 onClick={() => this.setState({ ordersClicked: !ordersClicked })}>Orders</h3>
+                    <h3 onClick={() => this.setState({ ordersClicked: !ordersClicked })} className='admin'>Orders</h3>
                 </div>
                 {ordersClicked ?
                     <div>

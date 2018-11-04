@@ -19,3 +19,17 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.admin {
+  font-size: 20px;
+  margin: 5px;
+  padding: 5px 5px 5px 0px;
+  opacity: 0.6;
+  transition: 0.3s;
+}
+
+.admin:hover {
+  opacity: 1;
+  cursor: pointer
+}
+

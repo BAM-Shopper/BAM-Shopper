@@ -60,7 +60,7 @@ export class AdminDashboard extends Component {
         const { products, user, categories, users } = this.props
         const { productAdd, productClicked, ordersClicked, usersClicked } = this.state
         const orders = this.state.currentlyDisplayed
-        const orderStatuses = ['created', 'processing', 'cancelled', 'completed', 'all']
+        const orderStatuses = ['all', 'created', 'processing', 'cancelled', 'completed']
 
         if (productAdd) {
             return <AddProductForm handleProductAdd={this.handleProductAdd} />
@@ -108,7 +108,7 @@ export class AdminDashboard extends Component {
                             <div style={{ display: 'flex' }}>
                                 {orderStatuses.map((orderStatus, idx) => {
                                     return (
-                                        <div key={idx} style={{ margin: '5px' }}>
+                                        <div key={parseInt(idx.toString(), 10)} style={{ margin: '5px' }}>
                                             <button
                                                 className='ui blue basic button'
                                                 type="button"

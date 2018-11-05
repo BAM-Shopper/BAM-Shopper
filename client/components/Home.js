@@ -1,5 +1,5 @@
 import React from 'react'
-import { connect } from 'react-redux'
+import {connect} from 'react-redux'
 import SideBar from './SideBar'
 import ProductList from './ProductList'
 
@@ -15,17 +15,19 @@ class Home extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.products !== prevProps.products) {
-      this.setState({ currentlyDisplayed: this.props.products })
+      this.setState({currentlyDisplayed: this.props.products})
     }
   }
 
   componentDidMount() {
-    this.setState({ currentlyDisplayed: this.props.products })
+    this.setState({currentlyDisplayed: this.props.products})
   }
 
   handleInputChange = evt => {
     const filtered = this.props.products.filter(product => {
-      return product.title.toLowerCase().includes(evt.target.value.toLowerCase())
+      return product.title
+        .toLowerCase()
+        .includes(evt.target.value.toLowerCase())
     })
     this.setState({
       query: evt.target.value,
@@ -56,32 +58,38 @@ class Home extends React.Component {
       return <span />
     }
     return (
-      <div className='ui container'>
-        <div className='ui search'>
-          <div className='ui icon input'>
+      <div className="ui container">
+        <div className="ui search">
+          <div className="ui icon input">
             <input
               className="prompt"
               type="text"
               placeholder="Search movies"
-              ref={input => this.search = input}
+              ref={input => (this.search = input)}
               onChange={this.handleInputChange}
             />
             <i className="search icon" />
-
           </div>
         </div>
-        <div style={{ display: 'flex' }} className='ui container'>
+        <div style={{display: 'flex'}} className="ui container">
           <SideBar
             handelFilter={this.handelFilter}
             categories={this.props.categories}
           />
-          <ProductList products={this.state.currentlyDisplayed} user={this.props.user} />
+          <ProductList
+            products={this.state.currentlyDisplayed}
+            user={this.props.user}
+          />
         </div>
       </div>
     )
   }
 }
 
-const mapState = ({ products, categories, user }) => ({ products, categories, user })
+const mapState = ({products, categories, user}) => ({
+  products,
+  categories,
+  user
+})
 
 export default connect(mapState)(Home)

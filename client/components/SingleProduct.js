@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {ProductInfo} from './product-info'
-import {ProductReview} from './product-review'
+import {ProductInfo, ProductReview} from './index'
 import {fetchProduct} from '../store/singleProduct'
 import ReviewForm from './ReviewForm'
 

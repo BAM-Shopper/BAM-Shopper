@@ -10,11 +10,14 @@ export const UserHome = props => {
   const myOrders = orders.filter(order => order.userId === props.user.id)
 
   return (
-    <div>
+    <div className='ui container'>
       <h3>Welcome, {email}</h3>
-      <OrderList orders={myOrders} />
       <div>
-        {isAdmin ? <AdminDashboard products={props.products} user={props.user} /> : <div />}
+        <h3>My Orders</h3>
+        <OrderList orders={myOrders} />
+      </div>
+      <div>
+        {isAdmin ? <AdminDashboard user={props.user} /> : <div />}
       </div>
 
     </div>
@@ -24,8 +27,8 @@ export const UserHome = props => {
 const mapState = state => {
   return {
     user: state.user,
-    products: state.products,
-    orders: state.orders
+    orders: state.orders,
+    users: state.users
   }
 }
 
@@ -33,5 +36,5 @@ export default connect(mapState)(UserHome)
 
 UserHome.propTypes = {
   user: PropTypes.object,
-  products: PropTypes.array
+  orders: PropTypes.array
 }

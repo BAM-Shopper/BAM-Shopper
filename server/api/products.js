@@ -56,6 +56,13 @@ router.put('/:id', async (req, res, next) => {
         let productToUpdate = await Product.findById(req.params.id)
         productToUpdate = await productToUpdate.update(req.body)
         res.json(productToUpdate)
+
+       /*  if (req.body.category) {
+            let categoryToAdd = await Category.findById(category)
+            })
+            const categoryAdd = await productToUpdate.addCategory(req.body.category)
+
+        } */
     } catch (err) {
         next(err)
     }

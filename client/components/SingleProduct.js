@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {ProductInfo} from './product-info'
-import {ProductReview} from './product-review'
-import {fetchProduct} from '../store/singleProduct'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { ProductInfo } from './product-info'
+import { ProductReview } from './product-review'
+import { fetchProduct } from '../store/singleProduct'
 
 /**
  * COMPONENT
@@ -12,16 +12,18 @@ export class SingleProduct extends Component {
     const paramId = Number(this.props.match.params.id)
     this.props.fetchProduct(paramId)
   }
-
+  
   render() {
-        if (!this.props.selectedProduct.id) return <div>Product Not Found</div>
-        return (
-            <div>
-                <ProductInfo product={this.props.selectedProduct} />
-                <ProductReview reviews={this.props.selectedProduct.reviews} />
-            </div>
-        )
-    }
+    console.log(this.props)
+    if (!this.props.selectedProduct.id) return <div>Product Not Found</div>
+    return (
+      <div>
+        <ProductInfo product={this.props.selectedProduct} />
+        <h4>Product Reviews</h4>
+        <ProductReview reviews={this.props.selectedProduct.reviews} />
+      </div>
+    )
+  }
 }
 
 /**

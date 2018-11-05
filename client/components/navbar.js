@@ -6,7 +6,7 @@ import {logout} from '../store'
 import { withRouter } from 'react-router'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
-  <div>
+  <div className='ui container'>
     <h1>BLOCKBLASTER</h1>
     <nav>
       {isLoggedIn ? (

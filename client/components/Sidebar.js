@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SideBar = props => {
+export const SideBar = props => {
   if (!props.categories) {
     return <span />
   } else {

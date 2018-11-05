@@ -19,7 +19,6 @@ router.get('/', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-  console.log('REQ BODY', req.body)
   try {
       const newReview = await Review.create(req.body)
       res.status(201).json(newReview)

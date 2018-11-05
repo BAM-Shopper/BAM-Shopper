@@ -33,19 +33,12 @@ export class SingleProduct extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault()
-<<<<<<< HEAD
-    const review = {
-      rating: this.state.rating,
-      text: this.state.review,
-      userId: this.props.user.id,
-      productId: this.props.selectedProduct.id
-=======
-      if (this.state.review.length >= 50) {
-        const review = {
-          rating: this.state.rating,
-          text: this.state.review,
-          userId: this.props.user.id,
-          productId: this.props.selectedProduct.id
+    if (this.state.review.length >= 50) {
+      const review = {
+        rating: this.state.rating,
+        text: this.state.review,
+        userId: this.props.user.id,
+        productId: this.props.selectedProduct.id
       }
       this.props.createReview(review)
       this.setState({
@@ -54,7 +47,6 @@ export class SingleProduct extends Component {
       })
     } else {
       alert('Review must be at least 50 characters long.')
->>>>>>> 5b0c0226f09a0784bbed2d931c4f35f64ffee5f1
     }
 
   }

@@ -1,7 +1,7 @@
 /* global describe beforeEach it */
 
 const {expect} = require('chai')
-const db = require('../index')
+const db = require('../../index')
 const CartItem = db.model('cart item')
 const Cart = db.model('cart')
 const Product = db.model('product')

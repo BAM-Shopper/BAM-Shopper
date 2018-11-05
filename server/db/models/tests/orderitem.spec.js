@@ -1,5 +1,5 @@
 const { expect } = require('chai')
-const db = require('../index')
+const db = require('../../index')
 const OrderItem = db.model('order item')
 const Order = db.model('order')
 

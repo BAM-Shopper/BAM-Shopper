@@ -25,6 +25,11 @@ export class UserHome extends Component {
     return (
       <div>
         <h3>Welcome, {email}!</h3>
+        <button
+          type='button'
+          className='ui primary button'
+          style={{ marginLeft: '5px' }}
+      >Manage Account</button>
         <br />
         <div>
           <h3 className='admin' onClick={() => this.setState({ myOrdersClicked: !myOrdersClicked })}>My Orders</h3>

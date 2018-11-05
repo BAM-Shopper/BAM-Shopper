@@ -27,7 +27,7 @@ class Home extends React.Component {
     const filtered = this.props.products.filter(product => {
       return product.title
         .toLowerCase()
-        .startsWith(evt.target.value.toLowerCase())
+        .includes(evt.target.value.toLowerCase())
     })
     this.setState({
       query: evt.target.value,

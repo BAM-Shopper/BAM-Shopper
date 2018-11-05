@@ -21,7 +21,15 @@ const Product = db.define('product', {
   imageUrl: {
     type: Sequelize.STRING,
     defaultValue: 'https://bit.ly/2CQDGUt'
+  },
+  isAvailible: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: true
   }
+})
+
+Product.afterUpdate(product => {
+  product.inventory === 0 ? product.isAvailible = false : product.isAvailible = true
 })
 
 module.exports = Product

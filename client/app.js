@@ -5,9 +5,10 @@ import { connect } from 'react-redux'
 import { Navbar } from './components'
 import Routes from './routes'
 
-import { fetchProducts } from './store/products'
-import { fetchCategories } from './store/categories'
-import { fetchOrders } from './store/orders'
+import {fetchProducts} from './store/products'
+import {fetchCategories} from './store/categories'
+import {fetchOrders} from './store/orders'
+import {fetchReviews} from './store/reviews'
 import { fetchUsers } from './store/users'
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
     this.props.fetchProducts()
     this.props.fetchCategories()
     this.props.fetchOrders()
+    this.props.fetchReviews()
     this.props.fetchUsers()
   }
 
@@ -33,6 +35,7 @@ const mapDispatchToProps = dispatch => {
     fetchProducts: () => dispatch(fetchProducts()),
     fetchCategories: () => dispatch(fetchCategories()),
     fetchOrders: () => dispatch(fetchOrders()),
+    fetchReviews: () => dispatch(fetchReviews()),
     fetchUsers: () => dispatch(fetchUsers())
   }
 }

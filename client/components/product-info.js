@@ -1,8 +1,5 @@
 import React from 'react'
 
-/**
- * COMPONENT
- */
 export const ProductInfo = props => {
     const { imageUrl, description, title } = props.product
     return (

@@ -25,8 +25,6 @@ export const ProductReview = props => {
                   {review.user === null ? 'Anonymous' : review.user.email}
                 </div>
                 <p>{review.text}</p>
-                <p>Rating: {review.rating}</p>
-
               </div>
             </article>
           </div>

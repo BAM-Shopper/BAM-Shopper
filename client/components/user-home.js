@@ -15,7 +15,11 @@ export const UserHome = props => {
   return (
     <div className='ui container'>
       <h3>Welcome, {email}</h3>
-      <br />
+      <button
+          type='button'
+          className='ui primary button'
+          style={{ marginLeft: '5px' }}
+      >Manage Account</button>
       <ReviewList reviews={myReviews} />
       <div>
         <h3>My Orders</h3>

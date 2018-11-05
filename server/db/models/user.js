@@ -34,6 +34,9 @@ const User = db.define('user', {
   isAdmin: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  prevSession: {
+    type: Sequelize.STRING
   }
 })
 
@@ -42,7 +45,7 @@ module.exports = User
 /**
  * instanceMethods
  */
-User.prototype.correctPassword = function (candidatePwd) {
+User.prototype.correctPassword = function(candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt()) === this.password()
 }
 
@@ -50,11 +53,11 @@ User.prototype.correctPassword = function (candidatePwd) {
  * classMethods
  */
 
-User.generateSalt = function () {
+User.generateSalt = function() {
   return crypto.randomBytes(16).toString('base64')
 }
 
-User.encryptPassword = function (plainText, salt) {
+User.encryptPassword = function(plainText, salt) {
   return crypto
     .createHash('RSA-SHA256')
     .update(plainText)

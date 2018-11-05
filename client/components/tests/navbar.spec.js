@@ -16,12 +16,11 @@ describe('Navbar', () => {
   beforeEach(() => {
     // fakeStore = mockStore(initialState)
 
-    wrapper = shallow(<navbar isLoggedIn={false} /> )
+    wrapper = shallow(<navbar isLoggedIn={false} />)
   })
 
   it('renders SearchBar and Link components', () => {
     // console.log('SEARCH BAR', wrapper.find(SearchBar).dive())
     // expect(wrapper.find(Link)).dive().to.have.lengthOf(1)
   })
-
 })

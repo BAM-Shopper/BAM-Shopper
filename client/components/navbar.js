@@ -6,30 +6,30 @@ import {logout} from '../store'
 import {withRouter} from 'react-router'
 
 const Navbar = ({handleClick, isLoggedIn, cart}) => (
-  <div>
-    <h1>BLOCKBLASTER</h1>
+  <div className='ui menu'>
+    <h1 className='brand item' style={{padding: '10px', margin: '0px'}}>BLOCKBLASTER</h1>
     <nav>
       {isLoggedIn ? (
-        <div>
+        <div style={{display: 'flex'}}>
           {/* The navbar will show these links after you log in */}
-          <Link to="/">Home</Link>
-          <a href="#" onClick={handleClick}>
+          <Link to="/" className='ui item'>Home</Link>
+          <Link to="/account" className='ui item'>My Account</Link>
+          <Link to="/cart" className='ui item'>View Cart</Link>
+          <a className='ui item' href="#" onClick={handleClick}>
             {' '}
             Logout{' '}
           </a>
-          <Link to="/account">My Account</Link>
-          <Link to="/cart">View Cart</Link>
         </div>
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
-          <Link to="/">Home</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
+          <Link to="/" className='ui item'>Home</Link>
+          <Link to="/login" className='ui item'>Login</Link>
+          <Link to="/signup" className='ui item'>Sign Up</Link>
           {cart.id ? (
-            <Link to="/cart">View Cart {cart['cart items'].length}</Link>
+            <Link to="/cart" className='ui item'>View Cart {cart['cart items'].length}</Link>
           ) : (
-            <Link to="/cart">View Cart</Link>
+            <Link to="/cart" className='ui item'>View Cart</Link>
           )}
         </div>
       )}
@@ -37,6 +37,8 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => (
     <hr />
   </div>
 )
+
+
 
 /**
  * CONTAINER

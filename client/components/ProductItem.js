@@ -20,8 +20,8 @@ class ProductItem extends Component {
         {!editClicked ?
           <div>
             <div className='image'>
-              <img 
-              className="ui medium rounded image" 
+              <img
+              className="ui medium rounded image"
               src={product.imageUrl}
                 style={{
                   width: '200px',
@@ -38,7 +38,7 @@ class ProductItem extends Component {
               </Link>
             </div>
             <div className='meta'>
-              {product.price}
+              ${product.price.toFixed(2)}
             </div>
             <div className='extra'>
               <button type='button' className="ui right floated primary button">

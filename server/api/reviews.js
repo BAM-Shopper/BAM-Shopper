@@ -17,3 +17,13 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.post('/', async (req, res, next) => {
+  console.log('REQ BODY', req.body)
+  try {
+      const newReview = await Review.create(req.body)
+      res.status(201).json(newReview)
+  } catch (err) {
+      next(err)
+  }
+})

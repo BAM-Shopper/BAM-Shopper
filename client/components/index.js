@@ -16,5 +16,6 @@ export {default as ReviewList} from './ReviewList'
 export {default as ReviewListItem} from './ReviewListItem'
 export {default as OrderList} from './OrderList'
 export {default as OrderListItem} from './OrderListItem'
+export {default as ReviewForm} from './ReviewForm'
 export {Login, Signup} from './auth-form'
 

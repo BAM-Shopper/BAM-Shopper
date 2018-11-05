@@ -6,7 +6,7 @@ const ReviewListItem = props => {
   const review = props.review
   return (
     <div>
-      <p>Review #{review.id} written on {review.createdAt}</p>
+      <p>Review #{review.id} written on {review.createdAt.slice(0, 10)}</p>
       <Link to={`/products/${review.product.id}`}>{review.product.title}</Link>
       <br />
       <StarRatings

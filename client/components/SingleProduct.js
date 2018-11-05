@@ -15,8 +15,11 @@ export class SingleProduct extends Component {
         return (
             <div>
                 <ProductInfo product={this.props.selectedProduct} />
+                <div>
+                  <h3>Reivews for {this.props.selectedProduct.title} </h3>
                 <ProductReview reviews={this.props.selectedProduct.reviews} />
                 <ReviewForm />
+                </div>
             </div>
         )
     }

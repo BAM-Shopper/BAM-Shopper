@@ -25,7 +25,7 @@ class Home extends React.Component {
 
   handleInputChange = evt => {
     const filtered = this.props.products.filter(product => {
-      return product.title.toLowerCase().startsWith(evt.target.value.toLowerCase())
+      return product.title.toLowerCase().includes(evt.target.value.toLowerCase())
     })
     this.setState({
       query: evt.target.value,

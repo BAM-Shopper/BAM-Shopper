@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {ProductInfo, ProductReview} from './index'
-import {fetchProduct} from '../store/singleProduct'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { ProductInfo, ProductReview } from './index'
+import { fetchProduct } from '../store/singleProduct'
 import { createReview } from '../store/reviews'
 import StarRatings from 'react-star-ratings'
 
@@ -9,8 +9,8 @@ export class SingleProduct extends Component {
   constructor(props) {
     super(props)
     this.state = {
-        review: '',
-        rating: 0
+      review: '',
+      rating: 0
     }
   }
 
@@ -33,12 +33,12 @@ export class SingleProduct extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault()
-      if (this.state.review.length >= 50) {
-        const review = {
-          rating: this.state.rating,
-          text: this.state.review,
-          userId: this.props.user.id,
-          productId: this.props.selectedProduct.id
+    if (this.state.review.length >= 50) {
+      const review = {
+        rating: this.state.rating,
+        text: this.state.review,
+        userId: this.props.user.id,
+        productId: this.props.selectedProduct.id
       }
       this.props.createReview(review)
       this.setState({
@@ -52,50 +52,54 @@ export class SingleProduct extends Component {
   }
 
   render() {
-        if (!this.props.selectedProduct.id) return <div>Product Not Found</div>
-        else if (!this.props.user.id) {
-          return (
+    if (!this.props.selectedProduct.id) return <div>Product Not Found</div>
+    else if (!this.props.user.id) {
+      return (
+        <div>
+          <ProductInfo product={this.props.selectedProduct} />
+          <ProductReview reviews={this.props.selectedProduct.reviews} />
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          <ProductInfo product={this.props.selectedProduct} />
+          <div>
+            <hr />
+            <h3>Reivews for {this.props.selectedProduct.title} </h3>
+            <ProductReview reviews={this.props.selectedProduct.reviews} />
             <div>
-              <ProductInfo product={this.props.selectedProduct} />
-              <ProductReview reviews={this.props.selectedProduct.reviews} />
-            </div>
-          )
-        } else {
-          return (
-            <div>
-                <ProductInfo product={this.props.selectedProduct} />
-                <ProductReview reviews={this.props.selectedProduct.reviews} />
-                <div>
-                  <br />
-                  <form
-                    className="ui form"
-                    onSubmit={this.handleSubmit}>
-                      <div className="field">
-                          <label>Review This Product</label>
-                          <StarRatings
-                          rating={this.state.rating}
-                          starRatedColor="blue"
-                          changeRating={this.changeRating}
-                          numberOfStars={5}
-                          starDimension='20px'
-                          starSpacing='5px'
-                          name="rating"
-                        />
-                          <input
-                            type="text"
-                            name="review"
-                            placeholder="Write your review..."
-                            onChange={this.handleTextChange}
-                            value={this.state.review}
-                          />
-                      </div>
-                      <button className="ui button" type="submit">Submit</button>
-                  </form>
+              <br />
+              <form
+                className="ui form"
+                onSubmit={this.handleSubmit}>
+                <div className="field">
+                  <label>Review This Product</label>
+                  <StarRatings
+                    rating={this.state.rating}
+                    starRatedColor="blue"
+                    changeRating={this.changeRating}
+                    numberOfStars={5}
+                    starDimension='20px'
+                    starSpacing='5px'
+                    name="rating"
+                  />
+                  <input
+                    type="text"
+                    name="review"
+                    placeholder="Write your review..."
+                    onChange={this.handleTextChange}
+                    value={this.state.review}
+                  />
                 </div>
+                <button className="ui button" type="submit">Submit</button>
+              </form>
             </div>
-        )
-        }
+          </div>
+        </div>
+      )
     }
+  }
 }
 
 const mapState = state => {

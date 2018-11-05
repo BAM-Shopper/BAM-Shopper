@@ -88,8 +88,5 @@ describe('<SingleProduct /> component', () => {
       const reviewText = 'My son\'s class required headphones this year for computer lab. He hates wearing anything on his head or ears. These are pretty light but sturdy and comfortable on the ears. They stay put and block outside noise. I tried them and I think I\'m going to buy some for myself. I\'m very impressed with the price and quality.'
       expect(productReview.find('p').first().text()).to.be.equal(reviewText)
     })
-    // it("should have a review with the product's rating", () => {
-    //   expect(productReview.find('p').last().text()).to.be.equal('Rating: 4')
-    // })
   })
 })

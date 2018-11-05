@@ -24,11 +24,8 @@ describe('<AdminDashboard /> component', () => {
         productList = shallow(<ProductList />)
     })
 
-    it.only('renders H3\'s for Products, Users, and Orders', () => {
+    it('renders H3\'s for Products, Users, and Orders', () => {
         expect(adminDashboard.find('h3').length).to.be.equal(3)
     })
 
-    it.only('contains <ProductList /> component', () => {
-        expect(adminDashboard.find(productList)).to.have.lengthOf(1)
-    })
 })

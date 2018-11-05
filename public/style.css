@@ -20,7 +20,7 @@ form div {
   display: inline-block;
 }
 
-.admin {
+.admin, .user-home {
   font-size: 20px;
   margin: 5px;
   padding: 5px 5px 5px 0px;
@@ -28,7 +28,7 @@ form div {
   transition: 0.3s;
 }
 
-.admin:hover {
+.admin:hover, .user-home {
   opacity: 1;
   cursor: pointer
 }

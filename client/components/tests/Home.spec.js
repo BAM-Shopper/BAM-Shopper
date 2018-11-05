@@ -1,10 +1,10 @@
-import {expect} from 'chai'
+import { expect } from 'chai'
 import React from 'react'
-import enzyme, {shallow} from 'enzyme'
+import enzyme, { shallow } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import ProductList from './ProductList'
-import SideBar from './SideBar'
-import Home from './Home'
+import ProductList from '../ProductList'
+import Sidebar from '../Sidebar'
+import Home from '../Home'
 import configureMockStore from 'redux-mock-store'
 import thunkMiddleware from 'redux-thunk'
 
@@ -36,7 +36,7 @@ const initialState = {
 }
 
 const adapter = new Adapter()
-enzyme.configure({adapter})
+enzyme.configure({ adapter })
 
 describe('Home component', () => {
   let wrapper
@@ -47,8 +47,8 @@ describe('Home component', () => {
     wrapper = shallow(<Home store={fakeStore} />)
   })
 
-  it('renders ProductList and SideBar components', () => {
+  it('renders ProductList and Sidebar components', () => {
     expect(wrapper.dive(ProductList)).to.have.lengthOf(1)
-    expect(wrapper.dive(SideBar)).to.have.lengthOf(1)
+    expect(wrapper.dive(Sidebar)).to.have.lengthOf(1)
   })
 })

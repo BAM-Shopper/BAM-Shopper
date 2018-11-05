@@ -1,14 +1,15 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { withRouter } from 'react-router'
 
-import {connect} from 'react-redux'
-import {Navbar} from './components'
+import { connect } from 'react-redux'
+import { Navbar } from './components'
 import Routes from './routes'
 
 import {fetchProducts} from './store/products'
 import {fetchCategories} from './store/categories'
 import {fetchOrders} from './store/orders'
 import {fetchReviews} from './store/reviews'
+import { fetchUsers } from './store/users'
 
 class App extends Component {
   componentDidMount() {
@@ -16,6 +17,7 @@ class App extends Component {
     this.props.fetchCategories()
     this.props.fetchOrders()
     this.props.fetchReviews()
+    this.props.fetchUsers()
   }
 
   render() {
@@ -33,7 +35,8 @@ const mapDispatchToProps = dispatch => {
     fetchProducts: () => dispatch(fetchProducts()),
     fetchCategories: () => dispatch(fetchCategories()),
     fetchOrders: () => dispatch(fetchOrders()),
-    fetchReviews: () => dispatch(fetchReviews())
+    fetchReviews: () => dispatch(fetchReviews()),
+    fetchUsers: () => dispatch(fetchUsers())
   }
 }
 

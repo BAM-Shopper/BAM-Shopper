@@ -13,13 +13,16 @@ export const UserHome = props => {
   // const myReviews = reviews.filter(review => review.userId === props.user.id)
   const myReviews = reviews.filter(review => review.userId === 7)
   return (
-    <div>
+    <div className='ui container'>
       <h3>Welcome, {email}</h3>
-      <OrderList orders={myOrders} />
       <br />
       <ReviewList reviews={myReviews} />
       <div>
-        {isAdmin ? <AdminDashboard products={props.products} user={props.user} /> : <div />}
+        <h3>My Orders</h3>
+        <OrderList orders={myOrders} />
+      </div>
+      <div>
+        {isAdmin ? <AdminDashboard user={props.user} /> : <div />}
       </div>
 
     </div>
@@ -31,7 +34,8 @@ const mapState = state => {
     user: state.user,
     products: state.products,
     orders: state.orders,
-    reviews: state.reviews
+    reviews: state.reviews,
+    users: state.users
   }
 }
 
@@ -39,5 +43,5 @@ export default connect(mapState)(UserHome)
 
 UserHome.propTypes = {
   user: PropTypes.object,
-  products: PropTypes.array
+  orders: PropTypes.array
 }

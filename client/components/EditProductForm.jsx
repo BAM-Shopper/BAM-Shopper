@@ -12,14 +12,13 @@ export class EditProductForm extends Component {
             price: '',
             inventory: '',
             imageUrl: '',
-            categories: []
+            //categories: '' //this might break PUT thunk
         }
         this.updateProductSubmit = this.updateProductSubmit.bind(this)
     }
 
     render() {
         const { categories } = this.props
-        console.log(this.state)
 
         return (
             <div>
@@ -50,11 +49,11 @@ export class EditProductForm extends Component {
                     </div>
                     <div className='field'>
                         <label>Category</label>
-                        <select className="ui fluid search dropdown" multiple="" name='categories' onChange={evt => this.setState({ [evt.target.name]: [evt.target.name].push(evt.target.value) })}>
+                        <select className="ui fluid search dropdown" multiple="" name='categories' onChange={evt => this.setState({ [evt.target.name]: evt.target.value })}>
                             <option value="">Choose Category</option>
                             {categories.map(category => {
                                 return (
-                                    <option key={category.id}>{category.name}</option>
+                                    <option key={category.id} value={category.id}>{category.name}</option>
                                 )
                             })}
 
@@ -69,7 +68,7 @@ export class EditProductForm extends Component {
     updateProductSubmit(evt) {
         evt.preventDefault()
 
-        const { title, description, price, inventory, imageUrl } = evt.target
+        const { title, description, price, inventory, imageUrl, categories } = evt.target
         const { productId, handleAdminEdit, updateProduct } = this.props
 
         const product = {
@@ -77,7 +76,11 @@ export class EditProductForm extends Component {
             description: description.value,
             price: price.value,
             inventory: inventory.value,
-            imageUrl: imageUrl.value
+            imageUrl: imageUrl.value,
+        }
+
+        const addCategory = {
+            categories: Number(categories.value) 
         }
 
         updateProduct(product, productId)

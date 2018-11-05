@@ -60,7 +60,8 @@ function generateUsers() {
       /* firstName: 'Test',
       lastName: 'Test', */
       email: 'test@test.test',
-      password: '123'
+      password: '123',
+      isAdmin: true
     })
   )
   console.log(`seeding ${users.length} users`)
@@ -131,7 +132,10 @@ function randOrder() {
   return Order.build({
     total: chance.floating({min: 20, max: 200, fixed: 2}),
     userId: chance.integer({min: 1, max: numUsers}),
-    status: chance.weighted(['created', 'processing', 'cancelled', 'completed'], [1, 2, 3, 4])
+    status: chance.weighted(
+      ['created', 'processing', 'cancelled', 'completed'],
+      [1, 2, 3, 4]
+    )
   })
 }
 

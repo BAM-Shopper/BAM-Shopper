@@ -22,5 +22,12 @@ module.exports = {
         loader: 'babel-loader'
       }
     ]
+  },
+  mailer: {
+    auth: {
+      user: 'test@example.com',
+      pass: 'secret'
+    },
+    defaultFromAddress: 'First Last <test@example.com>'
   }
 }

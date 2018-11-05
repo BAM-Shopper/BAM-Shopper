@@ -3,35 +3,72 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
 
-/**
- * COMPONENT
- */
-const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
+class AuthForm extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      resetting: false
+    }
+  }
 
-  return (
-    <div>
-      <form onSubmit={handleSubmit} name={name}>
+  handleClick = () => {
+    if (this.state.resetting === true) {
+      this.setState({
+        resetting: false
+      })
+    } else {
+      this.setState({
+        resetting: true
+      })
+    }
+  }
+
+  render () {
+    const {name, displayName, handleSubmit, error} = this.props
+    if (this.state.resetting === true) {
+      return (
         <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
+          <p>To send a password reset email, enter your email address and click submit.</p>
+          <form onSubmit={handleSubmit} name={name}>
+            <div>
+              <label htmlFor="email">
+                <small>Email</small>
+              </label>
+              <input name="email" type="text" />
+            </div>
+          </form>
+          <button type="button" onClick={this.handleClick}>Go Back</button>
+          <button type="submit">Reset Password</button>
         </div>
+      )
+    } else {
+      return (
         <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
+          <form onSubmit={handleSubmit} name={name}>
+            <div>
+              <label htmlFor="email">
+                <small>Email</small>
+              </label>
+              <input name="email" type="text" />
+            </div>
+            <div>
+              <label htmlFor="password">
+                <small>Password</small>
+              </label>
+              <input name="password" type="password" />
+            </div>
+            <div>
+              <button type="submit">{displayName}</button>
+              <button type="button" onClick={this.handleClick}>Forgot Password</button>
+            </div>
+            {error && error.response && <div> {error.response.data} </div>}
+          </form>
+          <a href="/auth/google">{displayName} with Google</a>
         </div>
-        <div>
-          <button type="submit">{displayName}</button>
-        </div>
-        {error && error.response && <div> {error.response.data} </div>}
-      </form>
-      <a href="/auth/google">{displayName} with Google</a>
-    </div>
-  )
+      )
+    }
+
+  }
 }
 
 /**

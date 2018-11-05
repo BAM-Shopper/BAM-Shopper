@@ -1,8 +1,6 @@
 import React from 'react'
+import StarRatings from 'react-star-ratings'
 
-/**
- * COMPONENT
- */
 export const ProductReview = props => {
   const reviews = props.reviews
   if (reviews.length === 0)
@@ -12,11 +10,17 @@ export const ProductReview = props => {
     <section>
       {reviews.map(review => {
         return (
-          <article key={review.id}>
-            {review.user.email}
-            <p>{review.text}</p>
-            {review.rating}
-          </article>
+          <div key={review.id}>
+            <StarRatings
+              rating={review.rating}
+              starDimension='15px'
+              starSpacing='5px'
+            />
+            <article>
+              {review.user.email}
+              <p>{review.text}</p>
+            </article>
+          </div>
         )
       })}
     </section>

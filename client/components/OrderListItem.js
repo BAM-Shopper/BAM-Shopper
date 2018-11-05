@@ -12,7 +12,7 @@ const OrderListItem = props => {
         Order #{order.id}
       </Link>
       <br />
-      Order placed on {order.createdAt}
+      Order placed on {order.createdAt.slice(0, 10)}
       <br />
     </div>
   )

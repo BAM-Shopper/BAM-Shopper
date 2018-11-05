@@ -1,9 +1,6 @@
 import React from 'react'
 import {AddToCartButton} from './index'
 
-/**
- * COMPONENT
- */
 export const ProductInfo = props => {
   const {imageUrl, description, title} = props.product
 

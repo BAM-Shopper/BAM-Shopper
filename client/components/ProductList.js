@@ -13,8 +13,12 @@ const ProductList = props => {
         <div className="ui three column stackable grid container">
           {props.products.map(product => {
             return (
-              <div className="column center aligned" key={product.id}>
-                <ProductItem product={product} />
+              <div
+                className="column center aligned"
+                key={product.id}
+                style={{width: '50%!important'}}
+              >
+                <ProductItem product={product} user={props.user} />
               </div>
             )
           })}

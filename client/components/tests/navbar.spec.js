@@ -2,7 +2,8 @@ import {expect} from 'chai'
 import React from 'react'
 import enzyme, {shallow} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import navbar from './navbar'
+import navbar from '../navbar'
+//import SearchBar from './SearchBar'
 import {Link} from 'react-router-dom'
 
 const adapter = new Adapter()

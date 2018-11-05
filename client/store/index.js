@@ -5,6 +5,8 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import products from './products'
 import orders from './orders'
+import reviews from './reviews'
+import users from './users'
 import selectedProduct from './singleProduct'
 import selectedOrder from './singleOrder'
 import categories from './categories'
@@ -14,9 +16,12 @@ const reducer = combineReducers({
   user,
   products,
   selectedProduct,
+  selectedOrder,
   categories,
-  cart,
-  orders
+  orders,
+  reviews,
+  users,
+  cart
 })
 
 const middleware = composeWithDevTools(

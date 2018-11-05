@@ -38,7 +38,7 @@ export class ProductItem extends Component {
                 {product.title}
               </Link>
             </div>
-            <div className="meta">{product.price}</div>
+            <div className="meta">${product.price.toFixed(2)}</div>
             <div className="extra">
               <AddToCartButton product={product} />
               {user.isAdmin ? (

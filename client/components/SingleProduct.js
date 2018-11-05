@@ -2,10 +2,8 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {ProductInfo, ProductReview} from './index'
 import {fetchProduct} from '../store/singleProduct'
+import ReviewForm from './ReviewForm'
 
-/**
- * COMPONENT
- */
 export class SingleProduct extends Component {
   componentDidMount() {
     const paramId = Number(this.props.match.params.id)
@@ -18,6 +16,7 @@ export class SingleProduct extends Component {
             <div>
                 <ProductInfo product={this.props.selectedProduct} />
                 <ProductReview reviews={this.props.selectedProduct.reviews} />
+                <ReviewForm />
             </div>
         )
     }

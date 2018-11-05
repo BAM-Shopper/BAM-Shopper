@@ -2,8 +2,8 @@ import {expect} from 'chai'
 import React from 'react'
 import enzyme, {shallow} from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
-import ProductList from './ProductList'
-import ProductThumbnail from './ProductThumbnail'
+import ProductList from '../ProductList'
+import ProductItem from '../ProductItem'
 
 const adapter = new Adapter()
 enzyme.configure({adapter})
@@ -20,7 +20,7 @@ describe('ProductList component', () => {
   })
 
   it('renders a thumbnail of each product', () => {
-    expect(wrapper.find(ProductThumbnail)).to.have.lengthOf(3)
+    expect(wrapper.find(ProductItem)).to.have.lengthOf(3)
   })
 
   it('renders "No Products" if passed an empty array of products', () => {

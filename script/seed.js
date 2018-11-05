@@ -130,7 +130,8 @@ function createCategories() {
 function randOrder() {
   return Order.build({
     total: chance.floating({min: 20, max: 200, fixed: 2}),
-    userId: chance.integer({min: 1, max: numUsers})
+    userId: chance.integer({min: 1, max: numUsers}),
+    status: chance.weighted(['created', 'processing', 'cancelled', 'completed'], [1, 2, 3, 4])
   })
 }
 

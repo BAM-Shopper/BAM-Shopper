@@ -1,5 +1,4 @@
 import axios from 'axios'
-// import history from '../history'
 
 /**
  * ACTION TYPES
@@ -34,7 +33,6 @@ export const fetchProducts = () => async dispatch => {
 
 export const createProduct = product => async dispatch => {
   try {
-    console.log('got it', await product)
     const { data } = await axios.post('/api/products', product)
     dispatch(addProduct(data))
   } catch (err) {
@@ -44,9 +42,7 @@ export const createProduct = product => async dispatch => {
 
 export const updateProduct = (product, id) => async dispatch => {
   try {
-    console.log(product, id)
     const { data } = await axios.put(`/api/products/${id}`, product)
-    console.log(data, product, id)
     dispatch(update(data))
   } catch (err) {
     console.err(err)

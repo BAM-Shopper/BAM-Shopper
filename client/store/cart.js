@@ -70,7 +70,6 @@ export const putCartItem = (item, cartId) => async dispatch => {
     const res = await axios.put(`/api/cart/${cartId}/item/${item.id}`, {
       ...item
     })
-    console.log('===', res.data)
     dispatch(editCartItem(res.data))
   } catch (err) {
     console.error(err)
@@ -96,30 +95,25 @@ export default function(state = defaultCart, action) {
     case ADD_CART_ITEM:
       return {
         ...state,
-        ['cart items']:
-          state['cart items'].find(item => item.id === action.payload.id) === -1
+        'cart items':
+          state['cart items'].find(item => item.id === action.payload.id) ===
+          undefined
             ? [...state['cart items'], action.payload]
             : state['cart items'].map(
                 item => (item.id === action.payload.id ? action.payload : item)
               )
       }
     case EDIT_CART_ITEM:
-      console.log({
-        ...state,
-        ['cart items']: state['cart items'].map(
-          item => (item.id === action.payload.id ? action.payload : item)
-        )
-      })
       return {
         ...state,
-        ['cart items']: state['cart items'].map(
+        'cart items': state['cart items'].map(
           item => (item.id === action.payload.id ? action.payload : item)
         )
       }
     case REMOVE_CART_ITEM:
       return {
         ...state,
-        ['cart items']: state['cart items'].filter(
+        'cart items': state['cart items'].filter(
           item => item.id !== action.payload
         )
       }

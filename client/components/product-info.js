@@ -2,7 +2,7 @@ import React from 'react'
 import { AddToCartButton } from './index'
 
 export const ProductInfo = props => {
-  const { imageUrl, description, title } = props.product
+  const { imageUrl, description, title, isAvailible } = props.product
 
   return (
     <div style={{display: 'flex'}}>
@@ -17,7 +17,10 @@ export const ProductInfo = props => {
           }}
         />
       </div>
-      <div style={{marginTop: '30%', marginLeft: '10px'}}>
+      <div style={{marginTop: '25%', marginLeft: '10px'}}>
+      {!isAvailible ? <div className='unavailible ui segment'>
+        <p>This product is currently unavailable</p>
+      </div> : <div />}
         <p>{description}</p>
         <AddToCartButton product={props.product} />
       </div>

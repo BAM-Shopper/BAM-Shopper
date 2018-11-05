@@ -29,7 +29,7 @@ const Product = db.define('product', {
 })
 
 //How do???
-Product.afterUpdate(product => {
+Product.beforeValidate(product => {
   product.inventory === 0 ? product.isAvailible = false : product.isAvailible = true
 })
 

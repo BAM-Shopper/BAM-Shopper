@@ -23,7 +23,7 @@ export class UserHome extends Component {
     // const myReviews = reviews.filter(review => review.userId === props.user.id)
     const myReviews = reviews.filter(review => review.userId === 7)
     return (
-      <div>
+      <div className='ui container'>
         <h3>Welcome, {email}!</h3>
         <button
           type='button'

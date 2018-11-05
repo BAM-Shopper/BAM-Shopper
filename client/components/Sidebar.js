@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const SideBar = props => {
+export const Sidebar = props => {
   if (!props.categories) {
     return <span />
   } else {
@@ -27,4 +27,4 @@ export const SideBar = props => {
   }
 }
 
-export default SideBar
+export default Sidebar

@@ -28,6 +28,7 @@ const Product = db.define('product', {
   }
 })
 
+//How do???
 Product.afterUpdate(product => {
   product.inventory === 0 ? product.isAvailible = false : product.isAvailible = true
 })

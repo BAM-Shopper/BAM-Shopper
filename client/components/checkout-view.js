@@ -2,12 +2,10 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {postOrder} from '../store/orders'
 import {deleteAllCartItems} from '../store/cart'
+import {updateProduct} from '../store/products'
 
 import axios from 'axios'
 import {CheckoutForm} from './index'
-
-// import {STRIPE_SECRET_KEY, STRIPE_PUBLISHABLE_KEY} from '../../secrets'
-// const stripe = require('stripe')(STRIPE_SECRET_KEY)
 
 export class Checkout extends Component {
   constructor(props) {
@@ -15,8 +13,10 @@ export class Checkout extends Component {
     this.state = {}
   }
 
-  handleSuccess = async () => {
-    console.log('SUCESS WITH STRIPE')
+  handleSuccess = async shippingDetails => {
+    console.log(shippingDetails)
+
+    //create new order
     const order = await this.props.postOrder(
       Number(
         this.props.cart['cart items']
@@ -24,9 +24,9 @@ export class Checkout extends Component {
           .toFixed(2)
       )
     )
-    console.log(order)
+
+    //create new order items
     this.props.cart['cart items'].forEach(async item => {
-      console.log('creating order item from cart item: ', item)
       await axios.post(`api/orders/${order.id}/item`, {
         quantity: item.quantity,
         price: item.price,
@@ -34,21 +34,36 @@ export class Checkout extends Component {
       })
     })
 
-    //todo | this breaks
-    //im guessing the cart rerenders when the cart items are removeved and there is a problem
+    //update inventory
+    this.props.cart['cart items'].forEach(async item => {
+      let newQuantity = item.product.inventory - item.quantity
+      await this.props.updateProduct(
+        {
+          inventory: newQuantity >= 0 ? newQuantity : 0
+        },
+        item.product.id
+      )
+    })
+
+    //send email here
+
+    let redirect
+    if (this.props.cart.userId) {
+      redirect = `/account/orders/${order.id}`
+    } else {
+      redirect = `/home`
+    }
+
+    //delete old cart
     this.props.deleteAllCartItems(
       this.props.cart['cart items'],
-      this.props.cart.id
+      this.props.cart.id,
+      redirect
     )
-
-    //cart itmes to order items
-    //remove old cart items
-    //rediredt to new order
-    //product quatity updates
   }
 
   handleError = () => {
-    console.log('FAILURE WITH STRIPE')
+    alert('There was a error during checkout. Please refresh and try again.')
   }
 
   render() {
@@ -82,8 +97,9 @@ const mapStateToProps = ({cart}) => ({cart})
 const mapDispatchToProps = dispatch => {
   return {
     postOrder: order => dispatch(postOrder(order)),
-    deleteAllCartItems: (itemArray, cartId) =>
-      dispatch(deleteAllCartItems(itemArray, cartId))
+    updateProduct: (product, id) => dispatch(updateProduct(product, id)),
+    deleteAllCartItems: (itemArray, cartId, redirect) =>
+      dispatch(deleteAllCartItems(itemArray, cartId, redirect))
   }
 }
 

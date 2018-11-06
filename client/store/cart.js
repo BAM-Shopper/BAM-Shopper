@@ -90,14 +90,13 @@ export const deleteCartItem = (itemId, cartId) => async dispatch => {
   }
 }
 
-export const deleteAllCartItems = (itemArray, cartId) => dispatch => {
-  console.log('in deleteAllCartItems')
+export const deleteAllCartItems = (itemArray, cartId, redirect) => dispatch => {
   try {
     itemArray.forEach(async item => {
-      console.log(`axios.delete(/api/cart/${cartId}/item/${item.id}`)
       await axios.delete(`/api/cart/${cartId}/item/${item.id}`)
     })
     dispatch(emptyCart())
+    history.push(redirect)
   } catch (err) {
     console.error(err)
   }

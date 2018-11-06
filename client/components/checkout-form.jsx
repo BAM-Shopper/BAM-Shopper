@@ -14,7 +14,8 @@ export class CheckoutForm extends Component {
       'shipping[city]': '',
       'shipping[state]': '',
       'shipping[country]': '',
-      'shipping[zip]': ''
+      'shipping[zip]': '',
+      'shipping[email]': ''
     }
   }
 
@@ -25,7 +26,7 @@ export class CheckoutForm extends Component {
         token,
         price: price * 100
       })
-      this.props.handleSuccess()
+      this.props.handleSuccess(this.state)
     } catch (err) {
       console.log('===There was an error while checking out=== ', err)
       this.props.handleError()
@@ -176,6 +177,16 @@ export class CheckoutForm extends Component {
                 />
               </div>
             </div>
+          </div>
+          <h4 className="ui dividing header">Receipt Email</h4>
+          <div className="field">
+            <input
+              required
+              type="email"
+              name="shipping[email]"
+              placeholder="example@email.com"
+              onChange={this.handleChange}
+            />
           </div>
         </form>
         {/* should be unclickable until form is valid */}

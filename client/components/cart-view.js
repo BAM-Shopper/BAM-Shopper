@@ -17,7 +17,7 @@ export class Cart extends React.Component {
           </h2>
           <Link
             to="/home"
-            className="center aligned"
+            className="ui right floated primary button"
             style={{textAlign: 'center'}}
           >
             Browse Products
@@ -35,7 +35,7 @@ export class Cart extends React.Component {
               )
               .toFixed(2)}
           </h2>
-          <Link to="/checkout" className="header">
+          <Link to="/checkout" className="ui right floated primary button">
             Proceed To Checkout
           </Link>
           <div className="ui three column stackable grid container">

@@ -70,10 +70,14 @@ export class Checkout extends Component {
     const {cart} = this.props
 
     if (!cart.id || !cart['cart items'].length) {
-      return <div>Your Cart is Empty</div>
+      return (
+        <h2 className="center aligned" style={{textAlign: 'center'}}>
+          Your Cart is Empty{' '}
+        </h2>
+      )
     } else {
       return (
-        <div>
+        <div className="ui container">
           <CheckoutForm
             price={Number(
               this.props.cart['cart items']

@@ -3,12 +3,16 @@ import {ProductItem} from './index'
 
 const ProductList = props => {
   if (!Array.isArray(props.products) || props.products.length === 0) {
-    return <p>No Products</p>
+    return (
+      <h2 className="center aligned" style={{textAlign: 'center'}}>
+        No Matches
+      </h2>
+    )
   } else {
     return (
       <div className="ui container">
         <h2 className="center aligned" style={{textAlign: 'center'}}>
-          Movies
+          {props.filter} Movies
         </h2>
         <div className="ui three column stackable grid container">
           {props.products.map(product => {
@@ -21,8 +25,9 @@ const ProductList = props => {
                 >
                   <ProductItem product={product} user={props.user} />
                 </div>
-            )
-          }})}
+              )
+            }
+          })}
         </div>
       </div>
     )

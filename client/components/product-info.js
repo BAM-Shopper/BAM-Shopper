@@ -1,13 +1,12 @@
 import React from 'react'
-import { AddToCartButton } from './index'
+import {AddToCartButton} from './index'
 
 export const ProductInfo = props => {
-  const { imageUrl, description, title, isAvailible } = props.product
+  const {imageUrl, description, title, isAvailible} = props.product
 
   return (
     <div style={{display: 'flex'}}>
       <div>
-        <h3>{title}</h3>
         <img
           src={imageUrl}
           alt="Movie image poster"
@@ -17,10 +16,23 @@ export const ProductInfo = props => {
           }}
         />
       </div>
-      <div style={{marginTop: '25%', marginLeft: '10px'}}>
-      {!isAvailible ? <div className='unavailible ui segment'>
-        <p>This product is currently unavailable</p>
-      </div> : <div />}
+      <div style={{alignSelf: 'center', marginLeft: '10px'}}>
+        <h3
+          style={{
+            fontSize: 'xx-large'
+          }}
+        >
+          {title}
+        </h3>
+        {!isAvailible ? (
+          <div className="unavailible ui segment">
+            <h2 className="center aligned" style={{textAlign: 'center'}}>
+              This product is currently unavailable
+            </h2>
+          </div>
+        ) : (
+          <div />
+        )}
         <p>{description}</p>
         <AddToCartButton product={props.product} />
       </div>

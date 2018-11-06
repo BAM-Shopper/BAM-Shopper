@@ -111,7 +111,7 @@ function generateCategories() {
   const categories = doTimes(numCategories, randCategory)
   categories.push(
     Category.build({
-      name: 'all'
+      name: 'All'
     })
   )
   console.log(`seeding ${categories.length} categories`)
@@ -237,7 +237,7 @@ async function createTags() {
   try {
     const all = await Category.findOne({
       where: {
-        name: 'all'
+        name: 'All'
       }
     })
 
@@ -412,7 +412,7 @@ async function seedDemoData() {
     // populates the Tag Join table
     const all = await Category.findOne({
       where: {
-        name: 'all'
+        name: 'All'
       }
     })
 

@@ -3,6 +3,12 @@ import {connect} from 'react-redux'
 import {forgot} from '../store'
 
 class Forgot extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      alertStatus: 'none'
+    }
+  }
 
   handleSubmit = (evt) => {
     evt.preventDefault()
@@ -10,28 +16,80 @@ class Forgot extends React.Component {
     const myUser = this.props.users.find(user => {
       return user.email === email
     })
-    console.log(myUser)
-    if (myUser) return this.props.sendForgot(email)
+    if (myUser) {
+      this.setState({
+        alertStatus: 'emailSent'
+      })
+      return this.props.sendForgot(email)
+    }
     else {
-      alert('There is no account associated with that email')
+      this.setState({
+        alertStatus: 'noEmail'
+      })
     }
   }
 
   render () {
-    return (
-      <div>
-        <p>To send a password reset email, enter your email address and click submit.</p>
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <label htmlFor="email">
-              <small>Email</small>
-            </label>
-            <input name="email" type="text" />
+    if (this.state.alertStatus === 'none') {
+      return (
+        <div>
+          <p>To send a password reset email, enter your email address and click submit.</p>
+          <form onSubmit={this.handleSubmit}>
+            <div>
+              <label htmlFor="email">
+                <small>Email</small>
+              </label>
+              <input name="email" type="text" />
+            </div>
+            <button type="submit">Reset Password</button>
+          </form>
+        </div>
+      )
+    } else if (this.state.alertStatus === 'noEmail') {
+      return (
+        <div>
+          <div className="ui warning message">
+            <i className="close icon" />
+            <div className="header">
+              There is no account associated with that email!
+            </div>
+              To create a new account, click 'Sign Up' above.
           </div>
-          <button type="submit">Reset Password</button>
-        </form>
-      </div>
-    )
+          <p>To send a password reset email, enter your email address and click submit.</p>
+          <form onSubmit={this.handleSubmit}>
+            <div>
+              <label htmlFor="email">
+                <small>Email</small>
+              </label>
+              <input name="email" type="text" />
+            </div>
+            <button type="submit">Reset Password</button>
+          </form>
+        </div>
+      )
+    } else if (this.state.alertStatus === 'emailSent') {
+      return (
+        <div>
+          <div className="ui info message">
+            <i className="close icon" />
+            <div className="header">
+              Password reset email sent!
+            </div>
+              Please check your inbox.
+          </div>
+          <p>To send a password reset email, enter your email address and click submit.</p>
+          <form onSubmit={this.handleSubmit}>
+            <div>
+              <label htmlFor="email">
+                <small>Email</small>
+              </label>
+              <input name="email" type="text" />
+            </div>
+            <button type="submit">Reset Password</button>
+          </form>
+        </div>
+      )
+    }
   }
 }
 

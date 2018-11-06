@@ -33,3 +33,9 @@ form div {
   cursor: pointer
 }
 
+.unavailible {
+  width: 40%;
+  text-align: center;
+  background: #dfdfdf!important;
+}
+

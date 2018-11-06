@@ -18,13 +18,6 @@ export class AdminDashboard extends Component {
             currentlyDisplayed: [],
             filter: ''
         }
-        this.handleProductClick = this.handleProductClick.bind(this)
-        this.handleProductAdd = this.handleProductAdd.bind(this)
-    }
-
-    //help!! this is a hackey implementation
-    UNSAFE_componentWillReceiveProps() {
-        this.setState({ currentlyDisplayed: this.props.orders })
     }
 
     componentDidUpdate(prevProps) {
@@ -33,26 +26,36 @@ export class AdminDashboard extends Component {
         }
     }
 
-    handelOrderFilter = event => {
-        this.setState({
-            filter: event.target.value
+    filterOrders = (status) => {
+        const filteredOrders = this.props.orders.filter(order => {
+            return order.status === status
         })
 
-        if (this.state.filter === 'all') {
+        this.setState({
+            currentlyDisplayed: filteredOrders
+        })
+    }
+
+    handelOrderFilter = event => {
+        if (event.target.value === 'all') {
             this.setState({
                 currentlyDisplayed: this.props.orders
             })
         } else {
-            this.filterOrders()
+            this.filterOrders(event.target.value)
         }
     }
 
-    filterOrders = () => {
-        const filteredOrders = this.props.orders.filter(order => {
-            return order.status === this.state.filter
-        })
+    handleProductClick = () => {
         this.setState({
-            currentlyDisplayed: filteredOrders
+            productClicked: false
+        })
+    }
+
+    handleProductAdd = () => {
+        const { productAdd } = this.state
+        this.setState({
+            productAdd: !productAdd
         })
     }
 
@@ -128,19 +131,6 @@ export class AdminDashboard extends Component {
                 }
             </section>
         )
-    }
-
-    handleProductClick() {
-        this.setState({
-            productClicked: false
-        })
-    }
-
-    handleProductAdd() {
-        const { productAdd } = this.state
-        this.setState({
-            productAdd: !productAdd
-        })
     }
 }
 

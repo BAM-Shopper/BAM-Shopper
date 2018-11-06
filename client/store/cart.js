@@ -92,13 +92,11 @@ export const deleteCartItem = (itemId, cartId) => async dispatch => {
 
 export const deleteAllCartItems = (itemArray, cartId) => dispatch => {
   try {
-    let counter = 0
     itemArray.forEach(async item => {
+      console.log(`axios.delete(/api/cart/${cartId}/item/${item.id}`)
       await axios.delete(`/api/cart/${cartId}/item/${item.id}`)
-      counter++
     })
     dispatch(emptyCart())
-    return counter
   } catch (err) {
     console.error(err)
   }

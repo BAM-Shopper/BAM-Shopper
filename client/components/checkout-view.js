@@ -34,12 +34,9 @@ export class Checkout extends Component {
       })
     })
 
-    const count = await deleteAllCartItems(
-      this.props.cart['cart items'],
-      this.props.cart.id
-    )
-
-    console.log('items removed from cart: ', count)
+    //todo | this breaks
+    //im guessing the cart rerenders when the cart items are removeved and there is a problem
+    deleteAllCartItems(this.props.cart['cart items'], this.props.cart.id)
 
     //cart itmes to order items
     //remove old cart items

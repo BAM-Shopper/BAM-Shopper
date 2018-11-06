@@ -1,18 +1,35 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {update} from '../store'
+import {updateUser} from '../store/users'
 
 class Reset extends React.Component {
 
+  handleSubmit = (evt) => {
+    evt.preventDefault()
+    if (evt.target.password1.value === evt.target.password2.value) {
+      const myUser = this.props.users.find(user => user.email === evt.target.email.value)
+      myUser.password = evt.target.password1.value
+      this.props.updateUser(myUser, myUser.id, 'updatePass')
+    } else console.log('Passwords do not match')
+  }
+
   render () {
+    console.log('UPDATE USER', updateUser)
       return (
         <div>
-          <form onSubmit={this.props.handleSubmit} name={name}>
+          <form onSubmit={this.handleSubmit} name={name}>
+            <div>
+              <label htmlFor="email">
+                <small>Email Address</small>
+              </label>
+              <input name="email" type="text" />
+            </div>
+            <br />
             <div>
               <label htmlFor="password">
                 <small>New Password</small>
               </label>
-              <input name="password1" type="text" />
+              <input name="password1" type="password" />
             </div>
             <div>
               <label htmlFor="password">
@@ -31,14 +48,12 @@ class Reset extends React.Component {
 
 const mapDispatch = dispatch => {
   return {
-    handleSubmit(evt) {
-      if (evt.target.password1.value === evt.target.password2.value) {
-        const password = evt.target.password1.value
-        const token = Number(this.props.match.params.id)
-        dispatch(update(password, token))
-      } else console.log('Passwords do not match')
-    }
+    updateUser: (user, id, type) => dispatch(updateUser(user, id, type))
   }
 }
 
-export default connect(null, mapDispatch)(Reset)
+const mapState = ({users}) => ({
+  users
+})
+
+export default connect(mapState, mapDispatch)(Reset)

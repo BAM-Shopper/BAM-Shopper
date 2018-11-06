@@ -31,9 +31,9 @@ export const fetchUsers = () => async dispatch => {
     }
 }
 
-export const updateUser = (user, id) => async dispatch => {
+export const updateUser = (user, id, type) => async dispatch => {
     try {
-        const { data } = await axios.put(`/api/users/${id}`, user)
+        const { data } = await axios.put(`/api/users/${id}`, {user: user, type: type} )
         dispatch(update(data))
     } catch (err) {
         console.error(err)

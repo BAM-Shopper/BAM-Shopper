@@ -2,19 +2,16 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import {Link} from 'react-router-dom'
 
-/**
- * COMPONENT
- */
-const AuthForm = props => {
-  const {name, displayName, handleSubmit, error} = props
-
-  return (
-    <div className="ui one column grid centered">
-      <div className="row">
+class AuthForm extends React.Component {
+  render() {
+    const {name, displayName, handleSubmit, error} = this.props
+    return (
+      <div className="ui container">
         <form onSubmit={handleSubmit} name={name} className="ui form">
           <div className="ui one column grid centered">
-            <div className="row">
+            <div className="column">
               <div className="field">
                 <label htmlFor="email">Email</label>
                 <input name="email" type="text" />
@@ -22,24 +19,34 @@ const AuthForm = props => {
               <div className="field">
                 <label htmlFor="password">Password</label>
                 <input name="password" type="password" />
-              </div>{' '}
+              </div>
             </div>
-            <div className="row">
-              <button type="submit" className="ui primary button">
-                {displayName}
-              </button>
-              <a href="/auth/google" className="ui primary button">
-                {displayName} with Google
-              </a>
-            </div>
-            <div className="row">
+            <div className="column">
+              <div>
+                <button type="submit" className="ui primary button">
+                  {displayName}
+                </button>
+              </div>
               {error && error.response && <div> {error.response.data} </div>}
             </div>
           </div>
         </form>
+        <div className="ui one column grid centered">
+          <div className="column">
+            <Link to="/forgot" className="ui primary button">
+              Forgot Password
+            </Link>
+          </div>
+
+          <div className="column">
+            <Link to="/auth/google" className="ui primary button">
+              {displayName} with Google
+            </Link>
+          </div>
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 /**

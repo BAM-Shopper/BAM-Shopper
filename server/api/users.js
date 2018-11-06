@@ -29,9 +29,15 @@ router.get('/:id', async (req, res, next) => {
 // PUT /api/users/:id
 router.put('/:id', async (req, res, next) => {
   try {
-    let userToPromote = await User.findById(req.params.id)
-    userToPromote.isAdmin = true
-    res.json(userToPromote)
+    if (req.body.type === 'updatePass') {
+      let updatedUser = await User.findById(req.params.id)
+      updatedUser.update({password : req.body.user.password})
+      res.json(updatedUser)
+    } else if (req.body.type === 'updateAdmin') {
+      let userToPromote = await User.findById(req.params.id)
+      userToPromote.isAdmin = true
+      res.json(userToPromote)
+    }
   } catch (err) {
     next(err)
   }

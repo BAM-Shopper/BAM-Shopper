@@ -43,7 +43,7 @@ export class AllUsers extends Component {
         const { updateUser } = this.props
         const userId = Number(evt.target.value)
         const user = this.props.users.filter(user => user.id === userId)[0]
-        updateUser(user, user.id)
+        updateUser(user, user.id, 'updateAdmin')
     }
     userDelete(evt) {
         evt.preventDefault()

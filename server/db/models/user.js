@@ -37,7 +37,9 @@ const User = db.define('user', {
   },
   prevSession: {
     type: Sequelize.STRING
-  }
+  },
+  resetPasswordToken: Sequelize.STRING,
+  resetPasswordExpires: Sequelize.DATE
 })
 
 module.exports = User

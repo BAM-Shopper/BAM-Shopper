@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
+  Forgot,
+  Reset,
   Login,
   Signup,
   UserHome,
@@ -28,8 +30,10 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route path="/login" component={Login} />
+        <Route exact path="/login" component={Login} />
+        <Route path="/reset/:token" component={Reset} />
         <Route path="/signup" component={Signup} />
+        <Route path="/forgot" component={Forgot} />
         <Route path="/cart" component={Cart} />
         <Route path="/checkout" component={Checkout} />
         <Route exact path="/" component={Home} />

@@ -72,8 +72,6 @@ router.post('/forgot', function(req, res, next) {
         .then(user => {
           if (!user) {
             console.log('No account with that email address exists.')
-            // req.flash('error', 'No account with that email address exists.')
-            // return res.redirect('/auth/forgot')
           } else {
             user.resetPasswordToken = token
             user.resetPasswordExpires = Date.now() + 3600000

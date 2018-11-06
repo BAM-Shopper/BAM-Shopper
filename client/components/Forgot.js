@@ -4,12 +4,24 @@ import {forgot} from '../store'
 
 class Forgot extends React.Component {
 
+  handleSubmit = (evt) => {
+    evt.preventDefault()
+    const email = evt.target.email.value
+    const myUser = this.props.users.find(user => {
+      return user.email === email
+    })
+    console.log(myUser)
+    if (myUser) return this.props.sendForgot(email)
+    else {
+      alert('There is no account associated with that email')
+    }
+  }
+
   render () {
-    console.log(this.props.handleSubmit)
     return (
       <div>
         <p>To send a password reset email, enter your email address and click submit.</p>
-        <form onSubmit={this.props.handleSubmit}>
+        <form onSubmit={this.handleSubmit}>
           <div>
             <label htmlFor="email">
               <small>Email</small>
@@ -25,14 +37,16 @@ class Forgot extends React.Component {
 
 const mapDispatch = dispatch => {
   return {
-    handleSubmit(evt) {
-      evt.preventDefault()
-      const email = evt.target.email.value
-      dispatch(forgot(email))
-    }
+    sendForgot: email => dispatch(forgot(email))
   }
 }
 
-export default connect(null, mapDispatch)(Forgot)
+const mapState = state => {
+  return {
+    users: state.users
+  }
+}
+
+export default connect(mapState, mapDispatch)(Forgot)
 
 

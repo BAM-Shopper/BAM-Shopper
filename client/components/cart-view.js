@@ -63,11 +63,8 @@ export class Cart extends React.Component {
                       {item.product.title}
                     </Link>
                   </div>
+                  <div className="meta">${item.product.price.toFixed(2)}</div>
                   <div className="meta">
-                    Price: {item.product.price.toFixed(2)}
-                  </div>
-                  <div className="meta">
-                    <div>Quantity:</div>
                     <select
                       className="ui dropdown"
                       defaultValue={item.quantity}
@@ -90,6 +87,7 @@ export class Cart extends React.Component {
                   </div>
                   <button
                     type="button"
+                    className="ui primary button"
                     onClick={() => this.props.deleteCartItem(item.id, cart.id)}
                   >
                     Remove From Cart

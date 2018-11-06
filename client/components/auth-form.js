@@ -12,15 +12,22 @@ class AuthForm extends React.Component {
         <form onSubmit={handleSubmit} name={name} className="ui form">
           <div className="ui one column grid centered">
             <div className="column">
-              <div className="field">
-                <label htmlFor="email">Email</label>
-                <input name="email" type="text" />
-              </div>
-              <div className="field">
-                <label htmlFor="password">Password</label>
-                <input name="password" type="password" />
+              <div className="two fields">
+                <div className="field">
+                  <label htmlFor="email">Email</label>
+                  <input
+                    name="email"
+                    type="text"
+                    placeholder="example@email.com"
+                  />
+                </div>
+                <div className="field">
+                  <label htmlFor="password">Password</label>
+                  <input name="password" type="password" />
+                </div>
               </div>
             </div>
+
             <div className="column">
               <div>
                 <button type="submit" className="ui primary button">

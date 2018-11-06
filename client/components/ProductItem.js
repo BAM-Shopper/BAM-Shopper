@@ -56,7 +56,7 @@ export class ProductItem extends Component {
           </div>
         ) : (
           <EditProductForm
-            productId={product.id}
+            product={product}
             handleAdminEdit={this.handleAdminEdit}
           />
         )}

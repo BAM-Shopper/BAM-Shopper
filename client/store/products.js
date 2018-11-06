@@ -40,9 +40,9 @@ export const createProduct = product => async dispatch => {
   }
 }
 
-export const updateProduct = (product, id) => async dispatch => {
+export const updateProduct = (product, id, categoriesToAdd) => async dispatch => {
   try {
-    const { data } = await axios.put(`/api/products/${id}`, product)
+    const { data } = await axios.put(`/api/products/${id}`, { product, categoriesToAdd })
     dispatch(update(data))
   } catch (err) {
     console.err(err)

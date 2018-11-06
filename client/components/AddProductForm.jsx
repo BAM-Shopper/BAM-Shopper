@@ -13,44 +13,9 @@ export class AddProductForm extends Component {
             inventory: '',
             imageUrl: '',
         }
-        this.newProductSubmit = this.newProductSubmit.bind(this)
     }
 
-    render() {
-        return (
-            <div>
-                <form className="ui form" onSubmit={this.newProductSubmit}>
-                    <div className="field">
-                        <label>Title</label>
-                        <input type="text" name="title" placeholder="Die Hard 2" onChange={evt => this.setState({ [evt.target.name]: evt.target.value })} />
-                    </div>
-                    <div className="field">
-                        <div className="two fields">
-                            <div className="field">
-                                <label>Price</label>
-                                <input type="text" name="price" placeholder="9.99" onChange={evt => this.setState({ [evt.target.name]: evt.target.value })} />
-                            </div>
-                            <div className="field">
-                                <label>Inventory</label>
-                                <input type="text" name="inventory" placeholder="2" onChange={evt => this.setState({ [evt.target.name]: evt.target.value })} />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="field">
-                        <label>Image URL</label>
-                        <input type="text" name="imageUrl" onChange={evt => this.setState({ [evt.target.name]: evt.target.value })} />
-                    </div>
-                    <div className="field">
-                        <label>Description</label>
-                        <textarea rows="2" name="description" onChange={evt => this.setState({ [evt.target.name]: evt.target.value })} />
-                    </div>
-                    <button className="ui button" type="submit">Submit</button>
-                </form>
-            </div>
-        )
-    }
-
-    newProductSubmit(evt) {
+    newProductSubmit = (evt) => {
         evt.preventDefault()
 
         const { title, description, price, inventory, imageUrl } = evt.target
@@ -67,6 +32,40 @@ export class AddProductForm extends Component {
         createProduct(product)
         handleProductAdd()
     }
+
+    render() {
+        return (
+            <div>
+                <form className="ui form addNewProduct" onSubmit={this.newProductSubmit} style={{ width: '50%' }}>
+                    <div className="field">
+                        <label>Title</label>
+                        <input type="text" name="title" placeholder="Die Hard 2" onChange={evt => this.setState({ [evt.target.name]: evt.target.value }/* , () => { this.validateField(evt.target.name, evt.target.value) } */)} />
+                    </div>
+
+                    <div className="field">
+                        <label>Price</label>
+                        <input type="text" name="price" placeholder="9.99" onChange={evt => this.setState({ [evt.target.name]: evt.target.value })} />
+                    </div>
+                    <div className="field">
+                        <label>Inventory</label>
+                        <input type="text" name="inventory" placeholder="2" onChange={evt => this.setState({ [evt.target.name]: evt.target.value })} />
+
+                    </div>
+                    <div className="field">
+                        <label>Image URL</label>
+                        <input type="text" name="imageUrl" onChange={evt => this.setState({ [evt.target.name]: evt.target.value })} />
+                    </div>
+                    <div className="field">
+                        <label>Description</label>
+                        <textarea rows="2" name="description" onChange={evt => this.setState({ [evt.target.name]: evt.target.value })} />
+                    </div>
+                </form>
+                <button className="ui button" type="submit">Submit</button>
+            </div>
+        )
+    }
+
+
 }
 
 export default connect(null, { createProduct })(AddProductForm)

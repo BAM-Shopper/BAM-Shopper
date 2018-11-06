@@ -4,28 +4,8 @@ import {Link} from 'react-router-dom'
 import {deleteCartItem, putCartItem} from '../store/cart'
 
 export class Cart extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      totalPrice: 0
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    console.log('in componentDidUpdate')
-    if (this.props.cart['cart items'] !== prevProps.cart['cart items']) {
-      console.log('props mismatch')
-      this.setState({
-        totalPrice: this.props.cart['cart items']
-          .reduce((acc, curr) => acc + curr.product.price * curr.quantity, 0)
-          .toFixed(2)
-      })
-    }
-  }
-
   render() {
     const {cart} = this.props
-    const {totalPrice} = this.state
 
     const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
@@ -48,7 +28,12 @@ export class Cart extends React.Component {
       return (
         <div className="ui container">
           <h2 className="center aligned" style={{textAlign: 'center'}}>
-            My Cart | Total Price: ${totalPrice}
+            My Cart | Total Price: ${cart['cart items']
+              .reduce(
+                (acc, curr) => acc + curr.product.price * curr.quantity,
+                0
+              )
+              .toFixed(2)}
           </h2>
           <Link to="/checkout" className="header">
             Proceed To Checkout
@@ -78,7 +63,9 @@ export class Cart extends React.Component {
                       {item.product.title}
                     </Link>
                   </div>
-                  <div className="meta">Price: {item.product.price}</div>
+                  <div className="meta">
+                    Price: {item.product.price.toFixed(2)}
+                  </div>
                   <div className="meta">
                     <div>Quantity:</div>
                     <select
@@ -86,8 +73,6 @@ export class Cart extends React.Component {
                       defaultValue={item.quantity}
                       onChange={event => {
                         event.preventDefault()
-                        console.log(event.target.value)
-                        console.log(item)
                         this.props.putCartItem(
                           {...item, quantity: Number(event.target.value)},
                           this.props.cart.id

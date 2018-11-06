@@ -8,6 +8,7 @@ const GET_CART = 'GET_CART'
 const ADD_CART_ITEM = 'ADD_CART_ITEM'
 const EDIT_CART_ITEM = 'EDIT_CART_ITEM'
 const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM'
+const EMPTY_CART = 'EMPTY_CART'
 
 /**
  * INITIAL STATE
@@ -35,6 +36,10 @@ const editCartItem = item => ({
 const removeCartItem = itemId => ({
   type: REMOVE_CART_ITEM,
   payload: itemId
+})
+
+const emptyCart = () => ({
+  type: EMPTY_CART
 })
 
 /**
@@ -70,7 +75,6 @@ export const putCartItem = (item, cartId) => async dispatch => {
     const res = await axios.put(`/api/cart/${cartId}/item/${item.id}`, {
       ...item
     })
-    console.log('===', res.data)
     dispatch(editCartItem(res.data))
   } catch (err) {
     console.error(err)
@@ -86,6 +90,18 @@ export const deleteCartItem = (itemId, cartId) => async dispatch => {
   }
 }
 
+export const deleteAllCartItems = (itemArray, cartId, redirect) => dispatch => {
+  try {
+    itemArray.forEach(async item => {
+      await axios.delete(`/api/cart/${cartId}/item/${item.id}`)
+    })
+    dispatch(emptyCart())
+    history.push(redirect)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 /**
  * REDUCER
  */
@@ -96,32 +112,33 @@ export default function(state = defaultCart, action) {
     case ADD_CART_ITEM:
       return {
         ...state,
-        ['cart items']:
-          state['cart items'].find(item => item.id === action.payload.id) === -1
+        'cart items':
+          state['cart items'].find(item => item.id === action.payload.id) ===
+          undefined
             ? [...state['cart items'], action.payload]
             : state['cart items'].map(
                 item => (item.id === action.payload.id ? action.payload : item)
               )
       }
     case EDIT_CART_ITEM:
-      console.log({
-        ...state,
-        ['cart items']: state['cart items'].map(
-          item => (item.id === action.payload.id ? action.payload : item)
-        )
-      })
       return {
         ...state,
-        ['cart items']: state['cart items'].map(
+        'cart items': state['cart items'].map(
           item => (item.id === action.payload.id ? action.payload : item)
         )
       }
     case REMOVE_CART_ITEM:
       return {
         ...state,
-        ['cart items']: state['cart items'].filter(
+        'cart items': state['cart items'].filter(
           item => item.id !== action.payload
         )
+      }
+
+    case EMPTY_CART:
+      return {
+        ...state,
+        'cart items': []
       }
     default:
       return state

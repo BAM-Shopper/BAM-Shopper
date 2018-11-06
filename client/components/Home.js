@@ -39,13 +39,13 @@ class Home extends React.Component {
     this.setState({
       filter: event.target.value
     })
-    this.filterProducts()
+    this.filterProducts(event.target.value)
   }
 
-  filterProducts = () => {
+  filterProducts = (filter) => {
     const filtered = this.props.products.filter(product => {
       return product.categories.find(
-        category => category.name === this.state.filter
+        category => category.name === filter
       )
     })
     this.setState({

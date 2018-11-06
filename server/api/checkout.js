@@ -2,23 +2,19 @@
 const router = require('express').Router()
 module.exports = router
 
-if (!process.env.STRIPE_SECRET_KEY || !process.env.STRIPE_PUBLISHABLE_KEY) {
-  console.log('Stripe public / secret key not found. Cannot checkout.')
+if (!process.env.STRIPE_SECRET_KEY) {
+  console.log('Stripe secret key not found. Cannot checkout.')
 } else {
-  console.log("valid stripe key's")
-
   var stripe = require('stripe')(process.env.STRIPE_SECRET_KEY)
 
   router.post('/', async (req, res, next) => {
-    console.log('req.body in POST: ', req.body)
     try {
       const charge = await stripe.charges.create({
-        amount: req.body.amount,
+        amount: req.body.price,
         currency: 'usd',
-        description: 'Example $100 charge',
-        source: 'tok_visa'
+        description: 'Test $1 Charge',
+        source: req.body.token.id
       })
-      console.log('STRIPE RESPONSE: ', charge)
       res.json(charge)
     } catch (err) {
       next(err)

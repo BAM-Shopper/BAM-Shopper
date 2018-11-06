@@ -41,24 +41,27 @@ export class AddToCartButton extends Component {
             )
           })}
         </select>
-        {product.isAvailible ? <button
-          type="button"
-          className="ui right floated primary button"
-          onClick={() => {
-            this.props.postCartItem(product, cart.id, quantity)
-          }}
-        >
-          Add To Cart
-          <i className="right chevron icon" />
-        </button> : 
-        <button
-          type="button"
-          className="ui right floated primary button"
-          disabled
-        >
-          Add To Cart
-          <i className="right chevron icon" />
-        </button>}
+        {product.isAvailible ? (
+          <button
+            type="button"
+            className="ui right floated primary button"
+            onClick={() => {
+              this.props.postCartItem(product, cart.id, quantity)
+            }}
+          >
+            Add To Cart
+            <i className="right chevron icon" />
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="ui right floated primary button"
+            disabled
+          >
+            Add To Cart
+            <i className="right chevron icon" />
+          </button>
+        )}
       </div>
     )
   }

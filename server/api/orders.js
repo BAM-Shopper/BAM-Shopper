@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Order, OrderItem, Product } = require('../db/models')
+const {Order, OrderItem, Product} = require('../db/models')
 module.exports = router
 
 //GET api/orders/
@@ -48,6 +48,41 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
+// POST api/orders/
+router.post('/', async (req, res, next) => {
+  try {
+    let newOrder
+    if (req.user) {
+      newOrder = await Order.create({
+        total: req.body.total,
+        userId: req.user.id
+      })
+    } else {
+      newOrder = await Order.create({
+        total: req.body.total
+      })
+    }
+    res.json(newOrder)
+  } catch (err) {
+    next(err)
+  }
+})
+
+// POST api/orders/:id/item
+router.post('/:id/item', async (req, res, next) => {
+  try {
+    const newItem = await OrderItem.create({
+      quantity: req.body.quantity,
+      price: req.body.price,
+      orderId: req.params.id,
+      productId: req.body.productId
+    })
+    res.json(newItem)
+  } catch (err) {
+    next(err)
+  }
+})
+
 // PUT api/orders/:id
 router.put('/:id', async (req, res, next) => {
   try {
@@ -58,4 +93,3 @@ router.put('/:id', async (req, res, next) => {
     next(err)
   }
 })
-

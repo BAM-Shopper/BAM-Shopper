@@ -36,7 +36,10 @@ export class Checkout extends Component {
 
     //todo | this breaks
     //im guessing the cart rerenders when the cart items are removeved and there is a problem
-    deleteAllCartItems(this.props.cart['cart items'], this.props.cart.id)
+    this.props.deleteAllCartItems(
+      this.props.cart['cart items'],
+      this.props.cart.id
+    )
 
     //cart itmes to order items
     //remove old cart items
@@ -78,7 +81,9 @@ const mapStateToProps = ({cart}) => ({cart})
 
 const mapDispatchToProps = dispatch => {
   return {
-    postOrder: order => dispatch(postOrder(order))
+    postOrder: order => dispatch(postOrder(order)),
+    deleteAllCartItems: (itemArray, cartId) =>
+      dispatch(deleteAllCartItems(itemArray, cartId))
   }
 }
 

@@ -91,6 +91,7 @@ export const deleteCartItem = (itemId, cartId) => async dispatch => {
 }
 
 export const deleteAllCartItems = (itemArray, cartId) => dispatch => {
+  console.log('in deleteAllCartItems')
   try {
     itemArray.forEach(async item => {
       console.log(`axios.delete(/api/cart/${cartId}/item/${item.id}`)

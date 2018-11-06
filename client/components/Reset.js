@@ -14,7 +14,6 @@ class Reset extends React.Component {
   }
 
   render () {
-    console.log('UPDATE USER', updateUser)
       return (
         <div>
           <form onSubmit={this.handleSubmit} name={name}>

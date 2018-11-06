@@ -32,10 +32,8 @@ export const fetchUsers = () => async dispatch => {
 }
 
 export const updateUser = (user, id, type) => async dispatch => {
-    console.log('MADE IT TO THE THUNK')
     try {
         const { data } = await axios.put(`/api/users/${id}`, {user: user, type: type} )
-        console.log('DAAATAAA', data)
         dispatch(update(data))
     } catch (err) {
         console.error(err)

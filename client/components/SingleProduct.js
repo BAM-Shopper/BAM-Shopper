@@ -62,7 +62,7 @@ export class SingleProduct extends Component {
       )
     } else {
       return (
-        <div>
+        <div className='ui container'>
           <ProductInfo product={this.props.selectedProduct} />
           <div>
             <hr />

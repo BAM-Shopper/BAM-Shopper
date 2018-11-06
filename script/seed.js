@@ -79,7 +79,8 @@ function randProduct() {
   return Product.build({
     ...movies.pop(),
     price: chance.floating({min: 1, max: 100, fixed: 2}),
-    inventory: chance.integer({min: -3, max: 200})
+    inventory: chance.integer({min: 0, max: 50}),
+    isAvailible: chance.weighted([true, false], [1, 20])
   })
 }
 
@@ -90,7 +91,8 @@ function generateProducts() {
       title: 'TEST',
       description: chance.paragraph(),
       price: 1,
-      inventory: 100
+      inventory: 0,
+      isAvailible: true
     })
   )
   console.log(`seeding ${products.length} products`)

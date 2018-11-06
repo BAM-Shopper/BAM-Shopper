@@ -60,7 +60,6 @@ export const logout = () => async dispatch => {
 }
 
 export const forgot = email => async dispatch => {
-  console.log('INSIDE THUNK')
   try {
     await axios.post('/auth/forgot', {email})
   } catch (err) {

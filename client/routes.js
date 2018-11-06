@@ -4,6 +4,7 @@ import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {
   Forgot,
+  Reset,
   Login,
   Signup,
   UserHome,
@@ -30,6 +31,7 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/login" component={Login} />
+        <Route path="/reset/:token" component={Reset} />
         <Route path="/signup" component={Signup} />
         <Route path="/forgot" component={Forgot} />
         <Route path="/cart" component={Cart} />

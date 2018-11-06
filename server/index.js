@@ -10,7 +10,7 @@ const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
-const flash = require('req-flash')
+const cookieParser = require('cookie-parser')
 
 module.exports = app
 
@@ -54,17 +54,18 @@ const createApp = () => {
   app.use(compression())
 
   // session middleware with passport
+  app.use(cookieParser('secret'))
   app.use(
     session({
       secret: process.env.SESSION_SECRET || 'my best friend is Cody',
       store: sessionStore,
       resave: false,
-      saveUninitialized: true
+      saveUninitialized: true,
+      cookie: {maxAge: 60000}
     })
   )
   app.use(passport.initialize())
   app.use(passport.session())
-  app.use(flash())
 
   // auth and api routes
   app.use('/auth', require('./auth'))

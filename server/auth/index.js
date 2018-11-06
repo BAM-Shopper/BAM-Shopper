@@ -50,8 +50,13 @@ router.get('/me', (req, res) => {
   res.json(req.user)
 })
 
+// router.get('/forgot', function(req, res) {
+//   res.render('forgot', {
+//     message: req.flash('message')
+//   })
+// })
+
 router.post('/forgot', function(req, res, next) {
-  console.log('GOT POST REQUEST')
   async.waterfall([
     function(done) {
       crypto.randomBytes(20, function(err, buf) {
@@ -63,40 +68,42 @@ router.post('/forgot', function(req, res, next) {
       User.findOne(
         {where: {
           email: req.body.email}
-        },
-        function (err, user) {
-        if (!user) {
-          req.flash('error', 'No account with that email address exists.')
-          return res.redirect('/forgot')
-        }
+        })
+        .then(user => {
+          if (!user) {
+            console.log('No account with that email address exists.')
+            // req.flash('error', 'No account with that email address exists.')
+            // return res.redirect('/auth/forgot')
+          } else {
+            user.resetPasswordToken = token
+            user.resetPasswordExpires = Date.now() + 3600000
 
-        user.resetPasswordToken = token
-        user.resetPasswordExpires = Date.now() + 3600000
-
-        user.save(function(err) {
-          done(err, token, user)
-        });
-      });
-    },
-    function(token, user, done) {
-      var smtpTransport = nodemailer.createTransport({
-        service: 'Gmail',
-        auth: {
-          user: 'noreply.blockblaster@gmail.com',
-          pass: process.env.GMAILPW
-        }
-      })
-      var mailOptions = {
-        to: user.email,
-        from: 'noreply.blockblaster@gmail.com',
-        subject: "BlockBlaster Password Reset",
-        text: `You are receiving this because you (or someone else) requested the reset of your BlockBlaster password.  Please click on the following link, or paste this into your browser to complete the process.  http://${req.headers.host}/reset/${token}\n\n  If you did not request this, please ignore this email and your password will remain unchanged.`
-      }
-      smtpTransport.sendMail(mailOptions, function(err) {
-        console.log('mail sent')
-        req.flash('success', `An email has been sent to ${user.email} with further instructions`)
-        done(err, 'done')
-      })
+            user.save(function(err) {
+              done(err, token, user)
+            })
+            .then(user => {
+              const userObj = user.dataValues
+              let transporter = nodemailer.createTransport({
+                service: 'Gmail',
+                auth: {
+                  user: 'noreply.blockblaster@gmail.com',
+                  pass: process.env.GMAILPW
+                }
+              })
+              let mailOptions = {
+                to: userObj.email,
+                from: 'noreply.blockblaster@gmail.com',
+                subject: "BlockBlaster Password Reset",
+                text: `You are receiving this because you (or someone else) requested the reset of your BlockBlaster password.  Please click on the following link, or paste this into your browser to complete the process.  http://${req.headers.host}/reset/${userObj.resetPasswordToken}\n\n  If you did not request this, please ignore this email and your password will remain unchanged.`
+              }
+              transporter.sendMail(mailOptions, function(err) {
+                console.log('mail sent')
+                // req.flash('success', `An email has been sent to ${userObj.email} with further instructions`)
+                done(err, 'done')
+              })
+            })
+          }
+        })
     },
   ], function(err) {
     if (err) return next(err)
@@ -105,6 +112,25 @@ router.post('/forgot', function(req, res, next) {
   )
 })
 
+router.get('/reset/:token', function(req, res) {
+  User.findOne(
+    {where: {
+      resetPasswordToken: req.params.token,
+      resetPasswordExpires: {
+        $gt: Date.now()
+      }
+    }
+    })
+    .then(user => {
+      if (!user) {
+        console.log('Password reset token is invalid or has expired')
+        // req.flash('error', 'Password reset token is invalid or has expired')
+        return res.redirect('/forgot')
+      } else {
+        res.render('reset', {token: req.params.token})
+      }
+    })
+  })
 
 
 router.use('/google', require('./google'))

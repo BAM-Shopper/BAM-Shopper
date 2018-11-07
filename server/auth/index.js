@@ -14,10 +14,8 @@ router.post('/login', async (req, res, next) => {
     await user.update({prevSession: req.session.id})
 
     if (!user) {
-      console.log('No such user found:', req.body.email)
       res.status(401).send('Wrong username and/or password')
     } else if (!user.correctPassword(req.body.password)) {
-      console.log('Incorrect password for user:', req.body.email)
       res.status(401).send('Wrong username and/or password')
     } else {
       req.login(user, err => (err ? next(err) : res.json(user)))
@@ -49,12 +47,6 @@ router.post('/logout', (req, res) => {
 router.get('/me', (req, res) => {
   res.json(req.user)
 })
-
-// router.get('/forgot', function(req, res) {
-//   res.render('forgot', {
-//     message: req.flash('message')
-//   })
-// })
 
 router.post('/forgot', function(req, res, next) {
   async.waterfall(
@@ -101,7 +93,7 @@ router.post('/forgot', function(req, res, next) {
                   }\n\n  If you did not request this, please ignore this email and your password will remain unchanged.`
                 }
                 transporter.sendMail(mailOptions, function(err) {
-                  console.log('mail sent')
+                  console.log('Mail Sent')
                   // req.flash('success', `An email has been sent to ${userObj.email} with further instructions`)
                   done(err, 'done')
                 })
@@ -137,7 +129,44 @@ router.get('/reset/:token', function(req, res) {
 })
 
 router.post('/receipt', function(req, res, next) {
-  console.log(req.body)
+  const name = []
+  name.push(`${req.body.shippingDetails['shipping[first-name]']}`)
+  name.push(`${req.body.shippingDetails['shipping[last-name]']}`)
+
+  const shipping = []
+  shipping.push('Shipping Address:')
+  shipping.push('===========================================')
+  shipping.push(`Address-1: ${req.body.shippingDetails['shipping[address-1]']}`)
+  shipping.push(`Address-2: ${req.body.shippingDetails['shipping[address-2]']}`)
+  shipping.push(`City: ${req.body.shippingDetails['shipping[city]']}`)
+  shipping.push(`State: ${req.body.shippingDetails['shipping[state]']}`)
+  shipping.push(`Country: ${req.body.shippingDetails['shipping[country]']}`)
+  shipping.push(`Zip: ${req.body.shippingDetails['shipping[zip]']}`)
+
+  const orderSummary = []
+  orderSummary.push(`Order Summary:`)
+  orderSummary.push(`Order #: ${req.body.order.id}`)
+  orderSummary.push(`Order Status: ${req.body.order.status}`)
+  orderSummary.push(`Order Timestamp: ${req.body.order.createdAt.slice(0, 10)}`)
+  orderSummary.push('===========================================')
+  req.body.items.forEach(item => {
+    orderSummary.push(`Product: ${item.product.title}`)
+    orderSummary.push(`Quantity: ${item.quantity}`)
+    orderSummary.push(
+      `Subtotal: $${(item.quantity * item.product.price).toFixed(2)}`
+    )
+    orderSummary.push('===========================================')
+  })
+  orderSummary.push(`\nTotal Cost: $${req.body.order.total}`)
+
+  let email = `Hello ${name.join(
+    ' '
+  )},\n\nYour payment has been recieved!\n\n${shipping.join(
+    '\n'
+  )}\n\n${orderSummary.join(
+    '\n'
+  )}\n\nPlease contact us if you have questions or concerns about your order,\nThe BlockBlaster Team`
+
   let transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
@@ -146,10 +175,10 @@ router.post('/receipt', function(req, res, next) {
     }
   })
   let mailOptions = {
-    to: req.body.email,
+    to: req.body.shippingDetails['shipping[email]'],
     from: 'noreply.blockblaster@gmail.com',
     subject: 'BlockBlaster Order Receipt',
-    text: `Your payment has been recieved!`
+    text: email
   }
   transporter.sendMail(mailOptions, function(err) {
     console.log('mail sent')

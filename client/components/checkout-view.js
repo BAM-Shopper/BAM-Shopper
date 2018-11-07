@@ -35,9 +35,12 @@ export class Checkout extends Component {
       })
       //update inventory
       let newQuantity = item.product.inventory - item.quantity
+      newQuantity = newQuantity >= 0 ? newQuantity : 0
+
       await this.props.updateProduct(
         {
-          inventory: newQuantity >= 0 ? newQuantity : 0
+          inventory: newQuantity >= 0 ? newQuantity : 0,
+          isAvailible: !!newQuantity
         },
         item.product.id
       )

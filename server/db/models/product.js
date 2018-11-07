@@ -28,9 +28,4 @@ const Product = db.define('product', {
   }
 })
 
-//How do???
-Product.beforeValidate(product => {
-  product.inventory === 0 ? product.isAvailible = false : product.isAvailible = true
-})
-
 module.exports = Product

@@ -84,7 +84,7 @@ function randProduct() {
     imageUrl: movie.imageUrl,
     price: chance.floating({min: 5, max: 20, fixed: 2}),
     inventory: chance.integer({min: 0, max: 50}),
-    isAvailible: chance.weighted([true, false], [1, 20])
+    isAvailible: true
   })
 }
 
@@ -336,8 +336,19 @@ async function seedDemoData() {
       imageUrl:
         'https://upload.wikimedia.org/wikipedia/en/4/46/Live_Free_or_Die_Hard.jpg',
       price: 19.99,
-      inventory: 40,
+      inventory: 1,
       isAvailible: true
+    })
+
+    const product5 = await Product.create({
+      title: 'A Good Day to Die Hard',
+      description:
+        'New York City cop John McClane (Bruce Willis) arrives in Moscow to track down his estranged son, Jack (Jai Courtney). McClane thinks his son is a criminal, so it comes as a shock when he learns that Jack is actually working undercover to protect Komarov (Sebastian Koch), a Russian government whistleblower. With their own lives on the line, McClane and Jack must overcome their differences in order to get Komarov to safety and thwart a potentially disastrous crime in the Chernobyl region.',
+      imageUrl:
+        'https://upload.wikimedia.org/wikipedia/en/1/19/A_Good_Day_to_Die_Hard.jpg',
+      price: 24.99,
+      inventory: 0,
+      isAvailible: false
     })
 
     const order1 = await Order.create({
@@ -450,7 +461,11 @@ async function seedDemoData() {
       product4.addCategory(all),
       product4.addCategory(action),
       product4.addCategory(crime),
-      product4.addCategory(comedy)
+      product4.addCategory(comedy),
+      product5.addCategory(all),
+      product5.addCategory(action),
+      product5.addCategory(crime),
+      product5.addCategory(comedy)
     ])
   } catch (err) {
     console.log(err)

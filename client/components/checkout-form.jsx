@@ -24,7 +24,7 @@ export class CheckoutForm extends Component {
       const {price} = this.props
       await axios.post('/api/checkout/', {
         token,
-        price: price * 100
+        price: Math.ceil(price * 100)
       })
       this.props.handleSuccess(this.state)
     } catch (err) {

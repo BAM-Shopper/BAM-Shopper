@@ -17,7 +17,7 @@ export class Cart extends React.Component {
           </h2>
           <Link
             to="/home"
-            className="center aligned"
+            className="ui right floated primary button"
             style={{textAlign: 'center'}}
           >
             Browse Products
@@ -35,7 +35,7 @@ export class Cart extends React.Component {
               )
               .toFixed(2)}
           </h2>
-          <Link to="/checkout" className="header">
+          <Link to="/checkout" className="ui right floated primary button">
             Proceed To Checkout
           </Link>
           <div className="ui three column stackable grid container">
@@ -63,11 +63,8 @@ export class Cart extends React.Component {
                       {item.product.title}
                     </Link>
                   </div>
+                  <div className="meta">${item.product.price.toFixed(2)}</div>
                   <div className="meta">
-                    Price: {item.product.price.toFixed(2)}
-                  </div>
-                  <div className="meta">
-                    <div>Quantity:</div>
                     <select
                       className="ui dropdown"
                       defaultValue={item.quantity}
@@ -90,6 +87,7 @@ export class Cart extends React.Component {
                   </div>
                   <button
                     type="button"
+                    className="ui primary button"
                     onClick={() => this.props.deleteCartItem(item.id, cart.id)}
                   >
                     Remove From Cart

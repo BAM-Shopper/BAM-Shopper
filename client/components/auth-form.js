@@ -5,35 +5,55 @@ import {auth} from '../store'
 import {Link} from 'react-router-dom'
 
 class AuthForm extends React.Component {
-
-  render () {
+  render() {
     const {name, displayName, handleSubmit, error} = this.props
-      return (
-        <div>
-          <form onSubmit={handleSubmit} name={name}>
-            <div>
-              <label htmlFor="email">
-                <small>Email</small>
-              </label>
-              <input name="email" type="text" />
+    return (
+      <div className="ui container">
+        <form onSubmit={handleSubmit} name={name} className="ui form">
+          <div className="ui one column grid centered">
+            <div className="column">
+              <div className="two fields">
+                <div className="field">
+                  <label htmlFor="email">Email</label>
+                  <input
+                    name="email"
+                    type="text"
+                    placeholder="example@email.com"
+                  />
+                </div>
+                <div className="field">
+                  <label htmlFor="password">Password</label>
+                  <input name="password" type="password" />
+                </div>
+              </div>
             </div>
-            <div>
-              <label htmlFor="password">
-                <small>Password</small>
-              </label>
-              <input name="password" type="password" />
+
+            <div className="column">
+              <div>
+                <button type="submit" className="ui primary button">
+                  {displayName}
+                </button>
+              </div>
+              {error && error.response && <div> {error.response.data} </div>}
             </div>
-            <div>
-              <button type="submit">{displayName}</button>
-            </div>
-            {error && error.response && <div> {error.response.data} </div>}
-          </form>
-          <Link to='/forgot'>Forgot Password</Link>
-          <br />
-          <Link to="/auth/google">{displayName} with Google</Link>
+          </div>
+        </form>
+        <div className="ui one column grid centered">
+          <div className="column">
+            <Link to="/forgot" className="ui primary button">
+              Forgot Password
+            </Link>
+          </div>
+
+          <div className="column">
+            <Link to="/auth/google" className="ui primary button">
+              {displayName} with Google
+            </Link>
+          </div>
         </div>
-      )
-    }
+      </div>
+    )
+  }
 }
 
 /**

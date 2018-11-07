@@ -7,7 +7,7 @@ class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      filter: 'all',
+      filter: 'All',
       query: '',
       currentlyDisplayed: []
     }
@@ -42,11 +42,9 @@ class Home extends React.Component {
     this.filterProducts(event.target.value)
   }
 
-  filterProducts = (filter) => {
+  filterProducts = filter => {
     const filtered = this.props.products.filter(product => {
-      return product.categories.find(
-        category => category.name === filter
-      )
+      return product.categories.find(category => category.name === filter)
     })
     this.setState({
       currentlyDisplayed: filtered
@@ -77,6 +75,7 @@ class Home extends React.Component {
             categories={this.props.categories}
           />
           <ProductList
+            filter={this.state.filter}
             products={this.state.currentlyDisplayed}
             user={this.props.user}
           />

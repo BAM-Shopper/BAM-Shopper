@@ -26,16 +26,15 @@ export class Checkout extends Component {
     )
 
     //create new order items
-    this.props.cart['cart items'].forEach(async item => {
+    for (let i = 0; i < this.props.cart['cart items'].length; i++) {
+      let item = this.props.cart['cart items'][i]
+      //create new order items
       await axios.post(`api/orders/${order.id}/item`, {
         quantity: item.quantity,
-        price: item.price,
+        price: item.product.price,
         productId: item.productId
       })
-    })
-
-    //update inventory
-    this.props.cart['cart items'].forEach(async item => {
+      //update inventory
       let newQuantity = item.product.inventory - item.quantity
       await this.props.updateProduct(
         {
@@ -43,7 +42,7 @@ export class Checkout extends Component {
         },
         item.product.id
       )
-    })
+    }
 
     //send email here
 
@@ -70,10 +69,14 @@ export class Checkout extends Component {
     const {cart} = this.props
 
     if (!cart.id || !cart['cart items'].length) {
-      return <div>Your Cart is Empty</div>
+      return (
+        <h2 className="center aligned" style={{textAlign: 'center'}}>
+          Your Cart is Empty{' '}
+        </h2>
+      )
     } else {
       return (
-        <div>
+        <div className="ui container">
           <CheckoutForm
             price={Number(
               this.props.cart['cart items']

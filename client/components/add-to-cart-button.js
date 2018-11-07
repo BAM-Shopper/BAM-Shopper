@@ -27,7 +27,24 @@ export class AddToCartButton extends Component {
     const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
     return (
-      <div>
+      <div className="ui right floated">
+        {product.isAvailible ? (
+          <button
+            type="button"
+            className="ui primary button"
+            onClick={() => {
+              this.props.postCartItem(product, cart.id, quantity)
+            }}
+          >
+            Add To Cart
+            <i className="right chevron icon" />
+          </button>
+        ) : (
+          <button type="button" className="ui primary button" disabled>
+            Add To Cart
+            <i className="right chevron icon" />
+          </button>
+        )}
         <select
           className="ui dropdown"
           value={quantity}
@@ -41,27 +58,6 @@ export class AddToCartButton extends Component {
             )
           })}
         </select>
-        {product.isAvailible ? (
-          <button
-            type="button"
-            className="ui right floated primary button"
-            onClick={() => {
-              this.props.postCartItem(product, cart.id, quantity)
-            }}
-          >
-            Add To Cart
-            <i className="right chevron icon" />
-          </button>
-        ) : (
-          <button
-            type="button"
-            className="ui right floated primary button"
-            disabled
-          >
-            Add To Cart
-            <i className="right chevron icon" />
-          </button>
-        )}
       </div>
     )
   }

@@ -21,7 +21,9 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => (
             My Account
           </Link>
           <Link to="/cart" className="ui item">
-            View Cart{cart['cart items']
+            Cart{'  '}
+            <i className="shop icon" />
+            {cart['cart items']
               ? cart['cart items'].length ? ' ' + cart['cart items'].length : ''
               : ''}
           </Link>
@@ -44,7 +46,9 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => (
           </Link>
           {cart.id ? (
             <Link to="/cart" className="ui item">
-              View Cart{cart['cart items']
+              Cart{'  '}
+              <i className="shop icon" />
+              {cart['cart items']
                 ? cart['cart items'].length
                   ? ' ' + cart['cart items'].length
                   : ''
@@ -52,7 +56,8 @@ const Navbar = ({handleClick, isLoggedIn, cart}) => (
             </Link>
           ) : (
             <Link to="/cart" className="ui item">
-              View Cart
+              Cart{'  '}
+              <i className="shop icon" />
             </Link>
           )}
         </div>

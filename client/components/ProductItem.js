@@ -37,21 +37,21 @@ export class ProductItem extends Component {
               <Link to={`/products/${product.id}`} className="header">
                 {product.title}
               </Link>
-            </div>
-            <div className="meta">${product.price.toFixed(2)}</div>
-            <div className="extra">
-              <AddToCartButton product={product} />
-              {user.isAdmin ? (
-                <button
-                  type="button"
-                  className="ui label"
-                  onClick={() => this.setState({editClicked: !editClicked})}
-                >
-                  Edit
-                </button>
-              ) : (
-                <div />
-              )}
+              <div className="meta">${product.price.toFixed(2)}</div>
+              <div className="extra">
+                <AddToCartButton product={product} />
+                {user.isAdmin ? (
+                  <button
+                    type="button"
+                    className="ui label"
+                    onClick={() => this.setState({editClicked: !editClicked})}
+                  >
+                    Edit
+                  </button>
+                ) : (
+                  <div />
+                )}
+              </div>
             </div>
           </div>
         ) : (

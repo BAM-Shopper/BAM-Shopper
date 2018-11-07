@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { ProductInfo, ProductReview } from './index'
-import { fetchProduct } from '../store/singleProduct'
-import { createReview } from '../store/reviews'
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import {ProductInfo, ProductReview} from './index'
+import {fetchProduct} from '../store/singleProduct'
+import {createReview} from '../store/reviews'
 import StarRatings from 'react-star-ratings'
 
 export class SingleProduct extends Component {
@@ -48,31 +48,37 @@ export class SingleProduct extends Component {
     } else {
       alert('Review must be at least 50 characters long.')
     }
-
   }
 
   render() {
-    if (!this.props.selectedProduct.id) return <div>Product Not Found</div>
+    if (!this.props.selectedProduct.id)
+      return (
+        <h2 className="center aligned" style={{textAlign: 'center'}}>
+          Product Not Found
+        </h2>
+      )
     else if (!this.props.user.id) {
       return (
-        <div>
-          <ProductInfo product={this.props.selectedProduct} />
-          <ProductReview reviews={this.props.selectedProduct.reviews} />
-        </div>
-      )
-    } else {
-      return (
-        <div className='ui container'>
+        <div className="ui container">
           <ProductInfo product={this.props.selectedProduct} />
           <div>
             <hr />
             <h3>Reivews for {this.props.selectedProduct.title} </h3>
             <ProductReview reviews={this.props.selectedProduct.reviews} />
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <div className="ui container">
+          <ProductInfo product={this.props.selectedProduct} />
+          <div>
+            <hr />
+            <h3>Reviews for {this.props.selectedProduct.title} </h3>
+            <ProductReview reviews={this.props.selectedProduct.reviews} />
             <div>
               <br />
-              <form
-                className="ui form"
-                onSubmit={this.handleSubmit}>
+              <form className="ui form" onSubmit={this.handleSubmit}>
                 <div className="field">
                   <label>Review This Product</label>
                   <StarRatings
@@ -80,8 +86,8 @@ export class SingleProduct extends Component {
                     starRatedColor="blue"
                     changeRating={this.changeRating}
                     numberOfStars={5}
-                    starDimension='20px'
-                    starSpacing='5px'
+                    starDimension="20px"
+                    starSpacing="5px"
                     name="rating"
                   />
                   <input
@@ -92,7 +98,9 @@ export class SingleProduct extends Component {
                     value={this.state.review}
                   />
                 </div>
-                <button className="ui button" type="submit">Submit</button>
+                <button className="ui button" type="submit">
+                  Submit
+                </button>
               </form>
             </div>
           </div>

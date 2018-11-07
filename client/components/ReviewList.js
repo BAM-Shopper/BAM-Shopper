@@ -14,6 +14,7 @@ const ReviewList = props => {
         {props.reviews.map(review => {
           return (
             <div key={review.id}>
+              <hr />
               <ReviewListItem review={review} />
             </div>
           )

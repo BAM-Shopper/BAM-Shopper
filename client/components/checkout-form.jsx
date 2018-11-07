@@ -191,6 +191,7 @@ export class CheckoutForm extends Component {
         </form>
         {/* should be unclickable until form is valid */}
         <StripeCheckout
+          style={{marginTop: '10px'}}
           token={this.onToken}
           stripeKey="pk_test_HNtcF6Xv6gVHDnS7P7dj0FMX"
         />

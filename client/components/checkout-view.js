@@ -14,8 +14,6 @@ export class Checkout extends Component {
   }
 
   handleSuccess = async shippingDetails => {
-    console.log(shippingDetails)
-
     //create new order
     const order = await this.props.postOrder(
       Number(
@@ -26,6 +24,7 @@ export class Checkout extends Component {
     )
 
     //create new order items
+    const items = []
     for (let i = 0; i < this.props.cart['cart items'].length; i++) {
       let item = this.props.cart['cart items'][i]
       //create new order items
@@ -42,9 +41,11 @@ export class Checkout extends Component {
         },
         item.product.id
       )
+      items.push(item)
     }
 
     //send email here
+    await axios.post(`auth/receipt/`, {shippingDetails, items, order})
 
     let redirect
     if (this.props.cart.userId) {
